@@ -1,0 +1,541 @@
+Detail
+
+
+
+function detail_kelahiran($id){
+  $title['judul'] = 'Detail Surat Kelahiran';
+  $title['active'] = 'surat';
+  $title['menu'] = 'surat/kelahiran';
+
+  $detail = $this->m_crud->readBy('tbl_kelahiran', array('id'=>$id));
+  $data['detail'] = $detail[0];
+  $data['judul'] = 'detail surat';
+  $data['dusun'] = DUSUN;
+
+  $this->load->view('admin/includes/v_header', $title);
+  $this->load->view('admin/surat/v_detail_kelahiran', $data);
+  $this->load->view('admin/includes/v_footer');
+}
+
+function detail_kematian($id){
+  $title['judul'] = 'Detail Surat Kematian';
+  $title['active'] = 'surat';
+  $title['menu'] = 'surat/kematian';
+
+  $detail = $this->m_crud->readBy('tbl_kematian', array('id'=>$id));
+  $data['detail'] = $detail[0];
+  $data['judul'] = 'detail surat';
+
+  $this->load->view('admin/includes/v_header', $title);
+  $this->load->view('admin/surat/v_detail_kematian', $data);
+  $this->load->view('admin/includes/v_footer');
+}
+
+function detail_tdkmampu($id){
+  $title['judul'] = 'Detail Surat Tidak Mampu';
+  $title['active'] = 'surat';
+  $title['menu'] = 'surat/tdkmampu';
+
+  $detail = $this->m_crud->readBy('tbl_tdk_mampu', array('id'=>$id));
+  $data['detail'] = $detail[0];
+  $data['judul'] = 'detail surat';
+
+  $this->load->view('admin/includes/v_header', $title);
+  $this->load->view('admin/surat/v_detail_tdkmampu', $data);
+  $this->load->view('admin/includes/v_footer');
+}
+
+function detail_umum($id){
+  $title['judul'] = 'Detail Surat Umum';
+  $title['active'] = 'surat';
+  $title['menu'] = 'surat/umum';
+
+  $detail = $this->m_crud->readBy('tbl_umum', array('id'=>$id));
+  $data['detail'] = $detail[0];
+  $data['judul'] = 'detail surat';
+
+  $this->load->view('admin/includes/v_header', $title);
+  $this->load->view('admin/surat/v_detail_umum', $data);
+  $this->load->view('admin/includes/v_footer');
+}
+
+Lihat
+
+
+
+function kelahiran(){
+  $title['judul'] = 'Surat Kelahiran';
+  $title['active'] = 'surat';
+
+  $data['baru'] = $this->m_crud->readBy('tbl_kelahiran', array('status'=>surat_baru));
+  $data['proses'] = $this->m_crud->readBy('tbl_kelahiran', array('status'=>surat_proses));
+  $data['selesai'] = $this->m_crud->readBy('tbl_kelahiran', array('status'=>surat_selesai));
+
+  $data['judul'] = 'surat';
+
+  $this->load->view('admin/includes/v_header', $title);
+  $this->load->view('admin/surat/v_surat_kelahiran', $data);
+  $this->load->view('admin/includes/v_footer');
+}
+
+function kematian(){
+  $title['judul'] = 'Surat Kematian';
+  $title['active'] = 'surat';
+
+  $tbl = 'tbl_kematian';
+  $data['baru'] = $this->m_crud->readBy($tbl, array('status'=>surat_baru));
+  $data['proses'] = $this->m_crud->readBy($tbl, array('status'=>surat_proses));
+  $data['selesai'] = $this->m_crud->readBy($tbl, array('status'=>surat_selesai));
+
+  $data['judul'] = 'surat';
+
+  $this->load->view('admin/includes/v_header', $title);
+  $this->load->view('admin/surat/v_surat_kematian', $data);
+  $this->load->view('admin/includes/v_footer');
+}
+
+function tdkmampu(){
+  $title['judul'] = 'Surat Tidak Mampu';
+  $title['active'] = 'surat';
+
+  $tbl = 'tbl_tdk_mampu';
+  $data['baru'] = $this->m_crud->readBy($tbl, array('status'=>surat_baru));
+  $data['proses'] = $this->m_crud->readBy($tbl, array('status'=>surat_proses));
+  $data['selesai'] = $this->m_crud->readBy($tbl, array('status'=>surat_selesai));
+
+  $data['judul'] = 'surat';
+
+  $this->load->view('admin/includes/v_header', $title);
+  $this->load->view('admin/surat/v_surat_tdkmampu', $data);
+  $this->load->view('admin/includes/v_footer');
+}
+
+function umum(){
+  $title['judul'] = 'Surat Umum';
+  $title['active'] = 'surat';
+
+  $tbl = 'tbl_umum';
+  $data['baru'] = $this->m_crud->readBy($tbl, array('status'=>surat_baru));
+  $data['proses'] = $this->m_crud->readBy($tbl, array('status'=>surat_proses));
+  $data['selesai'] = $this->m_crud->readBy($tbl, array('status'=>surat_selesai));
+
+  $data['judul'] = 'surat';
+
+  $this->load->view('admin/includes/v_header', $title);
+  $this->load->view('admin/surat/v_surat_umum', $data);
+  $this->load->view('admin/includes/v_footer');
+}
+
+
+FORM
+
+	function form_kelahiran($action){
+		if (isset($_POST['kelahiran'])) {
+			$nik = $_POST['nik'];
+			$check = $this->m_crud->readBy('tbl_warga', array("nik"=>$nik));
+			if (count($check)>0) {
+				$kelahiran['nik'] = $nik;
+				$kelahiran['hubungan'] = $_POST['hubungan'];
+				$kelahiran['anak'] = $_POST['anak'];
+				$kelahiran['tgl_lahir'] = $_POST['tgl_lahir'];
+				$kelahiran['tempat_lahir'] = $_POST['tempatlahir'];
+				$kelahiran['jk'] = $_POST['jk'];
+				$kelahiran['ayah'] = $_POST['ayah'];
+				$kelahiran['ibu'] = $_POST['ibu'];
+				$kelahiran['rw'] = $_POST['rw'];
+				$kelahiran['rt'] = $_POST['rt'];
+
+				$status = true;
+				$config['allowed_types'] = 'jpg|png|jpeg|pdf';
+				$config['max_size']      = 2048;
+				// Upload Pengantar
+				$post = 'pengantar_file';
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/kelahiran";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$kelahiran[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				// Upload Keterangan
+				if ($_FILES["ket_file"]["name"]!="") {
+					$post = 'ket_file';
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/kelahiran";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$kelahiran[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				// Upload KK
+				if ($_FILES["kk_file"]["name"]!="") {
+					$post = 'kk_file';
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/kelahiran";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$kelahiran[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				// Upload KTP
+				if ($_FILES["ktp_file"]["name"]!="") {
+					$post = 'ktp_file';
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/kelahiran";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$kelahiran[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				// Upload Buku Nikah
+				if ($_FILES["buku_file"]["name"]!="") {
+					$post = 'buku_file';
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/kelahiran";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$kelahiran[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				if($status){
+					if ($action=="tambah") {
+						$jumlah = $this->m_crud->read('tbl_kelahiran');
+						$id = count($jumlah)+1;
+						$date = date("j/n/Y");
+						$kelahiran['id_kelahiran'] = $id.'/I/'.$date;
+						$pesan = $this->m_crud->save('tbl_kelahiran', $kelahiran);
+					} elseif ($action=="ubah") {
+						$id = $this->uri->segment(5);
+						$pesan = $this->m_crud->update('tbl_kelahiran', $kelahiran, array('id'=>$id));
+					}
+
+					if ($pesan) {
+						redirect(base_url("admin/surat/kelahiran"));
+						die();
+					}
+				}
+			}
+		}
+
+		if ($action=="tambah") {
+			$kolom = $this->m_crud->daftar_kolom('tbl_kelahiran');
+			$hasil = new stdClass();
+			foreach ($kolom as $key => $value) {
+				$hasil->$value = '';
+			}
+			$data['hasil'] = $hasil;
+		} elseif ($action=="ubah") {
+			$id = $this->uri->segment(5);
+			$hasil = $this->m_crud->readBy('tbl_kelahiran',array('id'=>$id))[0];
+			$data['hasil'] = $hasil;
+		}
+
+		$data['hubungan'] = HUBUNGAN;
+		$data['dusun'] = DUSUN;
+		$data['judul'] = 'surat kelahiran';
+
+		$title['judul'] = 'Form Surat Kelahiran';
+		$title['active'] = 'surat';
+		$title['menu'] = 'surat/kelahiran';
+
+		$this->load->view('admin/includes/v_header', $title);
+		$this->load->view('admin/surat/v_form_kelahiran', $data);
+		$this->load->view('admin/includes/v_footer');
+	}
+
+	function form_kematian($action){
+		if (isset($_POST['kematian'])) {
+			$nik = $_POST['nik'];
+			$check = $this->m_crud->readBy('tbl_warga', array("nik"=>$nik));
+			if (count($check)>0) {
+				$kematian['nik'] = $nik;
+				$kematian['hubungan'] = $_POST['hubungan'];
+				$kematian['nik_alm'] = $_POST['nik_alm'];
+				$kematian['nama'] = $_POST['nama_alm'];
+				$kematian['tgl_lahir'] = $_POST['tgllahir'];
+				$kematian['jk'] = $_POST['jk'];
+				$kematian['kwn'] = $_POST['kwn'];
+				$kematian['agama'] = $_POST['agama'];
+				$kematian['status_kawin'] = $_POST['status_kawin'];
+				$kematian['pekerjaan'] = $_POST['pekerjaan'];
+				$kematian['alamat'] = $_POST['alamat'];
+
+				$kematian['tgl_meninggal'] = $_POST['tgl_meninggal'];
+				$kematian['tempat_meninggal'] = $_POST['tempat_meninggal'];
+				$kematian['penyebab'] = $_POST['penyebab'];
+				$kematian['penentu'] = $_POST['penentu'];
+
+				$status = true;
+				$config['allowed_types'] = 'jpg|png|jpeg|pdf';
+				$config['max_size']      = 2048;
+
+				// Upload Pengantar
+				$post = 'pernyataan_file';
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/kematian";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$kematian[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				// Upload KK
+				$post = 'kk_file';
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/kematian";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$kematian[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				// Upload KTP
+				$post = 'ktp_file';
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/kematian";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$kematian[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				// Upload KK Alm
+				$post = 'kk_alm_file';
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/kematian";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$kematian[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				// Upload KTP
+				$post = 'ktp_alm_file';
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/kematian";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$kematian[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				$jumlah = $this->m_crud->read('tbl_kematian');
+				$id = count($jumlah)+1;
+				$date = date("j/n/Y");
+				$kematian['id_kematian'] = $id.'/II/'.$date;
+
+				if($status){
+					if ($action=="tambah") {
+						$jumlah = $this->m_crud->read('tbl_kematian');
+						$id = count($jumlah)+1;
+						$date = date("j/n/Y");
+						$kematian['id_kematian'] = $id.'/I/'.$date;
+						$pesan = $this->m_crud->save('tbl_kematian', $kematian);
+					} elseif ($action=="ubah") {
+						$id = $this->uri->segment(5);
+						$pesan = $this->m_crud->update('tbl_kematian', $kematian, array('id'=>$id));
+					}
+
+					if ($pesan) {
+						redirect(base_url("admin/surat/kematian"));
+						die();
+					}
+				}
+			}
+		}
+
+		if ($action=="tambah") {
+			$kolom = $this->m_crud->daftar_kolom('tbl_kematian');
+			$hasil = new stdClass();
+			foreach ($kolom as $key => $value) {
+				$hasil->$value = '';
+			}
+			$data['hasil'] = $hasil;
+		} elseif ($action=="ubah") {
+			$id = $this->uri->segment(5);
+			$hasil = $this->m_crud->readBy('tbl_kematian',array('id'=>$id))[0];
+			$data['hasil'] = $hasil;
+		}
+
+		$data['hubungan'] = HUBUNGAN;
+		$data['pekerjaan'] = PEKERJAAN;
+		$data['perkawinan'] = PERKAWINAN;
+		$data['agama'] = AGAMA;
+
+		$data['judul'] = 'surat kematian';
+
+		$title['judul'] = 'Form Surat Kematian';
+		$title['active'] = 'surat';
+		$title['menu'] = 'surat/kematian';
+
+		$this->load->view('admin/includes/v_header', $title);
+		$this->load->view('admin/surat/v_form_kematian', $data);
+		$this->load->view('admin/includes/v_footer');
+	}
+
+	function form_tdkmampu($action){
+		if (isset($_POST['tdkmampu'])) {
+			$nik = $_POST['nik'];
+			$check = $this->m_crud->readBy('tbl_warga', array("nik"=>$nik));
+			if (count($check)>0) {
+				$tdkmampu['nik'] = $nik;
+
+				$tdkmampu['jenis'] = $_POST['jenis'];
+				$tdkmampu['nama_terkait'] = $_POST['nama_terkait'];
+				$tdkmampu['tujuan'] = $_POST['tujuan'];
+				$tdkmampu['pekerjaan'] = $_POST['pekerjaan'];
+				$tdkmampu['alamat'] = $_POST['alamat'];
+
+				$status = true;
+				$config['allowed_types'] = 'jpg|png|jpeg|pdf';
+				$config['max_size']      = 2048;
+
+				// Upload Pengantar
+				$post = 'pengantar_file';
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/tidak_mampu";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$tdkmampu[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				// Upload Pernyataan
+				$post = 'pernyataan_file';
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/tidak_mampu";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$tdkmampu[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				// Upload KK
+				$post = 'kk_file';
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/tidak_mampu";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$tdkmampu[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				// Upload KTP
+				$post = 'ktp_file';
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/tidak_mampu";
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$tdkmampu[$post] = $config['upload_path'].'/'.$name;
+					}
+				}
+
+				$jumlah = $this->m_crud->read('tbl_tdk_mampu');
+				$id = count($jumlah)+1;
+				$date = date("j/n/Y");
+				$tdkmampu['id_tdk_mampu'] = $id.'/III/'.$date;
+
+				if($status){
+					if ($action=="tambah") {
+						$jumlah = $this->m_crud->read('tbl_tdk_mampu');
+						$id = count($jumlah)+1;
+						$date = date("j/n/Y");
+						$tdkmampu['id_tdk_mampu'] = $id.'/III/'.$date;
+						$pesan = $this->m_crud->save('tbl_tdk_mampu', $tdkmampu);
+					} elseif ($action=="ubah") {
+						$id = $this->uri->segment(5);
+						$pesan = $this->m_crud->update('tbl_tdk_mampu', $tdkmampu, array('id'=>$id));
+					}
+
+					if ($pesan) {
+						redirect(base_url("admin/surat/tdkmampu"));
+						die();
+					}
+				}
+			} else {
+				$this->session->set_flashdata( 'transaksi_error', '<div class="alert alert-danger" role="alert">Warga Tidak Terdaftar Di Dalam Sistem, Silahkan Masukkan Data Warga Terlebih Dahulu!</div>');
+			}
+		}
+
+		if ($action=="tambah") {
+			$kolom = $this->m_crud->daftar_kolom('tbl_tdk_mampu');
+			$hasil = new stdClass();
+			foreach ($kolom as $key => $value) {
+				$hasil->$value = '';
+			}
+			$data['hasil'] = $hasil;
+		} elseif ($action=="ubah") {
+			$id = $this->uri->segment(5);
+			$hasil = $this->m_crud->readBy('tbl_tdk_mampu',array('id'=>$id))[0];
+			$data['hasil'] = $hasil;
+		}
+
+		$data['pekerjaan'] = PEKERJAAN;
+
+		$data['judul'] = 'surat tidak mampu';
+
+		$title['judul'] = 'Form Surat Tidak Mampu';
+		$title['active'] = 'surat';
+		$title['menu'] = 'surat/tdkmampu';
+
+		$this->load->view('admin/includes/v_header', $title);
+		$this->load->view('admin/surat/v_form_tdkmampu', $data);
+		$this->load->view('admin/includes/v_footer');
+	}
