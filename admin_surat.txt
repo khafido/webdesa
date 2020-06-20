@@ -1,6 +1,6 @@
+HU@2MFUcUrMSwZ5
+
 Detail
-
-
 
 function detail_kelahiran($id){
   $title['judul'] = 'Detail Surat Kelahiran';
