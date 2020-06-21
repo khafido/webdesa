@@ -17,3 +17,5 @@ application/logs/*
 !application/logs/admin_surat.txt
 !application/logs/tes.php
 /vendor/
+.htaccess
+application/config/database.php
