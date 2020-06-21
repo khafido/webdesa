@@ -1,0 +1,152 @@
+<?php
+class Pengaduan extends CI_Controller{
+	function __construct(){
+		parent::__construct();
+		if (!$this->session->userdata('nik'))
+		{
+			$allowed = array("lihat");
+			$method = $this->router->fetch_method();
+			if(!in_array($method, $allowed)){
+				redirect(base_url("akun/masuk"));
+			}
+		}
+		$this->load->model('m_crud');
+	}
+
+	function index(){
+		$title['judul'] = 'Aspirasi/Keluhan';
+		$data = null;
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('pengaduan/v_buat_pengaduan', $data);
+		$this->load->view('includes/v_footer');
+	}
+
+	function buat(){
+		$nik = $_SESSION['nik'];
+		if (isset($_POST['pengaduan'])) {
+			$pengaduan['judul'] = $_POST['judul'];
+			$pengaduan['kategori'] = $_POST['kategori'];
+			$pengaduan['lokasi'] = $_POST['lokasi'];
+			$pengaduan['bidang'] = $_POST['bidang'];
+			$pengaduan['uraian'] = $_POST['uraian'];
+			$pengaduan['nik'] = $nik;
+
+			$config['upload_path']   = "./assets/img/pengaduan/";
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			$config['allowed_size'] = 2048;
+
+			// Upload Pengantar
+			$post = 'lampiran_file';
+			$pengaduan[$post] = './assets/img/pengaduan/default.jpg';
+			$status = true;
+
+			if ($_FILES[$post]["name"]!="") {
+				$filename = $_FILES[$post]['name'];
+
+				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+				if ($name==false) {
+					$status = false;
+				} else {
+					$pengaduan[$post] = $config['upload_path'].$name;
+				}
+			}
+
+			if ($status) {
+				$pesan = $this->m_crud->save('tbl_pengaduan', $pengaduan);
+				if ($pesan) {
+					redirect(base_url("pengaduan/riwayat"));
+					die();
+				}
+			}
+		}
+
+		$title['judul'] = 'Buat Pengaduan';
+		$data = null;
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('pengaduan/v_buat_pengaduan', $data);
+		$this->load->view('includes/v_footer');
+	}
+
+	function lihat($id){
+		$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status !='=>pengaduan_ditolak, 'bidang'=>$id));
+		if ($id=="semua") {
+			$active = "semua";
+			$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status !='=>pengaduan_ditolak));
+		} elseif ($id=="infrastruktur") {
+			$active = "infrastruktur";
+		} elseif ($id=="pendidikan") {
+			$active = "pendidikan";
+		} elseif ($id=="kesehatan") {
+			$active = "kesehatan";
+		} elseif ($id=="administrasi") {
+			$active = "administrasi";
+		} elseif ($id=="kasus") {
+			$active = "kasus";
+		} elseif ($id=="lain") {
+			$active = "lain";
+		}
+		$data['active'] = $active;
+		$data['pengaduan'] = $pengaduan;
+		$data['cont'] = $this;
+
+		$title['judul'] = 'Lihat Pengaduan';
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('pengaduan/v_lihat_pengaduan', $data);
+		$this->load->view('includes/v_footer');
+	}
+
+	function riwayat(){
+		$nik = $_SESSION['nik'];
+		$title['judul'] = 'Riwayat Pengaduan';
+		$data['pengaduan'] = $this->m_crud->readBy('tbl_pengaduan', array('nik'=>$nik));
+		$data['cont'] = $this;
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('pengaduan/v_riwayat_pengaduan', $data);
+		$this->load->view('includes/v_footer');
+	}
+
+	function detail($id){
+		$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('id_pengaduan'=>$id));
+		$data['pengaduan'] = $pengaduan[0];
+		$data['cont'] = $this;
+
+		$title['judul'] = 'Detail Pengaduan';
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('pengaduan/v_detail_pengaduan', $data);
+		$this->load->view('includes/v_footer');
+	}
+
+	function cari(){
+		if (isset($_POST['caripengaduan'])) {
+			$id=$_POST['bidang'];
+			$pengaduan = $this->m_crud->selectLike('detail_pengaduan', array('status !='=>pengaduan_ditolak, 'bidang'=>$_POST['bidang']), array('judul'=>$_POST['judul']));
+			if ($id=="semua") {
+				$active = "semua";
+				$pengaduan = $this->m_crud->selectLike('detail_pengaduan', array('status !='=>pengaduan_ditolak), array('judul'=>$_POST['judul']));
+			}
+			$data['pengaduan'] = $pengaduan;
+			$data['active'] = $id;
+			$data['cont'] = $this;
+
+			$title['judul'] = 'Hasil Pencarian '.$_POST['judul'];
+			$this->load->view('includes/v_header', $title);
+			$this->load->view('pengaduan/v_lihat_pengaduan', $data);
+			$this->load->view('includes/v_footer');
+		}
+	}
+
+	function cek_status($id){
+		switch ($id) {
+			case pengaduan_baru:
+			echo "Validasi";
+			break;
+			case pengaduan_proses:
+			echo "Dalam Proses";
+			break;
+			case pengaduan_selesai:
+			echo "Selesai";
+			default:
+			echo "Ditolak";
+		}
+	}
+}
