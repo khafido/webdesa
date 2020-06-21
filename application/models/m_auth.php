@@ -21,8 +21,5 @@ class M_auth extends CI_Model
       }
   }
 
-  function ganti()
-  {
-    // code...
-  }
+  // Update
 }
