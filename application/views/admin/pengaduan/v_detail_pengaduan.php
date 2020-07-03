@@ -55,11 +55,13 @@
 						</tr>
 					</tbody>
 				</table>
-				<button onclick="buatKegiatan('<?=$detail->id_pengaduan?>')" class="btn btn-success btn-fill">Buat Kegiatan</button>
-				<!-- <a href="<?=base_url("admin/kegiatan/tambah/$detail->id_pengaduan")?>" class="btn btn-success btn-fill">Buat Kegiatan</a> -->
-				<button onclick="proses('<?=base_url("admin/$menu/tolak/$detail->id_pengaduan")?>')" class="btn btn-danger btn-fill">Tolak</button>
-				<!-- &ensp;&ensp;&ensp;
-				<a href="<?=base_url("admin/$menu/form/ubah/$detail->id_pengaduan")?>" class="btn btn-info btn-fill">Ubah</a> -->
+				<?php if ($detail->status==0){ ?>
+					<button onclick="proses('<?=base_url("admin/$menu/proses/$detail->id_pengaduan/1")?>')" class="btn btn-success btn-fill">Proses</button>
+					<button onclick="proses('<?=base_url("admin/$menu/tolak/$detail->id_pengaduan")?>')" class="btn btn-danger btn-fill">Tolak</button>
+				<?php } elseif($detail->status==1) { ?>
+					<button onclick="buatKegiatan('<?=base_url()?>admin/kegiatan/form/tambah/<?=$detail->id_pengaduan?>')" class="btn btn-success btn-fill">Buat Kegiatan</button>
+					<button onclick="buatTanggapan('<?=base_url("admin/pengaduan/komentar/$detail->id_pengaduan")?>')" class="btn btn-info btn-fill">Beri Tanggapan</button>
+				<?php } ?>
 			</div>
 		</div>
 	</div>

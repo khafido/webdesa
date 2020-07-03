@@ -216,120 +216,132 @@ td{
         </button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-md-6">
-            <label for="" class="control-label modal-label">Nama Lengkap<span class="text-danger">*</span> </label>
-            <input class="form-control" type="text" name="m_nama" id="m_nama" value="">
+        <form class="" method="post" id="formAnggota">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="" class="control-label modal-label">Nama Lengkap<span class="text-danger">*</span> </label>
+              <input class="form-control" type="text" name="m_nama" id="m_nama" title="Isi Nama Lengkap" required>
+            </div>
+            <div class="col-md-6">
+              <label for="" class="control-label modal-label">NIK<span class="text-danger">*</span> </label>
+              <input class="form-control" type="text" name="m_nik" id="m_nik" title="Isi NIK" required>
+            </div>
+            <div class="col-md-6">
+              <label for="" class="control-label modal-label">Tempat Lahir<span class="text-danger">*</span> </label>
+              <input class="form-control" type="text" name="m_tempat" id="m_tempat" title="Isi Tempat Lahir" required>
+            </div>
+            <div class="col-md-6">
+              <label for="" class="control-label modal-label">Tanggal Lahir<span class="text-danger">*</span> </label>
+              <input class="form-control" type="date" name="m_tgl" id="m_tgl" title="Isi Tanggal Lahir" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="" class="control-label modal-label">Jenis Kelamin <span class="text-danger">*</span> </label>
+              <select class="form-control" name="m_jk" id="m_jk">
+                <option value="L">Laki-laki</option>
+                <option value="P">Perempuan</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="" class="control-label modal-label">Pendidikan <span class="text-danger">*</span> </label>
+              <select class="form-control" name="m_pendidikan" id="m_pendidikan" required>
+                <?php
+                $pendidikan = PENDIDIKAN;
+                foreach ($pendidikan as $v => $c){
+                  echo "<option value='$v'>$c</option>";
+                } ?>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="" class="control-label modal-label">Golongan Darah <span class="text-danger">*</span> </label>
+              <select class="form-control" name="m_goldar" id="m_goldar" required>
+                <?php
+                $goldar = GOLDAR;
+                foreach ($goldar as $v => $c){
+                  echo "<option value='$v'>$c</option>";
+                } ?>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="" class="control-label modal-label">Status Kawin <span class="text-danger">*</span> </label>
+              <select class="form-control" name="m_kawin" id="m_kawin" required>
+                <?php
+                $perkawinan = PERKAWINAN;
+                foreach ($perkawinan as $v => $c){
+                  echo "<option value='$v'>$c</option>";
+                } ?>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="" class="control-label modal-label">Agama<span class="text-danger">*</span> </label>
+              <select class="form-control" name="m_agama" id="m_agama" required>
+                <?php
+                $agama = AGAMA;
+                foreach ($agama as $v => $c){
+                  echo "<option value='$v'>$c</option>";
+                } ?>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="" class="control-label modal-label">Pekerjaan<span class="text-danger">*</span> </label>
+              <select class="form-control" name="m_pekerjaan" id="m_pekerjaan" title="Isi Pekerjaan" required>
+                <?php
+                $pekerjaan = PEKERJAAN;
+                foreach ($pekerjaan as $v => $c){
+                  echo "<option value='$v'>$c</option>";
+                } ?>
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="" class="control-label modal-label">Hubungan <span class="text-danger">*</span> </label>
+              <input class="form-control" list="hubungan" name="m_hubungan" id="m_hubungan" title="Isi Hubungan Keluarga" required>
+              <datalist id="hubungan">
+                <option value="Kakek Buyut">Kakek Buyut</option>
+                <option value="Nenek Buyut">Nenek Buyut</option>
+                <option value="Kakek">Kakek</option>
+                <option value="Nenek">Nenek</option>
+                <option value="Ayah">Ayah</option>
+                <option value="Ibu">Ibu</option>
+                <option value="Paman">Paman</option>
+                <option value="Bibi">Bibi</option>
+                <option value="Mertua Ayah">Mertua Ayah</option>
+                <option value="Mertua Ibu">Mertua Ibu</option>
+                <option value="Ayah Tiri">Ayah Tiri</option>
+                <option value="Ayah Angkat">Ayah Angkat</option>
+                <option value="Ayah Asuh">Ayah Asuh</option>
+                <option value="Ibu Tiri">Ibu Tiri</option>
+                <option value="Ibu Angkat">Ibu Angkat</option>
+                <option value="Ibu Asuh">Ibu Asuh</option>
+                <option value="Besan">Besan</option>
+                <option value="Kepala Keluarga">Kepala Keluarga</option>
+                <option value="Kakak">Kakak</option>
+                <option value="Adik">Adik</option>
+                <option value="Sepupu">Sepupu</option>
+                <option value="Ipar">Saudara Ipar</option>
+                <option value="Saudara Angkat">Saudara Angkat</option>
+                <option value="Saudara Tiri">Saudara Tiri</option>
+                <option value="Suami">Suami</option>
+                <option value="Istri">Istri</option>
+                <option value="Anak Kandung">Anak Kandung</option>
+                <option value="Anak Angkat">Anak Angkat</option>
+                <option value="Anak Tiri">Anak Tiri</option>
+                <option value="Anak Asuh">Anak Asuh</option>
+                <option value="Menantu">Menantu</option>
+                <option value="Keponakan">Keponakan</option>
+                <option value="Cucu">Cucu</option>
+                <option value="Cicit">Cicit</option>
+                <option value="Canggah">Canggah</option>
+              </datalist>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="" class="control-label modal-label">Nama Ibu<span class="text-danger">*</span> </label>
+              <input class="form-control" type="text" name="m_ibu" id="m_ibu" title="Isi Nama Ayah" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="" class="control-label modal-label">Nama Ayah<span class="text-danger">*</span> </label>
+              <input class="form-control" type="text" name="m_ayah" id="m_ayah" title="Isi Nama Ibu" required>
+            </div>
           </div>
-          <div class="col-md-6">
-            <label for="" class="control-label modal-label">NIK<span class="text-danger">*</span> </label>
-            <input class="form-control" type="text" name="m_nik" id="m_nik" value="">
-          </div>
-          <div class="col-md-6">
-            <label for="" class="control-label modal-label">Tempat Lahir<span class="text-danger">*</span> </label>
-            <input class="form-control" type="text" name="m_tempat" id="m_tempat" value="">
-          </div>
-          <div class="col-md-6">
-            <label for="" class="control-label modal-label">Tanggal Lahir<span class="text-danger">*</span> </label>
-            <input class="form-control" type="date" name="m_tgl" id="m_tgl" value="">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="" class="control-label modal-label">Jenis Kelamin <span class="text-danger">*</span> </label>
-            <select class="form-control" name="m_jk" id="m_jk">
-              <option value="L">Laki-laki</option>
-              <option value="P">Perempuan</option>
-            </select>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="" class="control-label modal-label">Pendidikan <span class="text-danger">*</span> </label>
-            <select class="form-control" name="m_pendidikan" id="m_pendidikan">
-              <?php foreach ($pendidikan as $v => $c){
-                echo "<option value='$v'>$c</option>";
-              } ?>
-            </select>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="" class="control-label modal-label">Golongan Darah <span class="text-danger">*</span> </label>
-            <select class="form-control" name="m_goldar" id="m_goldar">
-              <?php foreach ($goldar as $v => $c){
-                echo "<option value='$v'>$c</option>";
-              } ?>
-            </select>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="" class="control-label modal-label">Status Kawin <span class="text-danger">*</span> </label>
-            <select class="form-control" name="m_kawin" id="m_kawin">
-              <?php foreach ($perkawinan as $v => $c){
-                echo "<option value='$v'>$c</option>";
-              } ?>
-            </select>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="" class="control-label modal-label">Agama<span class="text-danger">*</span> </label>
-            <select class="form-control" name="m_agama" id="m_agama">
-              <?php foreach ($agama as $v => $c){
-                echo "<option value='$v'>$c</option>";
-              } ?>
-            </select>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="" class="control-label modal-label">Pekerjaan<span class="text-danger">*</span> </label>
-            <select class="form-control" name="m_pekerjaan" id="m_pekerjaan">
-              <?php foreach ($pekerjaan as $v => $c){
-                echo "<option value='$v'>$c</option>";
-              } ?>
-            </select>
-          </div>
-          <div class="form-group col-md-4">
-            <label for="" class="control-label modal-label">Hubungan <span class="text-danger">*</span> </label>
-            <input class="form-control" list="hubungan" name="m_hubungan" id="m_hubungan" value="">
-            <datalist id="hubungan">
-              <option value="Kakek Buyut">Kakek Buyut</option>
-              <option value="Nenek Buyut">Nenek Buyut</option>
-              <option value="Kakek">Kakek</option>
-              <option value="Nenek">Nenek</option>
-              <option value="Ayah">Ayah</option>
-              <option value="Ibu">Ibu</option>
-              <option value="Paman">Paman</option>
-              <option value="Bibi">Bibi</option>
-              <option value="Mertua Ayah">Mertua Ayah</option>
-              <option value="Mertua Ibu">Mertua Ibu</option>
-              <option value="Ayah Tiri">Ayah Tiri</option>
-              <option value="Ayah Angkat">Ayah Angkat</option>
-              <option value="Ayah Asuh">Ayah Asuh</option>
-              <option value="Ibu Tiri">Ibu Tiri</option>
-              <option value="Ibu Angkat">Ibu Angkat</option>
-              <option value="Ibu Asuh">Ibu Asuh</option>
-              <option value="Besan">Besan</option>
-              <option value="Kepala Keluarga">Kepala Keluarga</option>
-              <option value="Kakak">Kakak</option>
-              <option value="Adik">Adik</option>
-              <option value="Sepupu">Sepupu</option>
-              <option value="Ipar">Saudara Ipar</option>
-              <option value="Saudara Angkat">Saudara Angkat</option>
-              <option value="Saudara Tiri">Saudara Tiri</option>
-              <option value="Suami">Suami</option>
-              <option value="Istri">Istri</option>
-              <option value="Anak Kandung">Anak Kandung</option>
-              <option value="Anak Angkat">Anak Angkat</option>
-              <option value="Anak Tiri">Anak Tiri</option>
-              <option value="Anak Asuh">Anak Asuh</option>
-              <option value="Menantu">Menantu</option>
-              <option value="Keponakan">Keponakan</option>
-              <option value="Cucu">Cucu</option>
-              <option value="Cicit">Cicit</option>
-              <option value="Canggah">Canggah</option>
-            </datalist>
-          </div>
-          <div class="form-group col-md-4">
-            <label for="" class="control-label modal-label">Nama Ibu<span class="text-danger">*</span> </label>
-            <input class="form-control" type="text" name="m_ibu" id="m_ibu" value="">
-          </div>
-          <div class="form-group col-md-4">
-            <label for="" class="control-label modal-label">Nama Ayah<span class="text-danger">*</span> </label>
-            <input class="form-control" type="text" name="m_ayah" id="m_ayah" value="">
-          </div>
-        </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
@@ -343,48 +355,50 @@ td{
 <script type="text/javascript">
 $(document).ready(function () {
   $('#btnsimpan').click(function (){
-    let jml = $('.anggota').length+1;
-    let nama = $('input[name="m_nama"]').val();
-    let nik = $('input[name="m_nik"]').val();
-    let tempat = $('input[name="m_tempat"]').val();
-    let tgl = $('input[name="m_tgl"]').val();
-    let jk = $('select[name="m_jk"]').val();
-    let hubungan = $('input[name="m_hubungan"]').val();
+    if ($('#formAnggota').valid()) {
+      let jml = $('.anggota').length+1;
+      let nama = $('input[name="m_nama"]').val();
+      let nik = $('input[name="m_nik"]').val();
+      let tempat = $('input[name="m_tempat"]').val();
+      let tgl = $('input[name="m_tgl"]').val();
+      let jk = $('select[name="m_jk"]').val();
+      let hubungan = $('input[name="m_hubungan"]').val();
 
-    let pendidikan = $('select[name="m_pendidikan"]').val();
-    let goldar = $('select[name="m_goldar"]').val();
-    let kawin = $('select[name="m_kawin"]').val();
-    let agama = $('select[name="m_agama"]').val();
-    let pekerjaan = $('select[name="m_pekerjaan"]').val();
-    let ayah = $('input[name="m_ayah"]').val();
-    let ibu = $('input[name="m_ibu"]').val();
+      let pendidikan = $('select[name="m_pendidikan"]').val();
+      let goldar = $('select[name="m_goldar"]').val();
+      let kawin = $('select[name="m_kawin"]').val();
+      let agama = $('select[name="m_agama"]').val();
+      let pekerjaan = $('select[name="m_pekerjaan"]').val();
+      let ayah = $('input[name="m_ayah"]').val();
+      let ibu = $('input[name="m_ibu"]').val();
 
-    let addon = `
-    <input id="nama${jml}" type="hidden" name="nama[]" value="${nama}" id="nama${jml}">
-    <input id="nik${jml}" type="hidden" name="nik_anggota[]" value="${nik}" id="nik${jml}">
-    <input id="jk${jml}" type="hidden" name="jk[]" value="${jk}" id="jk${jml}">
-    <input id="tempat${jml}" type="hidden" name="tempat[]" value="${tempat}" id="tempat${jml}">
-    <input id="tgl${jml}" type="hidden" name="tgl[]" value="${tgl}">
-    <input id="hubungan${jml}" type="hidden" name="hubungan[]" value="${hubungan}">
-    <input id="pendidikan${jml}" type="hidden" name="pendidikan[]" value="${pendidikan}">
-    <input id="goldar${jml}" type="hidden" name="goldar[]" value="${goldar}">
-    <input id="kawin${jml}" type="hidden" name="kawin[]" value="${kawin}">
-    <input id="agama${jml}" type="hidden" name="agama[]" value="${agama}">
-    <input id="pekerjaan${jml}" type="hidden" name="pekerjaan[]" value="${pekerjaan}">
-    <input id="ayah${jml}" type="hidden" name="ayah[]" value="${ayah}">
-    <input id="ibu${jml}" type="hidden" name="ibu[]" value="${ibu}">`;
+      let addon = `
+      <input id="nama${jml}" type="hidden" name="nama[]" value="${nama}" id="nama${jml}">
+      <input id="nik${jml}" type="hidden" name="nik_anggota[]" value="${nik}" id="nik${jml}">
+      <input id="jk${jml}" type="hidden" name="jk[]" value="${jk}" id="jk${jml}">
+      <input id="tempat${jml}" type="hidden" name="tempat[]" value="${tempat}" id="tempat${jml}">
+      <input id="tgl${jml}" type="hidden" name="tgl[]" value="${tgl}">
+      <input id="hubungan${jml}" type="hidden" name="hubungan[]" value="${hubungan}">
+      <input id="pendidikan${jml}" type="hidden" name="pendidikan[]" value="${pendidikan}">
+      <input id="goldar${jml}" type="hidden" name="goldar[]" value="${goldar}">
+      <input id="kawin${jml}" type="hidden" name="kawin[]" value="${kawin}">
+      <input id="agama${jml}" type="hidden" name="agama[]" value="${agama}">
+      <input id="pekerjaan${jml}" type="hidden" name="pekerjaan[]" value="${pekerjaan}">
+      <input id="ayah${jml}" type="hidden" name="ayah[]" value="${ayah}">
+      <input id="ibu${jml}" type="hidden" name="ibu[]" value="${ibu}">`;
 
-    $('.daftarAnggota').append(`
-      <tr class="anggota">
-      <td>${nama}</td>
-      <td>${nik}</td>
-      <td>${jk}</td>
-      <td>${tempat}</td>
-      <td>${tgl}</td>
-      <td>${hubungan}</td>
-      <td><button type="button" name="hapus" onclick="" class="btn btn-danger" id="btnhapus" onclick="hapus(this.id)">Hapus</button>&ensp;<button type="button" name="ubah" onclick="" class="btn btn-info" id="btnubah" data-ubah="${jml}">Ubah</button></td>${addon}</tr>`);
-      // <td><button type="button" name="hapus" onclick="" class="btn btn-danger" id="btnhapus" onclick="hapus(this.id)">Hapus</button>${addon}</tr>`);
-      $('#dataDiriModal').modal('hide');
+      $('.daftarAnggota').append(`
+        <tr class="anggota">
+        <td>${nama}</td>
+        <td>${nik}</td>
+        <td>${jk}</td>
+        <td>${tempat}</td>
+        <td>${tgl}</td>
+        <td>${hubungan}</td>
+        <td><button type="button" name="hapus" onclick="" class="btn btn-danger" id="btnhapus" onclick="hapus(this.id)">Hapus</button>&ensp;<button type="button" name="ubah" onclick="" class="btn btn-info" id="btnubah" data-ubah="${jml}">Ubah</button></td>${addon}</tr>`);
+        // <td><button type="button" name="hapus" onclick="" class="btn btn-danger" id="btnhapus" onclick="hapus(this.id)">Hapus</button>${addon}</tr>`);
+        $('#dataDiriModal').modal('hide');
+      }
     });
 
     $('.daftarAnggota').on('click','#btnhapus',function() {

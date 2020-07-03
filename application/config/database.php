@@ -79,10 +79,17 @@ $db['default'] = array(
 	// 'username' => 'bznkxojkpuruad',
 	// 'password' => 'c7839223772ca5b2ceab58ddd15bfba44605311d78655c6cfb154aa642408cbb',
 	// 'database' => 'd940tg4c4l4m3q',
+
+	// 'hostname' => 'sql303.epizy.com',
+	// 'username' => 'epiz_26064887',
+	// 'password' => 'lCqTmy8Nc9P0',
+	// 'database' => 'epiz_26064887_webdesa',
+
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
 	'database' => 'db_desa',
+
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

@@ -41,7 +41,8 @@ class Warga extends CI_Controller{
 
 	function form($action){
 		if (isset($_POST['warga'])) {
-			$store['nik'] = $_POST['nik'];
+			$nik = $_POST['nik'];
+			$store['nik'] = $nik;
 			$store['nama'] = $_POST['nama'];
 			$store['email'] = $_POST['email'];
 			$store['no_telp'] = $_POST['no_telp'];

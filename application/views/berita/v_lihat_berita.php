@@ -107,7 +107,7 @@ font-weight: bold;
 <section id="get-started" class="padd-section wow fadeInUp">
   <div class="container" id="container">
     <div class="section-title text-center">
-      <h2>Lihat Berita / Kegiatan</h2>
+      <h2>Lihat Berita</h2>
       <a href="<?=base_url("berita/lihat/semua")?>" class="btn <?=($active=='semua')?'btn-warning':'btn-white'?> border border-warning text-dark px-4">Semua</a>
       <a href="<?=base_url("berita/lihat/umum")?>" class="btn <?=($active=='umum')?'btn-warning':'btn-white'?> border border-warning text-dark px-4">Umum</a>
       <a href="<?=base_url("berita/lihat/umkm")?>" class="btn <?=($active=='umkm')?'btn-warning':'btn-white'?> border border-warning text-dark px-4">UMKM</a>

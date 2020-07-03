@@ -4,7 +4,7 @@ class Berita extends CI_Controller{
 		parent::__construct();
 		if (!$this->session->userdata('nik'))
 		{
-			$allowed = array("lihat");
+			$allowed = array("lihat","detail");
 			$method = $this->router->fetch_method();
 			if(!in_array($method, $allowed)){
 				redirect(base_url("akun/masuk"));
@@ -65,7 +65,7 @@ class Berita extends CI_Controller{
 					$berita[$post] = $config['upload_path'].$name;
 				}
 			}
-			
+
 			if ($status) {
 				$pesan = $this->m_crud->save('tbl_berita', $berita);
 				if ($pesan) {

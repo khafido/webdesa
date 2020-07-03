@@ -483,7 +483,8 @@ INSERT INTO `tbl_warga` (`nik`, `nama`, `email`, `pass`, `tempat_lahir`, `tgl_la
 --
 DROP TABLE IF EXISTS `detail_berita`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detail_berita`  AS  select `b`.`id_berita` AS `id_berita`,`b`.`judul` AS `judul`,`b`.`isi` AS `isi`,`b`.`tgl_berita` AS `tgl_berita`,`b`.`rubrik` AS `rubrik`,`b`.`cover_file` AS `cover_file`,`b`.`status` AS `status`,`b`.`nik` AS `nik`,`w`.`nama` AS `nama` from (`tbl_berita` `b` join `tbl_warga` `w` on((`b`.`nik` = `w`.`nik`))) ;
+CREATE VIEW `detail_berita`  AS  select `b`.`id_berita` AS `id_berita`,`b`.`judul` AS `judul`,`b`.`isi` AS `isi`,`b`.`tgl_berita` AS `tgl_berita`,`b`.`rubrik` AS `rubrik`,`b`.`cover_file` AS `cover_file`,`b`.`status` AS `status`,`b`.`nik` AS `nik`,`w`.`nama` AS `nama` from (`tbl_berita` `b` join `tbl_warga` `w` on((`b`.`nik` = `w`.`nik`))) ;
+-- CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detail_berita`  AS  select `b`.`id_berita` AS `id_berita`,`b`.`judul` AS `judul`,`b`.`isi` AS `isi`,`b`.`tgl_berita` AS `tgl_berita`,`b`.`rubrik` AS `rubrik`,`b`.`cover_file` AS `cover_file`,`b`.`status` AS `status`,`b`.`nik` AS `nik`,`w`.`nama` AS `nama` from (`tbl_berita` `b` join `tbl_warga` `w` on((`b`.`nik` = `w`.`nik`))) ;
 
 -- --------------------------------------------------------
 
@@ -492,7 +493,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `detail_pengaduan`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detail_pengaduan`  AS  select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama` from (`tbl_pengaduan` `p` join `tbl_warga` `w` on((`p`.`nik` = `w`.`nik`))) ;
+CREATE VIEW `detail_pengaduan`  AS  select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama` from (`tbl_pengaduan` `p` join `tbl_warga` `w` on((`p`.`nik` = `w`.`nik`))) ;
+-- CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detail_pengaduan`  AS  select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama` from (`tbl_pengaduan` `p` join `tbl_warga` `w` on((`p`.`nik` = `w`.`nik`))) ;
 
 --
 -- Indexes for dumped tables

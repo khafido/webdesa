@@ -4,7 +4,7 @@ class Pengaduan extends CI_Controller{
 		parent::__construct();
 		if (!$this->session->userdata('nik'))
 		{
-			$allowed = array("lihat");
+			$allowed = array("lihat","detail");
 			$method = $this->router->fetch_method();
 			if(!in_array($method, $allowed)){
 				redirect(base_url("akun/masuk"));
@@ -68,10 +68,10 @@ class Pengaduan extends CI_Controller{
 	}
 
 	function lihat($id){
-		$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status !='=>pengaduan_ditolak, 'bidang'=>$id));
+		$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status='=>pengaduan_proses, 'bidang'=>$id));
 		if ($id=="semua") {
 			$active = "semua";
-			$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status !='=>pengaduan_ditolak));
+			$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status='=>pengaduan_proses));
 		} elseif ($id=="infrastruktur") {
 			$active = "infrastruktur";
 		} elseif ($id=="pendidikan") {
@@ -146,7 +146,7 @@ class Pengaduan extends CI_Controller{
 			case pengaduan_selesai:
 			echo "Selesai";
 			default:
-			echo "Ditolak";
+			echo "";
 		}
 	}
 }

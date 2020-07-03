@@ -60,10 +60,12 @@ class M_crud extends CI_Model{
 
 	function saveBatch($table, $data){
 		$result = $this->db->insert_batch($table, $data);
-		if($result){
-			return 'sukses';
+		$error = $this->db->error();
+		if($error['message']==""){
+			return true;
+		} else {
+			return $error['message'];
 		}
-		return 'gagal';
 	}
 
 	function update($table, $data, $where){
@@ -80,14 +82,13 @@ class M_crud extends CI_Model{
 	}
 
 	function updateBatch($table, $data, $where){
-		$this->db->set($data);
-		$this->db->where($where);
-		$result = $this->db->update_batch($table);
+		$result = $this->db->update_batch($table, $data, $where);
 
-		if($result){
+		$error = $this->db->error();
+		if($error['message']==""){
 			return true;
 		} else {
-			return false;
+			return $error['message'];
 		}
 	}
 
@@ -95,6 +96,17 @@ class M_crud extends CI_Model{
 		$this->db->set(array('status'=>-1));
 		$this->db->where($where);
 		$result = $this->db->update($table);
+		$error = $this->db->error();
+		if($error['message']==""){
+			return true;
+		} else {
+			return $error['message'];
+		}
+	}
+
+	function hard_delete($table, $where){
+    $this->db->where($where);
+    $this->db->delete($table);
 		$error = $this->db->error();
 		if($error['message']==""){
 			return true;

@@ -40,6 +40,9 @@
   <link rel="stylesheet" href="<?=base_url()?>assets/datatable/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="<?=base_url()?>assets/datatable/dataTables.bootstrap4.css">
 
+  <script src="<?=base_url("assets/js/jquery.validate.min.js")?>"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script> -->
+
   <script type="text/javascript">
   function proses(link){
       $('#btnyakin').attr('href', link);
@@ -47,9 +50,27 @@
   }
 
   function buatKegiatan(link){
+      $('#formKegiatan').attr('action', link);
       $('#btnyakin').attr('href', link);
       $('#modalKegiatan').modal('show');
   }
+
+  function buatRencana(link){
+      $('#formRencana').attr('action', link);
+      $('#modalRencana').modal('show');
+  }
+
+  function catatan(link){
+      $('#formCatatan').attr('action', link);
+      $('#modalCatatan').modal('show');
+  }
+
+  function buatTanggapan(link){
+      $('#formTanggapan').attr('action', link);
+      $('#btnyakin').attr('href', link);
+      $('#modaltanggapan').modal('show');
+  }
+
   </script>
   <style media="screen">
   table{
@@ -62,6 +83,10 @@
   }
 
   .active{
+    color: red;
+  }
+
+  .error{
     color: red;
   }
   </style>
@@ -142,7 +167,7 @@
 </div>
 
 <div class="main-panel">
-  <nav class="navbar navbar-default navbar-fixed">
+  <nav class="navbar navbar-default navbar-fixed" style="position:fixed; z-index:9999;">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
@@ -215,7 +240,7 @@
           </li>
           <li class="<?=($active=='potensi')?'active':''?>">
             <a href="<?=base_url("admin/pengguna")?>">
-              <p>Pengguna</p>
+              <p style="color:transparent;">Potensi</p>
             </a>
           </li>
         </ul>
@@ -235,6 +260,6 @@
     </div>
   </nav>
 
-  <div class="content">
+  <div class="content" style="margin-top:11vh;">
     <div class="container-fluid">
       <div class="row">

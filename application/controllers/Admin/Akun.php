@@ -20,6 +20,7 @@ class Akun extends CI_Controller{
 		// $this->load->view('includes/v_header', $title);
 		// $this->load->view('pengaduan/v_buat_pengaduan', $data);
 		// $this->load->view('includes/v_footer');
+		redirect(base_url("admin/akun/masuk"));
 	}
 
 	function masuk(){
@@ -62,7 +63,7 @@ class Akun extends CI_Controller{
 
 			}
 		}
-		
+
 		$data = null;
 		$this->load->view('admin/v_masuk', $data);
 	}

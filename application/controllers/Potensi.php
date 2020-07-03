@@ -47,4 +47,10 @@ class Potensi extends CI_Controller{
 		$this->load->view('includes/v_footer');
 	}
 
+	function bumdes(){
+		$title['judul'] = 'Data BUMDes';
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('potensi/v_bumdes');
+		$this->load->view('includes/v_footer');
+	}
 }

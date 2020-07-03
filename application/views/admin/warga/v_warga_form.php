@@ -19,9 +19,9 @@
 					<div class="content">
 						<?php echo form_open_multipart(base_url("admin/warga/form/$action")) ?>
 							<div class="row">
-								<div class="form-group col-md-3" style="padding-left:0;">
+								<div class="form-group col-md-3" style="padding-left:10px;">
 									<label for="" class="control-label">NIK <span class="text-danger">*</span> </label>
-									<input class="form-control" type="text" name="nik" placeholder="NIK" value="<?=$warga->nik?>" pattern="[0-9]+" title="Hanya Boleh Angka" required>
+									<input class="form-control" type="text" name="nik" placeholder="NIK" value="<?=$warga->nik?>" pattern="[0-9]+" title="Hanya Boleh Angka" required readonly>
 								</div>
 								<div class="form-group col-md-3">
 									<label for="" class="control-label">Nama <span class="text-danger">*</span> </label>

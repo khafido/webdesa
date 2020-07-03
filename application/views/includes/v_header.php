@@ -37,6 +37,7 @@
   <script src="<?=base_url()?>assets/js/Chart.min.js"></script>
   <script src="<?=base_url()?>assets/js/Chart.bundle.min.js"></script>
   <link href="<?=base_url()?>assets/css/Chart.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.min.js"></script> -->
   <!-- <link href="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.css" rel="stylesheet"> -->
@@ -51,10 +52,10 @@
   <link rel="stylesheet" href="<?=base_url()?>assets/datatable/dataTables.bootstrap4.css">
 
   <script type="text/javascript">
-    function hapus(link){
-      $('#btnyakin').attr('href', link);
-      $('#modalhapus').modal('show');
-    }
+  function hapus(link){
+    $('#btnyakin').attr('href', link);
+    $('#modalhapus').modal('show');
+  }
   </script>
 
   <style media="screen">
@@ -107,6 +108,10 @@
 
   table{
     text-transform: capitalize;
+  }
+
+  .error{
+    color: red;
   }
 </style>
 </head>
@@ -165,7 +170,7 @@
               <li><a href="<?=base_url()?>potensi/agama">Data Agama</a></li>
             </ul>
           </li>
-          <li class="menu-has-children"><a href="<?=base_url()?>kegiatan/daftar">Berita / Kegiatan</a>
+          <li class="menu-has-children"><a href="<?=base_url()?>kegiatan/daftar">Berita</a>
             <ul>
               <li><a href="<?=base_url("berita/lihat/semua")?>">Lihat Berita</a></li>
               <?php if (isset($_SESSION['nik'])): ?>

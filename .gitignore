@@ -17,4 +17,6 @@ application/logs/*
 !application/logs/admin_surat.txt
 !application/logs/tes.php
 /vendor/
+/backup/
 .htaccess
+psudocode

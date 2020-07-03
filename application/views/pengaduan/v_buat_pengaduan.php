@@ -88,16 +88,4 @@ font-weight: bold;
 </section>
 
 <script type="text/javascript">
-
-(function ($) {
-  $.fn.replaceClass = function (pFromClass, pToClass) {
-    return this.removeClass(pFromClass).addClass(pToClass);
-  };
-}(jQuery));
-
-function pindah(num){
-  $('#pills-tab li:nth-child('+num+') a').replaceClass('disabled','enabled');
-  $('#pills-tab li:nth-child('+num+') a').tab('show');
-  $('#pills-tab li a').replaceClass('enabled','disabled');
-}
 </script>

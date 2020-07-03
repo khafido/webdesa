@@ -32,7 +32,7 @@
 								<textarea class="form-control" name="alamat" placeholder="Alamat" rows="5" value="" required><?=$hasil->alamat?></textarea>
 							</div>
 							<div class="form-group col-md-12">
-								<button type="button" name="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#dataDiriModal">Tambah Anggota Keluarga</button><br><br>
+								<button type="button" name="button" class="btn btn-info btn-fill pull-right" data-toggle="modal" data-target="#dataDiriModal">Tambah Anggota Keluarga</button><br><br>
 								<div id="wrapper">
 									<table id="fixed">
 										<thead>
@@ -75,8 +75,8 @@
 														<input id="ayah<?=$i?>" type="hidden" name="ayah[]" value="<?=$value->ayah?>">
 														<input id="ibu<?=$i?>" type="hidden" name="ibu[]" value="<?=$value->ibu?>">
 													</tr>
-											<?php
-												$i++;
+													<?php
+													$i++;
 												}
 											}
 											?>
@@ -127,49 +127,51 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-	$('#btnsimpan').click(function (){
-		let jml = $('.anggota').length+1;
-		let nama = $('input[name="m_nama"]').val();
-		let nik = $('input[name="m_nik"]').val();
-		let tempat = $('input[name="m_tempat"]').val();
-		let tgl = $('input[name="m_tgl"]').val();
-		let jk = $('select[name="m_jk"]').val();
-		let hubungan = $('input[name="m_hubungan"]').val();
+	$('#btnsimpananggota').click(function (){
+		if ($('#formAnggota').valid()) {
+			let jml = $('.anggota').length+1;
+			let nama = $('input[name="m_nama"]').val();
+			let nik = $('input[name="m_nik"]').val();
+			let tempat = $('input[name="m_tempat"]').val();
+			let tgl = $('input[name="m_tgl"]').val();
+			let jk = $('select[name="m_jk"]').val();
+			let hubungan = $('input[name="m_hubungan"]').val();
 
-		let pendidikan = $('select[name="m_pendidikan"]').val();
-		let goldar = $('select[name="m_goldar"]').val();
-		let kawin = $('select[name="m_kawin"]').val();
-		let agama = $('select[name="m_agama"]').val();
-		let pekerjaan = $('select[name="m_pekerjaan"]').val();
-		let ayah = $('input[name="m_ayah"]').val();
-		let ibu = $('input[name="m_ibu"]').val();
+			let pendidikan = $('select[name="m_pendidikan"]').val();
+			let goldar = $('select[name="m_goldar"]').val();
+			let kawin = $('select[name="m_kawin"]').val();
+			let agama = $('select[name="m_agama"]').val();
+			let pekerjaan = $('select[name="m_pekerjaan"]').val();
+			let ayah = $('input[name="m_ayah"]').val();
+			let ibu = $('input[name="m_ibu"]').val();
 
-		let addon = `
-		<input id="nama${jml}" type="hidden" name="nama[]" value="${nama}" id="nama${jml}">
-		<input id="nik${jml}" type="hidden" name="nik_anggota[]" value="${nik}" id="nik${jml}">
-		<input id="jk${jml}" type="hidden" name="jk[]" value="${jk}" id="jk${jml}">
-		<input id="tempat${jml}" type="hidden" name="tempat[]" value="${tempat}" id="tempat${jml}">
-		<input id="tgl${jml}" type="hidden" name="tgl[]" value="${tgl}">
-		<input id="hubungan${jml}" type="hidden" name="hubungan[]" value="${hubungan}">
-		<input id="pendidikan${jml}" type="hidden" name="pendidikan[]" value="${pendidikan}">
-		<input id="goldar${jml}" type="hidden" name="goldar[]" value="${goldar}">
-		<input id="kawin${jml}" type="hidden" name="kawin[]" value="${kawin}">
-		<input id="agama${jml}" type="hidden" name="agama[]" value="${agama}">
-		<input id="pekerjaan${jml}" type="hidden" name="pekerjaan[]" value="${pekerjaan}">
-		<input id="ayah${jml}" type="hidden" name="ayah[]" value="${ayah}">
-		<input id="ibu${jml}" type="hidden" name="ibu[]" value="${ibu}">`;
+			let addon = `
+			<input id="nama${jml}" type="hidden" name="nama[]" value="${nama}" id="nama${jml}">
+			<input id="nik${jml}" type="hidden" name="nik_anggota[]" value="${nik}" id="nik${jml}">
+			<input id="jk${jml}" type="hidden" name="jk[]" value="${jk}" id="jk${jml}">
+			<input id="tempat${jml}" type="hidden" name="tempat[]" value="${tempat}" id="tempat${jml}">
+			<input id="tgl${jml}" type="hidden" name="tgl[]" value="${tgl}">
+			<input id="hubungan${jml}" type="hidden" name="hubungan[]" value="${hubungan}">
+			<input id="pendidikan${jml}" type="hidden" name="pendidikan[]" value="${pendidikan}">
+			<input id="goldar${jml}" type="hidden" name="goldar[]" value="${goldar}">
+			<input id="kawin${jml}" type="hidden" name="kawin[]" value="${kawin}">
+			<input id="agama${jml}" type="hidden" name="agama[]" value="${agama}">
+			<input id="pekerjaan${jml}" type="hidden" name="pekerjaan[]" value="${pekerjaan}">
+			<input id="ayah${jml}" type="hidden" name="ayah[]" value="${ayah}">
+			<input id="ibu${jml}" type="hidden" name="ibu[]" value="${ibu}">`;
 
-		$('.daftarAnggota').append(`
-			<tr class="anggota">
-			<td>${nama}</td>
-			<td>${nik}</td>
-			<td>${jk}</td>
-			<td>${tempat}</td>
-			<td>${tgl}</td>
-			<td>${hubungan}</td>
-			<td><button type="button" name="hapus" onclick="" class="btn btn-danger" id="btnhapus" onclick="hapus(this.id)">Hapus</button>&ensp;<button type="button" name="ubah" onclick="" class="btn btn-info" id="btnubah" data-ubah="${jml}">Ubah</button></td>${addon}</tr>`);
-			// <td><button type="button" name="hapus" onclick="" class="btn btn-danger" id="btnhapus" onclick="hapus(this.id)">Hapus</button>${addon}</tr>`);
-			$('#dataDiriModal').modal('hide');
+			$('.daftarAnggota').append(`
+				<tr class="anggota">
+				<td>${nama}</td>
+				<td>${nik}</td>
+				<td>${jk}</td>
+				<td>${tempat}</td>
+				<td>${tgl}</td>
+				<td>${hubungan}</td>
+				<td><button type="button" name="hapus" onclick="" class="btn btn-danger" id="btnhapus" onclick="hapus(this.id)">Hapus</button>&ensp;<button type="button" name="ubah" onclick="" class="btn btn-info" id="btnubah" data-ubah="${jml}">Ubah</button></td>${addon}</tr>`);
+				// <td><button type="button" name="hapus" onclick="" class="btn btn-danger" id="btnhapus" onclick="hapus(this.id)">Hapus</button>${addon}</tr>`);
+				$('#dataDiriModal').modal('hide');
+			}
 		});
 
 		$('.daftarAnggota').on('click','#btnhapus',function() {

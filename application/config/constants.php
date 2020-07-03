@@ -96,6 +96,9 @@ define('PERKAWINAN', array('belum'=>'Belum Menikah', 'sudah'=>'Sudah Menikah', '
 define('HUBUNGAN', array('anak'=>'Anak','orang_tua'=>'Orang Tua','saudara'=>'Saudara','pasangan'=>'Suami/Istri','tetangga'=>'Tetangga','lain'=>'Lain-lain'));
 define('TABEL', array('kelahiran' => 'tbl_kelahiran', 'kematian'=>'tbl_kematian', 'tdkmampu'=>'tbl_tdk_mampu', 'biodata'=>'tbl_biodata', 'umum'=>'tbl_umum', 'domisili'=>'tbl_domisili'));
 define('CAPTION', array('kelahiran' => 'Surat Kelahiran', 'kematian'=>'Surat Kematian', 'tdkmampu'=>'Surat Tidak Mampu', 'biodata'=>'Surat Biodata', 'umum'=>'Surat Umum', 'domisili'=>'Surat Domisili'));
+
+define('BIDANG_BUMDES', array('layanan'=>'Layanan','keuangan'=>'Keuangan','penyewaan'=>'Penyewaan','perantara'=>'Perantara','perdagangan'=>'Perdagangan','induk'=>'Induk Usaha'));
+define('BIDANG_UMKM', array('otomotif'=>'Otomotif','fashion'=>'Fashion','kuliner'=>'Kuliner','kecantikan'=>'Kecantikan','kerajinan'=>'Kerajinan Tangan','travel'=>'Tour & Travel','agribisnis'=>'Agribisnis','pendidikan'=>'Pendidikan','kelontong'=>'Toko Kelontong'));
 // --------------------------------------------------------------------------------
 
 // Status User
@@ -120,6 +123,13 @@ define('pengaduan_baru',0);
 define('pengaduan_proses',1);
 define('pengaduan_selesai',2);
 define('pengaduan_ditolak',3);
+
+// Status Kegiatan
+define('kegiatan_baru',0);
+define('kegiatan_rencana',1);
+define('kegiatan_proses',2);
+define('kegiatan_selesai',3);
+define('kegiatan_arsip',4);
 
 // Status Berita
 define('berita_baru',0);
