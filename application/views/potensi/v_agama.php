@@ -13,7 +13,7 @@
       <div class="text-center col-md-8 offset-md-2">
         <canvas id="bar-chart" width="800" height="450"></canvas>
       </div>
-      <div class="text-center col-md-6 offset-md-3">
+      <!-- <div class="text-center col-md-6 offset-md-3">
         <br>
         <table class="table table-striped table-bordered ">
           <thead>
@@ -34,7 +34,6 @@
           </thead>
           <tbody>
             <tr>
-              <!-- <td>1</td> -->
               <th scope="col">Islam</th>
               <td>12</td>
               <td>2</td>
@@ -44,7 +43,6 @@
               <td>2</td>
             </tr>
             <tr>
-              <!-- <td>2</td> -->
               <th scope="col">Kristen</th>
               <td>12</td>
               <td>2</td>
@@ -54,7 +52,6 @@
               <td>2</td>
             </tr>
             <tr>
-              <!-- <td>3</td> -->
               <th scope="col">Katolik</th>
               <td>12</td>
               <td>2</td>
@@ -64,7 +61,6 @@
               <td>2</td>
             </tr>
             <tr>
-              <!-- <td>4</td> -->
               <th scope="col">Hindu</th>
               <td>12</td>
               <td>2</td>
@@ -102,7 +98,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
@@ -115,8 +111,9 @@ new Chart(document.getElementById("bar-chart"), {
     datasets: [
       {
         // label: "Population (millions)",
-        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#e8c3b9","#c45850"],
-        data: [2478,5267,734,784,433, 849, 392]
+        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#d4b3b9","#a42850"],
+        data: [<?=$agama?>]
+        // data: [2478,5267,734,784,433, 849, 392]
       }
     ]
   },
@@ -124,7 +121,7 @@ new Chart(document.getElementById("bar-chart"), {
     legend: { display: false },
     title: {
       display: true,
-      text: 'Total Penduduk : 6651'
+      text: 'Total Penduduk : <?=$jumlah?>'
     }
   }
 });

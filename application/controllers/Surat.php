@@ -109,16 +109,16 @@ class Surat extends CI_Controller{
 				}
 			}
 
-			$jumlah = $this->m_crud->read('tbl_kelahiran');
-			$id = count($jumlah)+1;
+			$kelahiran = $this->m_crud->read('tbl_kelahiran');
+			$id = count($kelahiran)+1;
 			$date = date("j/n/Y");
 			$kelahiran['id_kelahiran'] = $id.'/I/'.$date;
 
 			if($status){
 				$pesan = $this->m_crud->save('tbl_kelahiran', $kelahiran);
-				if ($pesan) {
 					redirect(base_url("surat/riwayat"));
 					die();
+					if ($pesan) {
 				}
 			}
 		}

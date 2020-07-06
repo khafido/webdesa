@@ -9,6 +9,7 @@ border: 2px solid black;
 
 *{
 font-weight: bold;
+border-radius: 0px;
 } */
 </style>
 <section id="get-started" class="padd-section wow fadeInUp">
@@ -19,7 +20,7 @@ font-weight: bold;
     </div>
     <div class="row">
       <div class="col-md-8 offset-md-2">
-        <?php echo form_open_multipart(base_url("pengaduan/buat/"),array('class' => 'form-horizontal')); ?>
+        <?php echo form_open_multipart(base_url("pengaduan/buat_pengaduan/"),array('class' => 'form-horizontal')); ?>
         <div class="card wow fadeInUp" id="get-started" style="visibility: visible; animation-name: fadeInUp;">
           <ul class="nav nav-tabs" id="pills-tab" role="tablist">
             <li class="nav-item">
@@ -34,10 +35,12 @@ font-weight: bold;
                 <div class="form-group col-md-8">
                   <label for="" class="control-label">Judul <span class="text-danger">*</span> </label>
                   <input class="form-control" type="text" name="judul" placeholder="Judul" value="" required>
+                  <?=form_error('judul')?>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="" class="control-label">Lokasi <span class="text-danger">*</span> </label>
                   <input class="form-control" type="text" name="lokasi" placeholder="Lokasi" value="" required>
+                  <?=form_error('lokasi')?>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="" class="control-label">Bidang <span class="text-danger">*</span> </label>
@@ -50,6 +53,7 @@ font-weight: bold;
                     <option value="kasus">Kasus</option>
                     <option value="lain">Lain-lain</option>
                   </select>
+                  <?=form_error('bidang')?>
                 </div>
                 <div class="form-group col-md-1"></div>
                 <div class="form-group col-md-5">
@@ -62,17 +66,21 @@ font-weight: bold;
                     <input id="non" class="form-check-input" type="radio" name="kategori" value="non-anggaran">
                     <label for="non" class="form-check-label">Non-Anggaran</label>
                   </div>
+                  <?=form_error('kategori')?>
                 </div>
                 <div class="form-group col-md-12">
                   <label for="" class="control-label">Uraian <span class="text-danger">*</span> </label><br>
-                  <textarea name="uraian" class="form-control" rows="3" cols="80"></textarea>
+                  <textarea name="uraian" class="form-control" rows="3" cols="80" required></textarea>
+                  <?=form_error('uraian')?>
                 </div>
                 <div class="form-group col-md-6">
                   <?php echo $this->session->flashdata('upload_error'); ?>
-                  <label for="" class="control-label">Lampiran <span class="text-danger">(Maks. 2MB) (JPG/JPEG/PNG)</span></label><br>
+                  <label for="" class="control-label">Lampiran
+                    <!-- <span class="text-danger">(Maks. 2MB) (JPG/JPEG/PNG)</span> -->
+                  </label><br>
                   <input class="form-control" accept=".jpg, .jpeg, .png" type="file" name="lampiran_file" multiple>
                 </div>
-                <div class="form-group col-md-4 offset-md-8">
+                <div class="form-group col-md-12">
                   <button name="pengaduan" class="btn btn-success form-control col-md-12">Selesai</button>
                 </div>
               </div>

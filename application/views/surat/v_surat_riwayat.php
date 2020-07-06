@@ -52,8 +52,8 @@ font-weight: bold;
           <div class="tab-content" id="pills-tabContent">
             <!-- Tab 1 -->
             <div class="tab-pane fade show active" id="pills-satu" role="tabpanel" aria-labelledby="pills-satu-tab">
-              <div class="col-md-12 pb-3 pr-5 pl-5">
-                <table id="kelahiran" class="table table-striped table-responsive">
+              <div class="col-md-12 pb-3 pr-5 pl-5 table-responsive">
+                <table id="kelahiran" class="table table-striped">
                   <thead>
                     <tr>
                       <th width="150">No Surat</th>
@@ -84,8 +84,8 @@ font-weight: bold;
 
             <div class="tab-pane fade" id="pills-dua" role="tabpanel" aria-labelledby="pills-dua-tab">
               <div class="tab-pane fade show active" id="pills-satu" role="tabpanel" aria-labelledby="pills-satu-tab">
-                <div class="col-md-12 pb-3 pr-5 pl-5">
-                  <table id="kematian" class="table table-striped table-borderless table-responsive" style="width:100%">
+                <div class="col-md-12 pb-3 pr-5 pl-5 table-responsive">
+                  <table id="kematian" class="table table-striped table-borderless" style="width:100%">
                     <thead>
                       <tr>
                         <th>No Surat</th>
@@ -116,8 +116,8 @@ font-weight: bold;
             </div>
 
             <div class="tab-pane fade" id="pills-tiga" role="tabpanel" aria-labelledby="pills-tiga-tab">
-              <div class="col-md-12 pb-3 pr-5 pl-5">
-                <table id="tdkmampu" class="table table-striped table-borderless table-responsive" style="width:100%">
+              <div class="col-md-12 pb-3 pr-5 pl-5 table-responsive">
+                <table id="tdkmampu" class="table table-striped table-borderless" style="width:100%">
                   <thead>
                     <tr>
                       <th>No Surat</th>
@@ -145,8 +145,8 @@ font-weight: bold;
             </div>
 
             <div class="tab-pane fade" id="pills-empat" role="tabpanel" aria-labelledby="pills-empat-tab">
-              <div class="col-md-12 pb-3 pr-5 pl-5">
-                <table id="biodata" class="table table-striped table-borderless table-responsive" style="width:100%">
+              <div class="col-md-12 pb-3 pr-5 pl-5 table-responsive">
+                <table id="biodata" class="table table-striped table-borderless" style="width:100%">
                   <thead>
                     <tr>
                       <th>No Surat</th>
@@ -172,8 +172,8 @@ font-weight: bold;
             </div>
 
             <div class="tab-pane fade" id="pills-lima" role="tabpanel" aria-labelledby="pills-lima-tab">
-              <div class="col-md-12 pb-3 pr-5 pl-5">
-                <table id="umum" class="table table-striped table-borderless table-responsive" style="width:100%">
+              <div class="col-md-12 pb-3 pr-5 pl-5 table-responsive">
+                <table id="umum" class="table table-striped table-borderless" style="width:100%">
                   <thead>
                     <tr>
                       <th>No Surat</th>
@@ -197,8 +197,8 @@ font-weight: bold;
             </div>
 
             <div class="tab-pane fade" id="pills-enam" role="tabpanel" aria-labelledby="pills-enam-tab">
-              <div class="col-md-12 pb-3 pr-5 pl-5">
-                <table id="domisili" class="table table-striped table-borderless table-responsive" style="width:100%">
+              <div class="col-md-12 pb-3 pr-5 pl-5 table-responsive">
+                <table id="domisili" class="table table-striped table-borderless" style="width:100%">
                   <thead>
                     <tr>
                       <th>No Surat</th>

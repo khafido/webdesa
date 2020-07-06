@@ -169,10 +169,10 @@ class Kegiatan extends CI_Controller{
 		}
 	}
 
-	function buat_lpj($id){
+	public function buat_lpj($id){
 		$item = array();
 		$fisik = array();
-		// var_dump($_POST);
+
 		if (isset($_POST['lpj'])) {
 			for ($i=0; $i < count($_POST['kode']); $i++) {
 				$kode = $_POST['kode'][$i];
@@ -196,8 +196,10 @@ class Kegiatan extends CI_Controller{
 			$store['saran'] = $_POST['saran'];
 			$store['status'] = kegiatan_arsip;
 			$keg = $this->m_crud->update('tbl_kegiatan', $store, array('id_kegiatan'=>$id));
+
 			$fisik = $this->m_crud->saveBatch('tbl_item_fisik', $fisik);
 			$keu = $this->m_crud->updateBatch('tbl_item_keuangan', $item, 'kode');
+
 			if ($keu==true && $keg==true && $fisik==true) {
 				redirect(base_url("admin/kegiatan/"));
 				die();

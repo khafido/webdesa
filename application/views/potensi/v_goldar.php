@@ -13,12 +13,11 @@
       <div class="text-center col-md-8 offset-md-2">
         <canvas id="bar-chart" width="800" height="450"></canvas>
       </div>
-      <div class="text-center col-md-6 offset-md-3">
+      <!-- <div class="text-center col-md-6 offset-md-3">
         <br>
         <table class="table table-striped table-bordered ">
           <thead>
-            <tr>
-              <!-- <th rowspan="2">#</th> -->
+            <tr>              
               <th rowspan="2">Gol. Darah</th>
               <th colspan="2" scope="col" width="120">Jumlah</th>
               <th colspan="2" scope="col" width="120">Laki-laki</th>
@@ -35,7 +34,6 @@
           </thead>
           <tbody>
             <tr>
-              <!-- <td>1</td> -->
               <th scope="col">A</th>
               <td>12</td>
               <td>2</td>
@@ -45,7 +43,6 @@
               <td>2</td>
             </tr>
             <tr>
-              <!-- <td>2</td> -->
               <th scope="col">B</th>
               <td>12</td>
               <td>2</td>
@@ -55,7 +52,6 @@
               <td>2</td>
             </tr>
             <tr>
-              <!-- <td>3</td> -->
               <th scope="col">AB</th>
               <td>12</td>
               <td>2</td>
@@ -65,7 +61,6 @@
               <td>2</td>
             </tr>
             <tr>
-              <!-- <td>4</td> -->
               <th scope="col">O</th>
               <td>12</td>
               <td>2</td>
@@ -75,7 +70,6 @@
               <td>2</td>
             </tr>
             <tr>
-              <!-- <td>13</td> -->
               <th scope="col">Tidak <br>Tahu</th>
               <td>12</td>
               <td>2</td>
@@ -86,7 +80,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
@@ -102,7 +96,8 @@ new Chart(document.getElementById("bar-chart"), {
         // label: "Population (millions)",
         backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
         // backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","red","teal","skyblue","lime","blue","yellow","green","maroon"],
-        data: [2478,5267,734,784,433]
+        // data: [2478,5267,734,784,433]
+        data: [<?=$goldar?>]
         // data: [2478,5267,734,784,433,290,120,175,734,784,433,290,111]
       }
     ]
@@ -111,7 +106,7 @@ new Chart(document.getElementById("bar-chart"), {
     legend: { display: false },
     title: {
       display: true,
-      text: 'Total Penduduk : 6651'
+      text: 'Total Penduduk : <?=$jumlah?>'
     }
   }
 });

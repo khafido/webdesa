@@ -89,6 +89,16 @@
   .error{
     color: red;
   }
+
+/* 
+  .form-control, .card{
+  border: 2px solid black;
+  }
+
+  *{
+  font-weight: bold;
+  border-radius: 0px;
+  } */
   </style>
 </head>
 <body>

@@ -21,41 +21,50 @@ class Pengaduan extends CI_Controller{
 		$this->load->view('includes/v_footer');
 	}
 
-	function buat(){
+	function buat_pengaduan(){
 		$nik = $_SESSION['nik'];
 		if (isset($_POST['pengaduan'])) {
-			$pengaduan['judul'] = $_POST['judul'];
-			$pengaduan['kategori'] = $_POST['kategori'];
-			$pengaduan['lokasi'] = $_POST['lokasi'];
-			$pengaduan['bidang'] = $_POST['bidang'];
-			$pengaduan['uraian'] = $_POST['uraian'];
-			$pengaduan['nik'] = $nik;
+			$this->form_validation->set_rules('judul', 'Judul', 'required', array('required'=>'Isi Judul'));
+			$this->form_validation->set_rules('kategori', 'Kategori', 'required', array('required'=>'Isi Kategori'));
+			$this->form_validation->set_rules('lokasi', 'Lokasi', 'required', array('required'=>'Isi Lokasi'));
+			$this->form_validation->set_rules('kategori', 'Kategori', 'required', array('required'=>'Isi Kategori'));
+			$this->form_validation->set_rules('bidang', 'Bidang', 'required', array('required'=>'Isi Bidang'));
+			$this->form_validation->set_rules('uraian', 'Uraian', 'required', array('required'=>'Isi Uraian'));
 
-			$config['upload_path']   = "./assets/img/pengaduan/";
-			$config['allowed_types'] = 'jpg|png|jpeg';
-			$config['allowed_size'] = 2048;
+			if ($this->form_validation->run() != false){
+				$pengaduan['judul'] = $_POST['judul'];
+				$pengaduan['kategori'] = $_POST['kategori'];
+				$pengaduan['lokasi'] = $_POST['lokasi'];
+				$pengaduan['bidang'] = $_POST['bidang'];
+				$pengaduan['uraian'] = $_POST['uraian'];
+				$pengaduan['nik'] = $nik;
 
-			// Upload Pengantar
-			$post = 'lampiran_file';
-			$pengaduan[$post] = './assets/img/pengaduan/default.jpg';
-			$status = true;
+				$config['upload_path']   = "./assets/img/pengaduan/";
+				$config['allowed_types'] = 'jpg|png|jpeg';
+				$config['allowed_size'] = 2048;
 
-			if ($_FILES[$post]["name"]!="") {
-				$filename = $_FILES[$post]['name'];
+				// Upload Pengantar
+				$post = 'lampiran_file';
+				$pengaduan[$post] = './assets/img/pengaduan/default.jpg';
+				$status = true;
 
-				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
-					$status = false;
-				} else {
-					$pengaduan[$post] = $config['upload_path'].$name;
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$pengaduan[$post] = $config['upload_path'].$name;
+					}
 				}
-			}
 
-			if ($status) {
-				$pesan = $this->m_crud->save('tbl_pengaduan', $pengaduan);
-				if ($pesan) {
-					redirect(base_url("pengaduan/riwayat"));
-					die();
+				if ($status) {
+					$pesan = $this->m_crud->save('tbl_pengaduan', $pengaduan);
+					if ($pesan) {
+						redirect(base_url("pengaduan/riwayat"));
+						die();
+					}
 				}
 			}
 		}

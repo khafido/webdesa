@@ -1,9 +1,9 @@
 <style media="screen">
   /* .card{
     transition: 0.5s;
-  }
+  } */
 
-  .form-control, .card{
+  /* .form-control, .card{
     border: 2px solid black;
   }
 

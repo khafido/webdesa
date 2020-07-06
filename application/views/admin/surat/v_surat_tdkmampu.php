@@ -70,8 +70,7 @@
 					<tbody>
 						<?php $i=1; foreach ($proses as $v): ?>
 							<tr>
-								<th><?=$i++?></th>
-								<th><?=$i++?></th>
+								<th><?=$i++?></th>								
 								<th><?=$v->id_tdk_mampu?></th>
 								<td><?=$v->nama_terkait?></td>
 								<td><?=$v->jenis?></td>

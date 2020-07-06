@@ -96,11 +96,22 @@
     margin-left: auto;
   }
 
-  .form p{
+  .form p, .form-group p{
     background: #F8D7DA;
     color: #A7676D;
     font-weight: 500;
     margin-top: -15px;
+    padding: 2px;
+    border-radius: 0px 0px 10px 10px;
+    font-size: 0.7rem;
+  }
+
+  .form-group p{
+    background: #F8D7DA;
+    color: #A7676D;
+    font-weight: 500;
+    margin-top: 0px;
+    text-align: center;
     padding: 2px;
     border-radius: 0px 0px 10px 10px;
     font-size: 0.7rem;
@@ -113,6 +124,12 @@
   .error{
     color: red;
   }
+  /* header{
+    border: 2px solid black;
+  }
+  a{
+    font-weight: bold !important;
+  } */
 </style>
 </head>
 
@@ -154,11 +171,12 @@
             <ul>
               <li class="menu"><a href="<?=base_url()?>pengaduan/lihat/semua">Lihat Pengaduan</a></li>
               <?php if (isset($_SESSION['nik'])): ?>
-                <li class="menu"><a href="<?=base_url()?>pengaduan/buat">Buat Pengaduan</a></li>
+                <li class="menu"><a href="<?=base_url()?>pengaduan/buat_pengaduan">Buat Pengaduan</a></li>
                 <li class="menu"><a href="<?=base_url()?>pengaduan/riwayat">Riwayat Pengaduan</a></li>
               <?php endif; ?>
             </ul>
           </li>
+          <!-- <li class="menu-has-children"><a href="<?=base_url("kegiatan")?>">Kegiatan</a></li> -->
           <li class="menu-has-children"><a href="">Potensi Desa</a>
             <ul>
               <li><a href="<?=base_url()?>potensi/profil">Profil Desa</a></li>
@@ -168,6 +186,7 @@
               <li><a href="<?=base_url()?>potensi/pendidikan">Data Pendidikan</a></li>
               <li><a href="<?=base_url()?>potensi/pekerjaan">Data Pekerjaan</a></li>
               <li><a href="<?=base_url()?>potensi/agama">Data Agama</a></li>
+              <li><a href="<?=base_url()?>potensi/detail">Detail Potensi</a></li>
             </ul>
           </li>
           <li class="menu-has-children"><a href="<?=base_url()?>kegiatan/daftar">Berita</a>

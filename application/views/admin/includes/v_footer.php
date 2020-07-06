@@ -464,6 +464,12 @@ Blog
 <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <script src="<?=base_url("assets/admin")?>/js/demo.js"></script>
 
+<?php if (!isset($itemkeuangan)) {
+  $itemkeuangan = null;
+} ?>
+<?php if (!isset($itemfisik)) {
+  $itemfisik = null;
+} ?>
 <script type="text/javascript">
 $(document).ready(function(){
 
@@ -560,6 +566,7 @@ function tambahItemKeuangan(){
     </div>
     `);
   }
+
 
   function ubahRencana(link){
     let data = JSON.parse('<?=$itemkeuangan?>');
@@ -711,8 +718,8 @@ function tambahItemKeuangan(){
           let totpros = (realisasi/jumlah)*100;
           $('#lihatitemkeuangan').append(`
           <div class="row">
-          <div class="col-md-2 pull-right" id="totalfisik""><h4 for="" >${totalfisik}</h4></div>
-          <div class="col-md-2 pull-right" id="totalharga""><h4 for="" >Total: ${total} (${totpros} %)</h4></div>
+          <div class="col-md-2 pull-right" id="totalfisik""><h4 for="" >Realisasi:<br/>${totalfisik} (${totpros}%)</h4></div>
+          <div class="col-md-2 pull-right" id="totalharga""><h4 for="" >Total:<br/> ${total}</h4></div>
           </div>`);
 
           $('#modalDaftarRencana').modal('show');
@@ -789,7 +796,7 @@ function tambahItemKeuangan(){
 
           $('#itemlpj').append(`
           <div class="row">
-          <div class="col-md-4 pull-right" id="totalfisik""><h4 for="" >Total: ${total}</h4></div>            
+          <div class="col-md-4 pull-right" id="totalfisik""><h4 for="" >Total: ${total}</h4></div>
           <div class="col-md-12" style="margin-top:0px;">
           <hr/>
           <h4>Item Fisik</h4>

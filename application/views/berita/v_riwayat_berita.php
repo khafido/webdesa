@@ -36,8 +36,8 @@ font-weight: bold;
           <div class="tab-content" id="pills-tabContent">
             <!-- Tab 1 -->
             <div class="tab-pane fade show active" id="pills-satu" role="tabpanel" aria-labelledby="pills-satu-tab">
-              <div class="col-md-12 pb-3 pr-5 pl-5">
-                <table id="rwytberita" class="table table-striped table-borderless table-responsive" style="width:100%">
+              <div class="col-md-12 pb-3 pr-5 pl-5 table-responsive">
+                <table id="rwytberita" class="table table-striped table-borderless" style="width:100%">
                   <thead>
                     <tr>
                       <th>#</th>

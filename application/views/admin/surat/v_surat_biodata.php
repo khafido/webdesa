@@ -130,6 +130,6 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	// $('#tbl_warga').DataTable();
+	
 } );
 </script>
