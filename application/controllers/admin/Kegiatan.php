@@ -178,7 +178,8 @@ class Kegiatan extends CI_Controller{
 				$kode = $_POST['kode'][$i];
 				$jumlah = $_POST['jumlah'][$i];;
 				$realisasi = $_POST['realisasi'][$i];
-				$prosentase = ($realisasi/$jumlah)*100;
+				$persen = ($realisasi/$jumlah)*100;
+				$prosentase = strval($persen);
 				array_push($item, array("kode"=>$kode, "realisasi"=>$realisasi, "prosentase"=>$prosentase));
 			}
 

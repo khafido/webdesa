@@ -138,9 +138,9 @@ class M_crud extends CI_Model{
 		if($this->$post->do_upload($post)){
 			return $new_name;
 		} else {
-			// $this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">'.$this->upload->display_errors().'</div>');
+			$this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">'.$this->upload->display_errors().'</div>');
 			// $this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Perhatikan Ukuran(Maks 2MB) atau Tipe File(JPG,PNG,PDF)!</div>');
-			$this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Lengkapi dan Perhatikan Ukuran/Tipe File!</div>');
+			// $this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Lengkapi dan Perhatikan Ukuran/Tipe File!</div>');
 			return false;
 		}
 	}
