@@ -78,6 +78,9 @@
 					<button onclick="proses('<?=base_url("admin/surat/tolak/$detail->id/$surat")?>')" class="btn btn-danger btn-fill">Tolak</button>
 					&ensp;&ensp;&ensp;
 				<?php endif; ?>
+				<?php if ($detail->status==2): ?>
+					<button onclick="proses('<?=base_url("admin/surat/proses/$detail->id/$surat/3")?>')" target="_blank" class="btn btn-success btn-fill">Syarat Valid</button>
+				<?php endif; ?>
 				<a href="<?=base_url("admin/surat/form/$surat/ubah/$detail->id")?>" class="btn btn-info btn-fill">Ubah</a>
 			</div>
 		</div>

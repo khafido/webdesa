@@ -117,6 +117,7 @@ define('surat_ditolak',-1);
 define('surat_baru',0);
 define('surat_proses',1);
 define('surat_selesai',2);
+define('surat_diterima',3);
 
 // Status Pengaduan
 define('pengaduan_baru',0);
