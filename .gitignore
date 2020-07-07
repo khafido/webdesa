@@ -20,3 +20,4 @@ application/logs/*
 /backup/
 .htaccess
 psudocode
+application/config/database.php
