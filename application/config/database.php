@@ -102,7 +102,7 @@ $db['heroku'] = array(
 	'password' => 'c7839223772ca5b2ceab58ddd15bfba44605311d78655c6cfb154aa642408cbb',
 	'database' => 'd940tg4c4l4m3q',
 
-	'dbdriver' => 'pgsql',
+	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
