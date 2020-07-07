@@ -1,5 +1,3 @@
-time_zone := "+07:00";
-
 CREATE TABLE detail_berita (
 id_berita int
 ,judul varchar(50)
@@ -63,10 +61,10 @@ CREATE TABLE tbl_berita (
   id_berita int NOT NULL,
   judul varchar(50) NOT NULL,
   isi text NOT NULL,
-  tgl_berita timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  tgl_berita timestamp(0) DEFAULT CURRENT_TIMESTAMP,
   rubrik varchar(10) NOT NULL,
   cover_file varchar(60) NOT NULL,
-  status int NOT NULL DEFAULT '0',
+  status int DEFAULT '0',
   nik varchar(16) NOT NULL
 ) ;
 
@@ -76,14 +74,14 @@ CREATE TABLE tbl_biodata (
   nama_kepala varchar(60) NOT NULL,
   alamat varchar(100) NOT NULL,
   anggota text NOT NULL,
-  tgl_buat timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  tgl_buat timestamp(0) DEFAULT CURRENT_TIMESTAMP,
   pengantar_file varchar(100) NOT NULL,
   akta_lahir_file varchar(100) NOT NULL,
   ijazah_file varchar(100) NOT NULL,
   kk_file varchar(100) NOT NULL,
   ktp_file varchar(100) NOT NULL,
   akta_kawin_file varchar(100) NOT NULL,
-  status int NOT NULL DEFAULT '0',
+  status int DEFAULT '0',
   nik varchar(16) NOT NULL
 ) ;
 
@@ -96,7 +94,7 @@ CREATE TABLE tbl_bumdes (
   no_telp varchar(15) NOT NULL,
   deskripsi text NOT NULL,
   logo_file varchar(100) NOT NULL,
-  status int NOT NULL DEFAULT '0'
+  status int DEFAULT '0'
 ) ;
 
 CREATE TABLE tbl_dana (
@@ -104,7 +102,7 @@ CREATE TABLE tbl_dana (
   nama varchar(50) NOT NULL,
   jumlah int NOT NULL,
   tahun varchar(9) NOT NULL,
-  status int NOT NULL DEFAULT '1'
+  status int DEFAULT '1'
 ) ;
 
 INSERT INTO tbl_dana (kode, nama, jumlah, tahun, status) VALUES
@@ -122,7 +120,7 @@ CREATE TABLE tbl_domisili (
   jenis varchar(10) NOT NULL,
   nama_usaha varchar(60) NOT NULL,
   alamat varchar(100) NOT NULL,
-  tgl_buat timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  tgl_buat timestamp(0) DEFAULT CURRENT_TIMESTAMP,
   pengantar_file varchar(100) NOT NULL,
   kk_file varchar(100) NOT NULL,
   ktp_file varchar(100) NOT NULL,
@@ -130,7 +128,7 @@ CREATE TABLE tbl_domisili (
   pernyataan_file varchar(100) NOT NULL,
   perjanjian_file varchar(100) NOT NULL,
   kepemilikan_file varchar(100) NOT NULL,
-  status int NOT NULL DEFAULT '0',
+  status int DEFAULT '0',
   nik varchar(16) NOT NULL
 ) ;
 
@@ -152,7 +150,7 @@ CREATE TABLE tbl_item_keuangan (
   harga_satuan int NOT NULL,
   jumlah int NOT NULL,
   realisasi int NOT NULL,
-  prosentase varchar(5) NOT NULL DEFAULT '0',
+  prosentase varchar(5) DEFAULT '0',
   id_kegiatan int NOT NULL
 ) ;
 
@@ -166,8 +164,8 @@ CREATE TABLE tbl_kegiatan (
   kendala varchar(255) NOT NULL,
   saran varchar(255) NOT NULL,
   ketua_pelaksana varchar(50) NOT NULL,
-  catatan varchar(100) NOT NULL DEFAULT '-',
-  status int NOT NULL DEFAULT '0',
+  catatan varchar(100) DEFAULT '-',
+  status int DEFAULT '0',
   lampiran_file varchar(100) NOT NULL,
   id_pengaduan int NOT NULL,
   kode varchar(4) NOT NULL
@@ -180,14 +178,14 @@ CREATE TABLE tbl_kelahiran (
   tgl_lahir date NOT NULL,
   tempat_lahir varchar(20) NOT NULL,
   jk varchar(1) NOT NULL,
-  status int NOT NULL DEFAULT '0',
+  status int DEFAULT '0',
   anak varchar(60) NOT NULL,
   ayah varchar(60) NOT NULL,
   ibu varchar(60) NOT NULL,
   alamat varchar(100) NOT NULL,
   rt int NOT NULL,
   rw int NOT NULL,
-  tgl_buat timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  tgl_buat timestamp(0) DEFAULT CURRENT_TIMESTAMP,
   pengantar_file varchar(100) NOT NULL,
   ket_file varchar(100) NOT NULL,
   kk_file varchar(100) NOT NULL,
@@ -207,20 +205,20 @@ CREATE TABLE tbl_kematian (
   agama varchar(20) NOT NULL,
   status_kawin varchar(20) NOT NULL,
   pekerjaan varchar(20) NOT NULL,
-  kwn varchar(3) NOT NULL DEFAULT 'wni',
+  kwn varchar(3) DEFAULT 'wni',
   tgl_meninggal date NOT NULL,
   tempat_meninggal varchar(20) NOT NULL,
   penyebab varchar(20) NOT NULL,
   penentu varchar(20) NOT NULL,
   kota_meninggal varchar(20) NOT NULL,
   alamat varchar(100) NOT NULL,
-  tgl_buat timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  tgl_buat timestamp(0) DEFAULT CURRENT_TIMESTAMP,
   pernyataan_file varchar(100) NOT NULL,
   ktp_file varchar(100) NOT NULL,
   kk_file varchar(100) NOT NULL,
   ktp_alm_file varchar(100) NOT NULL,
   kk_alm_file varchar(100) NOT NULL,
-  status int NOT NULL DEFAULT '0',
+  status int DEFAULT '0',
   nik varchar(16) NOT NULL
 ) ;
 
@@ -232,8 +230,8 @@ CREATE TABLE tbl_pengaduan (
   kategori varchar(20) NOT NULL,
   uraian text NOT NULL,
   lokasi varchar(25) NOT NULL,
-  tgl_pengaduan timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  status int NOT NULL DEFAULT '0',
+  tgl_pengaduan timestamp(0) DEFAULT CURRENT_TIMESTAMP,
+  status int DEFAULT '0',
   lampiran_file varchar(60) NOT NULL,
   nik varchar(16) NOT NULL
 ) ;
@@ -253,9 +251,9 @@ CREATE TABLE tbl_tdk_mampu (
   jenis varchar(20) NOT NULL,
   nama_terkait varchar(60) NOT NULL,
   pekerjaan varchar(20) NOT NULL,
-  status int NOT NULL DEFAULT '0',
+  status int DEFAULT '0',
   alamat varchar(100) NOT NULL,
-  tgl_buat timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  tgl_buat timestamp(0) DEFAULT CURRENT_TIMESTAMP,
   pengantar_file varchar(100) NOT NULL,
   pernyataan_file varchar(100) NOT NULL,
   ktp_file varchar(100) NOT NULL,
@@ -274,18 +272,18 @@ CREATE TABLE tbl_umkm (
   tgl_berdiri date NOT NULL,
   deskripsi text NOT NULL,
   logo_file varchar(100) NOT NULL,
-  status int NOT NULL DEFAULT '0'
+  status int DEFAULT '0'
 ) ;
 
 CREATE TABLE tbl_umum (
   id int NOT NULL,
   id_umum varchar(20) NOT NULL,
   tujuan varchar(100) NOT NULL,
-  tgl_buat timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  tgl_buat timestamp(0) DEFAULT CURRENT_TIMESTAMP,
   pengantar_file varchar(40) NOT NULL,
   ktp_file varchar(40) NOT NULL,
   kk_file varchar(40) NOT NULL,
-  status int NOT NULL DEFAULT '0',
+  status int DEFAULT '0',
   nik varchar(16) NOT NULL
 ) ;
 
@@ -305,8 +303,8 @@ CREATE TABLE tbl_warga (
   agama varchar(20) NOT NULL,
   pendidikan varchar(20) NOT NULL,
   pekerjaan varchar(20) NOT NULL,
-  status int NOT NULL DEFAULT '0',
-  role int NOT NULL DEFAULT '0',
+  status int DEFAULT '0',
+  role int DEFAULT '0',
   ktp_file varchar(100) NOT NULL,
   kk_file varchar(100) NOT NULL,
   foto_file varchar(100) NOT NULL
@@ -320,27 +318,27 @@ INSERT INTO tbl_warga (nik, nama, email, pass, tempat_lahir, tgl_lahir, no_telp,
 
 DROP TABLE IF EXISTS detail_berita;
 
-CREATE   VIEW detail_berita  AS  select b.id_berita AS `id_berita`,b.judul AS `judul`,b.isi AS `isi`,b.tgl_berita AS `tgl_berita`,b.rubrik AS `rubrik`,b.cover_file AS `cover_file`,b.status AS `status`,b.nik AS `nik`,w.nama AS `nama` from (tbl_berita `b` join `tbl_warga` w on((b.nik = w.nik))) ;
+CREATE   VIEW detail_berita  AS  select b.id_berita AS id_berita,b.judul AS judul,b.isi AS isi,b.tgl_berita AS tgl_berita,b.rubrik AS rubrik,b.cover_file AS cover_file,b.status AS status,b.nik AS nik,w.nama AS nama from (tbl_berita b join tbl_warga w on((b.nik = w.nik))) ;
 
 DROP TABLE IF EXISTS detail_kegiatan;
 
-CREATE   VIEW detail_kegiatan  AS  select k.id_kegiatan AS `id_kegiatan`,k.bidang AS `bidang`,k.nama AS `nama`,k.tgl_mulai AS `tgl_mulai`,k.tgl_selesai AS `tgl_selesai`,k.output AS `output`,k.kendala AS `kendala`,k.saran AS `saran`,k.ketua_pelaksana AS `ketua_pelaksana`,k.catatan AS `catatan`,k.status AS `status`,k.lampiran_file AS `lampiran_file`,k.id_pengaduan AS `id_pengaduan`,k.kode AS `kode`,d.nama AS `dana`,p.nama AS `pelapor` from ((tbl_kegiatan `k` join `tbl_dana` d on((k.kode = d.kode))) join `detail_pengaduan` p on((k.id_pengaduan = p.id_pengaduan))) ;
+CREATE   VIEW detail_kegiatan  AS  select k.id_kegiatan AS id_kegiatan,k.bidang AS bidang,k.nama AS nama,k.tgl_mulai AS tgl_mulai,k.tgl_selesai AS tgl_selesai,k.output AS output,k.kendala AS kendala,k.saran AS saran,k.ketua_pelaksana AS ketua_pelaksana,k.catatan AS catatan,k.status AS status,k.lampiran_file AS lampiran_file,k.id_pengaduan AS id_pengaduan,k.kode AS kode,d.nama AS dana,p.nama AS pelapor from ((tbl_kegiatan k join tbl_dana d on((k.kode = d.kode))) join detail_pengaduan p on((k.id_pengaduan = p.id_pengaduan))) ;
 
 DROP TABLE IF EXISTS detail_pengaduan;
 
-CREATE   VIEW detail_pengaduan  AS  select p.id_pengaduan AS `id_pengaduan`,p.judul AS `judul`,p.bidang AS `bidang`,p.lokasi AS `lokasi`,p.kategori AS `kategori`,p.uraian AS `uraian`,p.tgl_pengaduan AS `tgl_pengaduan`,p.status AS `status`,p.lampiran_file AS `lampiran_file`,p.nik AS `nik`,w.nama AS `nama` from (tbl_pengaduan `p` join `tbl_warga` w on((p.nik = w.nik))) ;
+CREATE   VIEW detail_pengaduan  AS  select p.id_pengaduan AS id_pengaduan,p.judul AS judul,p.bidang AS bidang,p.lokasi AS lokasi,p.kategori AS kategori,p.uraian AS uraian,p.tgl_pengaduan AS tgl_pengaduan,p.status AS status,p.lampiran_file AS lampiran_file,p.nik AS nik,w.nama AS nama from (tbl_pengaduan p join tbl_warga w on((p.nik = w.nik))) ;
 
 DROP TABLE IF EXISTS detail_umkm;
 
-CREATE   VIEW detail_umkm  AS  select u.id_umkm AS `id_umkm`,u.nama AS `nama`,u.bidang AS `bidang`,u.nik_pemilik AS `nik_pemilik`,u.no_telp AS `no_telp`,u.alamat AS `alamat`,u.tgl_berdiri AS `tgl_berdiri`,u.deskripsi AS `deskripsi`,u.logo_file AS `logo_file`,u.status AS `status`,w.nama AS `pemilik` from (tbl_umkm `u` join `tbl_warga` w on((u.nik_pemilik = w.nik))) ;
+CREATE   VIEW detail_umkm  AS  select u.id_umkm AS id_umkm,u.nama AS nama,u.bidang AS bidang,u.nik_pemilik AS nik_pemilik,u.no_telp AS no_telp,u.alamat AS alamat,u.tgl_berdiri AS tgl_berdiri,u.deskripsi AS deskripsi,u.logo_file AS logo_file,u.status AS status,w.nama AS pemilik from (tbl_umkm u join tbl_warga w on((u.nik_pemilik = w.nik))) ;
 
 ALTER TABLE tbl_berita
   ADD PRIMARY KEY (id_berita),
-  ADD KEY `nik` (nik);
+  ADD KEY nik (nik);
 
 ALTER TABLE tbl_biodata
   ADD PRIMARY KEY (id),
-  ADD KEY `nik` (nik);
+  ADD KEY nik (nik);
 
 ALTER TABLE tbl_bumdes
   ADD PRIMARY KEY (id_bumdes);
@@ -350,234 +348,218 @@ ALTER TABLE tbl_dana
 
 ALTER TABLE tbl_domisili
   ADD PRIMARY KEY (id),
-  ADD KEY `nik` (nik);
+  ADD KEY nik (nik);
 
 ALTER TABLE tbl_item_fisik
   ADD PRIMARY KEY (kode),
-  ADD KEY `id_kegiatan` (id_kegiatan);
+  ADD KEY id_kegiatan (id_kegiatan);
 
 ALTER TABLE tbl_item_keuangan
   ADD PRIMARY KEY (kode),
-  ADD KEY `id_kegiatan` (id_kegiatan);
+  ADD KEY id_kegiatan (id_kegiatan);
 
 --
--- Indexes for table `tbl_kegiatan`
+-- Indexes for table tbl_kegiatan
 --
 ALTER TABLE tbl_kegiatan
   ADD PRIMARY KEY (id_kegiatan),
-  ADD KEY `id_pengaduan` (id_pengaduan),
-  ADD KEY `kode` (kode);
+  ADD KEY id_pengaduan (id_pengaduan),
+  ADD KEY kode (kode);
 
 --
--- Indexes for table `tbl_kelahiran`
+-- Indexes for table tbl_kelahiran
 --
 ALTER TABLE tbl_kelahiran
   ADD PRIMARY KEY (id),
-  ADD KEY `nik` (nik);
+  ADD KEY nik (nik);
 
 --
--- Indexes for table `tbl_kematian`
+-- Indexes for table tbl_kematian
 --
 ALTER TABLE tbl_kematian
   ADD PRIMARY KEY (id),
-  ADD KEY `nik` (nik);
+  ADD KEY nik (nik);
 
 --
--- Indexes for table `tbl_pengaduan`
+-- Indexes for table tbl_pengaduan
 --
 ALTER TABLE tbl_pengaduan
   ADD PRIMARY KEY (id_pengaduan),
-  ADD KEY `nik` (nik);
+  ADD KEY nik (nik);
 
 --
--- Indexes for table `tbl_potensi`
+-- Indexes for table tbl_potensi
 --
 ALTER TABLE tbl_potensi
   ADD PRIMARY KEY (id_potensi);
 
 --
--- Indexes for table `tbl_tdk_mampu`
+-- Indexes for table tbl_tdk_mampu
 --
 ALTER TABLE tbl_tdk_mampu
   ADD PRIMARY KEY (id),
-  ADD KEY `nik` (nik);
+  ADD KEY nik (nik);
 
 --
--- Indexes for table `tbl_umkm`
+-- Indexes for table tbl_umkm
 --
 ALTER TABLE tbl_umkm
   ADD PRIMARY KEY (id_umkm),
-  ADD KEY `no_telp` (no_telp),
-  ADD KEY `nik_pemilik` (nik_pemilik);
+  ADD KEY no_telp (no_telp),
+  ADD KEY nik_pemilik (nik_pemilik);
 
 --
--- Indexes for table `tbl_umum`
+-- Indexes for table tbl_umum
 --
-ALTER TABLE tbl_umum
-  ADD PRIMARY KEY (id),
-  ADD KEY `nik` (nik);
+ALTER TABLE tbl_umum ADD PRIMARY KEY (id), ADD KEY nik (nik);
 
 --
--- Indexes for table `tbl_warga`
+-- Indexes for table tbl_warga
 --
-ALTER TABLE tbl_warga
-  ADD PRIMARY KEY (nik);
+ALTER TABLE tbl_warga ADD PRIMARY KEY (nik);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- SERIAL for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `tbl_berita`
+-- SERIAL for table tbl_berita
 --
-ALTER TABLE tbl_berita
-  MODIFY id_berita cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE tbl_berita ADD COLUMN id_berita SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_biodata`
+-- SERIAL for table tbl_biodata
 --
-ALTER TABLE tbl_biodata
-  MODIFY id cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE tbl_biodata ADD COLUMN id SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_bumdes`
+-- SERIAL for table tbl_bumdes
 --
-ALTER TABLE tbl_bumdes
-  MODIFY id_bumdes cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE tbl_bumdes ADD COLUMN id_bumdes SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_domisili`
+-- SERIAL for table tbl_domisili
 --
-ALTER TABLE tbl_domisili
-  MODIFY id cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE tbl_domisili ADD COLUMN id SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_item_fisik`
+-- SERIAL for table tbl_item_fisik
 --
-ALTER TABLE tbl_item_fisik
-  MODIFY kode cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE tbl_item_fisik ADD COLUMN kode SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_kegiatan`
+-- SERIAL for table tbl_kegiatan
 --
-ALTER TABLE tbl_kegiatan
-  MODIFY id_kegiatan cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE tbl_kegiatan ADD COLUMN id_kegiatan SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_kelahiran`
+-- SERIAL for table tbl_kelahiran
 --
-ALTER TABLE tbl_kelahiran
-  MODIFY id cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE tbl_kelahiran ADD COLUMN id SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_kematian`
+-- SERIAL for table tbl_kematian
 --
-ALTER TABLE tbl_kematian
-  MODIFY id cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE tbl_kematian ADD COLUMN id SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_pengaduan`
+-- SERIAL for table tbl_pengaduan
 --
-ALTER TABLE tbl_pengaduan
-  MODIFY id_pengaduan cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE tbl_pengaduan ADD COLUMN id_pengaduan SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_potensi`
+-- SERIAL for table tbl_potensi
 --
-ALTER TABLE tbl_potensi
-  MODIFY id_potensi cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE tbl_potensi ADD COLUMN id_potensi SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_tdk_mampu`
+-- SERIAL for table tbl_tdk_mampu
 --
-ALTER TABLE tbl_tdk_mampu
-  MODIFY id cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE tbl_tdk_mampu ADD COLUMN id SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_umkm`
+-- SERIAL for table tbl_umkm
 --
-ALTER TABLE tbl_umkm
-  MODIFY id_umkm cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE tbl_umkm ADD COLUMN id_umkm SERIAL;
 
 --
--- AUTO_INCREMENT for table `tbl_umum`
+-- SERIAL for table tbl_umum
 --
-ALTER TABLE tbl_umum
-  MODIFY id cast(11 as int) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE tbl_umum ADD COLUMN id SERIAL;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `tbl_berita`
+-- Constraints for table tbl_berita
 --
 ALTER TABLE tbl_berita
   ADD CONSTRAINT tbl_berita_ibfk_1 FOREIGN KEY (nik) REFERENCES tbl_warga (nik) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_biodata`
+-- Constraints for table tbl_biodata
 --
 ALTER TABLE tbl_biodata
   ADD CONSTRAINT tbl_biodata_ibfk_1 FOREIGN KEY (nik) REFERENCES tbl_warga (nik) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_domisili`
+-- Constraints for table tbl_domisili
 --
 ALTER TABLE tbl_domisili
   ADD CONSTRAINT tbl_domisili_ibfk_1 FOREIGN KEY (nik) REFERENCES tbl_warga (nik) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_item_fisik`
+-- Constraints for table tbl_item_fisik
 --
 ALTER TABLE tbl_item_fisik
   ADD CONSTRAINT tbl_item_fisik_ibfk_1 FOREIGN KEY (id_kegiatan) REFERENCES tbl_kegiatan (id_kegiatan) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_item_keuangan`
+-- Constraints for table tbl_item_keuangan
 --
 ALTER TABLE tbl_item_keuangan
   ADD CONSTRAINT tbl_item_keuangan_ibfk_1 FOREIGN KEY (id_kegiatan) REFERENCES tbl_kegiatan (id_kegiatan) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_kegiatan`
+-- Constraints for table tbl_kegiatan
 --
 ALTER TABLE tbl_kegiatan
   ADD CONSTRAINT tbl_kegiatan_ibfk_1 FOREIGN KEY (id_pengaduan) REFERENCES tbl_pengaduan (id_pengaduan) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT tbl_kegiatan_ibfk_2 FOREIGN KEY (kode) REFERENCES `tbl_dana` (kode) ON UPDATE CASCADE;
+  ADD CONSTRAINT tbl_kegiatan_ibfk_2 FOREIGN KEY (kode) REFERENCES tbl_dana (kode) ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_kelahiran`
+-- Constraints for table tbl_kelahiran
 --
 ALTER TABLE tbl_kelahiran
   ADD CONSTRAINT tbl_kelahiran_ibfk_1 FOREIGN KEY (nik) REFERENCES tbl_warga (nik) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_kematian`
+-- Constraints for table tbl_kematian
 --
 ALTER TABLE tbl_kematian
   ADD CONSTRAINT tbl_kematian_ibfk_1 FOREIGN KEY (nik) REFERENCES tbl_warga (nik) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_pengaduan`
+-- Constraints for table tbl_pengaduan
 --
 ALTER TABLE tbl_pengaduan
   ADD CONSTRAINT tbl_pengaduan_ibfk_1 FOREIGN KEY (nik) REFERENCES tbl_warga (nik) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_tdk_mampu`
+-- Constraints for table tbl_tdk_mampu
 --
 ALTER TABLE tbl_tdk_mampu
   ADD CONSTRAINT tbl_tdk_mampu_ibfk_1 FOREIGN KEY (nik) REFERENCES tbl_warga (nik) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_umkm`
+-- Constraints for table tbl_umkm
 --
 ALTER TABLE tbl_umkm
   ADD CONSTRAINT tbl_umkm_ibfk_1 FOREIGN KEY (nik_pemilik) REFERENCES tbl_warga (nik);
 
 --
--- Constraints for table `tbl_umum`
+-- Constraints for table tbl_umum
 --
 ALTER TABLE tbl_umum
   ADD CONSTRAINT tbl_umum_ibfk_1 FOREIGN KEY (nik) REFERENCES tbl_warga (nik) ON DELETE NO ACTION ON UPDATE CASCADE;
