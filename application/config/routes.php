@@ -53,3 +53,4 @@ $route['default_controller'] = 'Beranda';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['admin/masuk'] = 'admin/akun/masuk';
+$route['masuk'] = 'akun/masuk';
