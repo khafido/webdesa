@@ -4,8 +4,8 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-  config.filebrowserImageUploadUrl = '/webdesa/assets/ckfinder/ckfinder.html?type=Images';
-  config.filebrowserImageBrowseUrl = '/webdesa/assets/ckfinder/ckfinder.html?type=Images';
+  config.filebrowserImageUploadUrl = '/assets/ckfinder/ckfinder.html?type=Images';
+  config.filebrowserImageBrowseUrl = '/assets/ckfinder/ckfinder.html?type=Images';
 	// Define changes to default configuration here.
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config

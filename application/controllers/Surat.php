@@ -43,7 +43,7 @@ class Surat extends CI_Controller{
 			$post = 'pengantar_file';
 			if ($_FILES[$post]["name"]!="") {
 				$filename = $_FILES[$post]['name'];
-				$config['upload_path']   = "./assets/img/surat/kelahiran";
+				$config['upload_path']   = "/assets/img/surat/kelahiran";
 
 				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
 				if ($name==false) {
@@ -57,7 +57,7 @@ class Surat extends CI_Controller{
 			if ($_FILES["ket_file"]["name"]!="") {
 				$post = 'ket_file';
 				$filename = $_FILES[$post]['name'];
-				$config['upload_path']   = "./assets/img/surat/kelahiran";
+				$config['upload_path']   = "/assets/img/surat/kelahiran";
 
 				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
 				if ($name==false) {
@@ -71,7 +71,7 @@ class Surat extends CI_Controller{
 			if ($_FILES["kk_file"]["name"]!="") {
 				$post = 'kk_file';
 				$filename = $_FILES[$post]['name'];
-				$config['upload_path']   = "./assets/img/surat/kelahiran";
+				$config['upload_path']   = "/assets/img/surat/kelahiran";
 
 				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
 				if ($name==false) {
@@ -85,7 +85,7 @@ class Surat extends CI_Controller{
 			if ($_FILES["ktp_file"]["name"]!="") {
 				$post = 'ktp_file';
 				$filename = $_FILES[$post]['name'];
-				$config['upload_path']   = "./assets/img/surat/kelahiran";
+				$config['upload_path']   = "/assets/img/surat/kelahiran";
 
 				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
 				if ($name==false) {
@@ -99,7 +99,7 @@ class Surat extends CI_Controller{
 			if ($_FILES["buku_file"]["name"]!="") {
 				$post = 'buku_file';
 				$filename = $_FILES[$post]['name'];
-				$config['upload_path']   = "./assets/img/surat/kelahiran";
+				$config['upload_path']   = "/assets/img/surat/kelahiran";
 
 				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
 				if ($name==false) {
