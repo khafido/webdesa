@@ -52,7 +52,7 @@ class Berita extends CI_Controller{
 
 			// Upload Pengantar
 			$post = 'cover_file';
-			$berita[$post] = 'default.jpg';
+			$berita[$post] = './assets/img/berita/default.jpg';
 
 			$status = true;
 			if ($_FILES[$post]["name"]!="") {

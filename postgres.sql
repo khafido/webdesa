@@ -58,7 +58,7 @@ id_umkm int
 );
 
 CREATE TABLE tbl_berita (
-  id_berita int NOT NULL,
+  id_berita SERIAL PRIMARY KEY,
   judul varchar(50) NOT NULL,
   isi text NOT NULL,
   tgl_berita timestamp(0) DEFAULT CURRENT_TIMESTAMP,
@@ -66,10 +66,10 @@ CREATE TABLE tbl_berita (
   cover_file varchar(60) NOT NULL,
   status int DEFAULT '0',
   nik varchar(16) NOT NULL
-) ;
+);
 
 CREATE TABLE tbl_biodata (
-  id int NOT NULL,
+  id SERIAL PRIMARY KEY,
   id_biodata varchar(20) NOT NULL,
   nama_kepala varchar(60) NOT NULL,
   alamat varchar(100) NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE tbl_biodata (
 ) ;
 
 CREATE TABLE tbl_bumdes (
-  id_bumdes int NOT NULL,
+  id_bumdes SERIAL PRIMARY KEY,
   nama varchar(50) NOT NULL,
   bidang varchar(20) NOT NULL,
   ketua varchar(50) NOT NULL,
@@ -115,7 +115,7 @@ INSERT INTO tbl_dana (kode, nama, jumlah, tahun, status) VALUES
 ('8721', 'B', 25000, '2020', -1);
 
 CREATE TABLE tbl_domisili (
-  id int NOT NULL,
+  id SERIAL PRIMARY KEY,
   id_domisili varchar(20) NOT NULL,
   jenis varchar(10) NOT NULL,
   nama_usaha varchar(60) NOT NULL,
@@ -133,7 +133,7 @@ CREATE TABLE tbl_domisili (
 ) ;
 
 CREATE TABLE tbl_item_fisik (
-  kode int NOT NULL,
+  kode SERIAL PRIMARY KEY,
   uraian varchar(50) NOT NULL,
   volume varchar(10) NOT NULL,
   satuan varchar(10) NOT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE tbl_item_keuangan (
 ) ;
 
 CREATE TABLE tbl_kegiatan (
-  id_kegiatan int NOT NULL,
+  id_kegiatan SERIAL PRIMARY KEY,
   bidang varchar(20) NOT NULL,
   nama varchar(50) NOT NULL,
   tgl_mulai date DEFAULT NULL,
@@ -172,7 +172,7 @@ CREATE TABLE tbl_kegiatan (
 ) ;
 
 CREATE TABLE tbl_kelahiran (
-  id int NOT NULL,
+  id SERIAL PRIMARY KEY,
   id_kelahiran varchar(20) NOT NULL,
   hubungan varchar(15) NOT NULL,
   tgl_lahir date NOT NULL,
@@ -195,7 +195,7 @@ CREATE TABLE tbl_kelahiran (
 ) ;
 
 CREATE TABLE tbl_kematian (
-  id int NOT NULL,
+  id SERIAL PRIMARY KEY,
   id_kematian varchar(20) NOT NULL,
   hubungan varchar(15) NOT NULL,
   nik_alm varchar(16) NOT NULL,
@@ -224,7 +224,7 @@ CREATE TABLE tbl_kematian (
 
 
 CREATE TABLE tbl_pengaduan (
-  id_pengaduan int NOT NULL,
+  id_pengaduan SERIAL PRIMARY KEY,
   judul varchar(100) NOT NULL,
   bidang varchar(20) NOT NULL,
   kategori varchar(20) NOT NULL,
@@ -236,7 +236,7 @@ CREATE TABLE tbl_pengaduan (
   nik varchar(16) NOT NULL
 ) ;
 CREATE TABLE tbl_potensi (
-  id_potensi int NOT NULL,
+  id_potensi SERIAL PRIMARY KEY,
   bidang varchar(20) NOT NULL,
   omzet int NOT NULL,
   waktu_awal int NOT NULL,
@@ -246,7 +246,7 @@ CREATE TABLE tbl_potensi (
 ) ;
 
 CREATE TABLE tbl_tdk_mampu (
-  id int NOT NULL,
+  id SERIAL PRIMARY KEY,
   id_tdk_mampu varchar(15) NOT NULL,
   jenis varchar(20) NOT NULL,
   nama_terkait varchar(60) NOT NULL,
@@ -263,7 +263,7 @@ CREATE TABLE tbl_tdk_mampu (
 ) ;
 
 CREATE TABLE tbl_umkm (
-  id_umkm int NOT NULL,
+  id_umkm SERIAL PRIMARY KEY,
   nama varchar(50) NOT NULL,
   bidang varchar(20) NOT NULL,
   nik_pemilik varchar(20) NOT NULL,
@@ -276,7 +276,7 @@ CREATE TABLE tbl_umkm (
 ) ;
 
 CREATE TABLE tbl_umum (
-  id int NOT NULL,
+  id SERIAL PRIMARY KEY,
   id_umum varchar(20) NOT NULL,
   tujuan varchar(100) NOT NULL,
   tgl_buat timestamp(0) DEFAULT CURRENT_TIMESTAMP,
