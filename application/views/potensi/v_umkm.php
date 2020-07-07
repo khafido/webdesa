@@ -30,7 +30,7 @@
 						<?php $i=1; foreach ($hasil as $w): ?>
 							<tr>
 								<td><?=$i++?></td>
-								<td><?=$w->nama?></td>
+								<td><a href="<?=base_url("potensi/detail_umkm/$w->id_umkm")?>" target="_blank"><?=$w->nama?></a></td>
 								<td><?=$w->bidang?></td>
 								<td><?=$w->pemilik?></td>
 								<td><?=$w->tgl_berdiri?></td>

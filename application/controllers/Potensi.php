@@ -99,11 +99,28 @@ class Potensi extends CI_Controller{
 		$this->load->view('includes/v_footer');
 	}
 
+	function detail_bumdes($id){
+		$title['judul'] = 'Data BUMDes';
+		$data['hasil'] = $this->m_crud->readBy('tbl_bumdes', array('id_bumdes'=>$id, 'status <>'=>-1))[0];
+		// print_r($data['hasil']);
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('potensi/v_detail_bumdes', $data);
+		$this->load->view('includes/v_footer');
+	}
+
 	function umkm(){
 		$title['judul'] = 'Data UMKM';
 		$data['hasil'] = $this->m_crud->readBy('detail_umkm', array('status <>'=>-1));
 		$this->load->view('includes/v_header', $title);
 		$this->load->view('potensi/v_umkm', $data);
+		$this->load->view('includes/v_footer');
+	}
+
+	function detail_umkm($id){
+		$title['judul'] = 'Data UMKM';
+		$data['hasil'] = $this->m_crud->readBy('detail_umkm', array('id_umkm'=>$id, 'status <>'=>-1))[0];
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('potensi/v_detail_umkm', $data);
 		$this->load->view('includes/v_footer');
 	}
 }
