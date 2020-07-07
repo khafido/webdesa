@@ -14,7 +14,7 @@ class Bumdes extends CI_Controller{
 		$title['judul'] = 'Daftar BUMDes';
 		$title['active'] = 'bumdes';
 
-		$data['hasil'] = $this->m_crud->readBy('tbl_bumdes', array('status !='=>-1));
+		$data['hasil'] = $this->m_crud->readBy('tbl_bumdes', array('status <>'=>-1));
 		$data['judul'] = 'bumdes';
 
 		$this->load->view('admin/includes/v_header', $title);

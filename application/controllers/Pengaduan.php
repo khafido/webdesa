@@ -128,10 +128,10 @@ class Pengaduan extends CI_Controller{
 	function cari(){
 		if (isset($_POST['caripengaduan'])) {
 			$id=$_POST['bidang'];
-			$pengaduan = $this->m_crud->selectLike('detail_pengaduan', array('status !='=>pengaduan_ditolak, 'bidang'=>$_POST['bidang']), array('judul'=>$_POST['judul']));
+			$pengaduan = $this->m_crud->selectLike('detail_pengaduan', array('status <>'=>pengaduan_ditolak, 'bidang'=>$_POST['bidang']), array('judul'=>$_POST['judul']));
 			if ($id=="semua") {
 				$active = "semua";
-				$pengaduan = $this->m_crud->selectLike('detail_pengaduan', array('status !='=>pengaduan_ditolak), array('judul'=>$_POST['judul']));
+				$pengaduan = $this->m_crud->selectLike('detail_pengaduan', array('status <>'=>pengaduan_ditolak), array('judul'=>$_POST['judul']));
 			}
 			$data['pengaduan'] = $pengaduan;
 			$data['active'] = $id;

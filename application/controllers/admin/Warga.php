@@ -14,7 +14,7 @@ class Warga extends CI_Controller{
 		$title['judul'] = 'Daftar Warga';
 		$title['active'] = 'warga';
 
-		$data['warga'] = $this->m_crud->readBy('tbl_warga', array('status !='=>-1));
+		$data['warga'] = $this->m_crud->readBy('tbl_warga', array('status <>'=>-1));
 		$data['dusun'] = DUSUN;
 		$data['judul'] = 'warga';
 

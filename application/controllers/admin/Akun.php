@@ -32,7 +32,7 @@ class Akun extends CI_Controller{
 				$nik = $_POST['nik'];
 				$pass = $_POST['pass'];
 
-				$warga = $this->m_crud->readBy('tbl_warga',array('nik'=>$nik, 'role !='=>0));
+				$warga = $this->m_crud->readBy('tbl_warga',array('nik'=>$nik, 'role <>'=>0));
 				if($warga){
 					$warga = $warga[0];
 					$hashpass = $warga->pass;

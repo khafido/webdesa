@@ -33,7 +33,7 @@ class Pengaduan extends CI_Controller{
 		$detail = $this->m_crud->readBy('detail_pengaduan', array('id_pengaduan'=>$id));
 		$tahun = '2020';
 
-		$footer['dana'] = $this->m_crud->readBy('tbl_dana', array('status !='=>-1, 'tahun'=>$tahun));
+		$footer['dana'] = $this->m_crud->readBy('tbl_dana', array('status <>'=>-1, 'tahun'=>$tahun));
 
 		$data['detail'] = $detail[0];
 		$data['judul'] = 'pengaduan';

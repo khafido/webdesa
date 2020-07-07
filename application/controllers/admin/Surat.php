@@ -14,7 +14,7 @@ class Surat extends CI_Controller{
 		$title['judul'] = 'Daftar Surat';
 		$title['active'] = 'surat';
 
-		$data['warga'] = $this->m_crud->readBy('tbl_warga', array('status !='=>-1));
+		$data['warga'] = $this->m_crud->readBy('tbl_warga', array('status <>'=>-1));
 		$data['judul'] = 'surat';
 
 		$this->load->view('admin/includes/v_header', $title);

@@ -15,7 +15,7 @@ class Dana extends CI_Controller{
 		$title['active'] = 'Dana';
 		$tahun = '2020';
 
-		$data['hasil'] = $this->m_crud->readBy('tbl_dana', array('status !='=>-1, 'tahun'=>$tahun));
+		$data['hasil'] = $this->m_crud->readBy('tbl_dana', array('status <>'=>-1, 'tahun'=>$tahun));
 		$data['judul'] = 'dana';
 
 		$this->load->view('admin/includes/v_header', $title);

@@ -27,7 +27,7 @@ class Beranda extends CI_Controller {
 	public function index()
 	{
 		$data['berita'] = $this->m_crud->customQuery("SELECT * FROM detail_berita WHERE status=".berita_valid." ORDER BY tgl_berita DESC LIMIT 3");
-		$data['pengaduan'] = $this->m_crud->customQuery("SELECT * FROM detail_pengaduan WHERE status!=".pengaduan_ditolak." ORDER BY tgl_pengaduan DESC LIMIT 3");
+		$data['pengaduan'] = $this->m_crud->customQuery("SELECT * FROM detail_pengaduan WHERE status<>".pengaduan_ditolak." ORDER BY tgl_pengaduan DESC LIMIT 3");
 
 		$title['judul'] = 'Desa Pagerngumbuk';
 		$this->load->view('includes/v_header', $title);

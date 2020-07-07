@@ -14,7 +14,7 @@ class Umkm extends CI_Controller{
 		$title['judul'] = 'Daftar UMKM';
 		$title['active'] = 'umkm';
 
-		$data['hasil'] = $this->m_crud->readBy('detail_umkm', array('status !='=>-1));
+		$data['hasil'] = $this->m_crud->readBy('detail_umkm', array('status <>'=>-1));
 		$data['judul'] = 'umkm';
 
 		$this->load->view('admin/includes/v_header', $title);
