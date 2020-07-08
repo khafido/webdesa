@@ -142,7 +142,7 @@ class M_crud extends CI_Model{
 			// $this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Perhatikan Ukuran(Maks 2MB) atau Tipe File(JPG,PNG,PDF)!</div>');
 			// $this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Lengkapi dan Perhatikan Ukuran/Tipe File!</div>');
 			// return false;
-			return true;
+			return "default.jpg";
 		}
 	}
 
