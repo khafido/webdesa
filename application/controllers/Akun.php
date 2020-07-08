@@ -3,12 +3,12 @@ class Akun extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->library('form_validation');
-		if ($this->session->userdata('nik'))
+		if (!$this->session->userdata('nik'))
 		{
-			$allowed = array("profil","keluar");
+			$allowed = array("index","masuk","registrasi");
 			$method = $this->router->fetch_method();
 			if(!in_array($method, $allowed)){
-			    redirect(base_url("/"));
+			    redirect(base_url("akun/masuk"));
 			}
 		}
 		$this->load->model('m_crud');
