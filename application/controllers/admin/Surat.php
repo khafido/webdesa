@@ -551,7 +551,7 @@ class Surat extends CI_Controller{
 						$jumlah = $this->m_crud->read($tbl[$surat]);
 						$id = count($jumlah)+1;
 						$date = date("j/n/Y");
-						$data[$idsurat[$surat]] = $id.$nosurat[$surat].$date;
+						$data[$idsurat[$surat]] = $id.'/'.$nosurat[$surat].'/'.$date;
 						$pesan = $this->m_crud->save($tbl[$surat], $data);
 					} elseif ($action=="ubah") {
 						$id = $this->uri->segment(6);

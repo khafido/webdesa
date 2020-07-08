@@ -40,8 +40,8 @@ class Surat extends CI_Controller{
 			$config['max_size']      = 2048;
 
 			// Upload Pengantar
-			$post = 'pengantar_file';
-			if ($_FILES[$post]["name"]!="") {
+			if ($_FILES["pengantar_file"]["name"]!="") {
+				$post = 'pengantar_file';
 				$filename = $_FILES[$post]['name'];
 				$config['upload_path']   = "./assets/img/surat/kelahiran";
 
@@ -109,17 +109,17 @@ class Surat extends CI_Controller{
 				}
 			}
 
-			$kelahiran = $this->m_crud->read('tbl_kelahiran');
-			$id = count($kelahiran)+1;
+			$jumlah $this->m_crud->read('tbl_kelahiran');
+			$id = count($jumlah)+1;
 			$date = date("j/n/Y");
 			$kelahiran['id_kelahiran'] = $id.'/I/'.$date;
-			
+
 			if($status){
 				$pesan = $this->m_crud->save('tbl_kelahiran', $kelahiran);
 					redirect(base_url("surat/riwayat"));
 					die();
-					if ($pesan) {
-				}
+				// 	if ($pesan) {
+				// }
 			}
 		}
 
