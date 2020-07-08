@@ -109,7 +109,7 @@ class Surat extends CI_Controller{
 				}
 			}
 
-			$jumlah $this->m_crud->read('tbl_kelahiran');
+			$jumlah = $this->m_crud->read('tbl_kelahiran');
 			$id = count($jumlah)+1;
 			$date = date("j/n/Y");
 			$kelahiran['id_kelahiran'] = $id.'/I/'.$date;
