@@ -27,8 +27,10 @@
 								<td><?=$i++?></td>
 								<td><?=$w->bidang?></td>
 								<td><?=$w->omzet?></td>
-								<td><?=$w->waktu_awal?></td>
-								<td><?=$w->waktu_akhir?></td>
+								<?php $awal  = DateTime::createFromFormat('!m', $w->waktu_awal);?>
+								<?php $akhir = DateTime::createFromFormat('!m', $w->waktu_akhir);?>
+								<td><?=$awal->format('F');?></td>
+								<td><?=$akhir->format('F');?></td>
 								<td><?=$w->tahun?></td>
 								<td><?=$w->orang?></td>
 								<td class="tindakan">

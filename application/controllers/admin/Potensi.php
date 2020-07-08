@@ -13,7 +13,7 @@ class Potensi extends CI_Controller{
 	function index(){
 		$title['judul'] = 'Daftar Potensi';
 		$title['active'] = 'potensi';
-		$tahun = 2020;
+		$tahun = strval(2020);
 
 		$data['hasil'] = $this->m_crud->readBy('tbl_potensi', array('tahun'=>$tahun));
 		$data['judul'] = 'potensi';
