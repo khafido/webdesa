@@ -100,6 +100,7 @@ define('CAPTION', array('kelahiran' => 'Surat Kelahiran', 'kematian'=>'Surat Kem
 define('BIDANG_BUMDES', array('layanan'=>'Layanan','keuangan'=>'Keuangan','penyewaan'=>'Penyewaan','perantara'=>'Perantara','perdagangan'=>'Perdagangan','induk'=>'Induk Usaha'));
 define('BIDANG_UMKM', array('otomotif'=>'Otomotif','fashion'=>'Fashion','kuliner'=>'Kuliner','kecantikan'=>'Kecantikan','kerajinan'=>'Kerajinan Tangan','travel'=>'Tour & Travel','agribisnis'=>'Agribisnis','pendidikan'=>'Pendidikan','kelontong'=>'Toko Kelontong'));
 // --------------------------------------------------------------------------------
+define('TAHUN', '2020');
 
 // Status User
 define('user_baru', 0);

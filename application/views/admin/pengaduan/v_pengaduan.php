@@ -73,8 +73,8 @@
 								<td><?=$w->nama?></td>
 								<td class="tindakan">
 									<a href="<?=base_url("admin/$menu/detail/$w->id_pengaduan")?>" class="btn btn-info" title="Lihat">Lihat</a>
-									<!-- <button onclick="proses('<?=base_url("admin/$menu/proses/$w->id_pengaduan/2")?>')" class="btn btn-success" title="Selesai">Selesai</button>									 -->
-									<!-- <a href="<?=base_url("admin/$menu/form/ubah/$w->id_pengaduan")?>" class="btn btn-success" title="Ubah">Ubah</a> -->
+									<button onclick="proses('<?=base_url("admin/$menu/proses/$w->id_pengaduan/2")?>')" class="btn btn-success" title="Selesai">Selesai</button>
+									<a href="<?=base_url("admin/$menu/cetak/$w->id_pengaduan")?>" target="_blank" class="btn btn-warning" title="Cetak">Cetak</a>
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -115,8 +115,7 @@
 								<td><?=$w->nama?></td>
 								<td class="tindakan">
 									<a href="<?=base_url("admin/$menu/detail/$w->id_pengaduan")?>" class="btn btn-info" title="Lihat">Lihat</a>
-									<!-- <a href="<?=base_url("admin/$menu/form/ubah/$w->id_pengaduan")?>" class="btn btn-success" title="Ubah">Ubah</a>
-									<button onclick="proses('<?=base_url("admin/$menu/hapus/$w->id_pengaduan")?>')" class="btn btn-danger" title="Hapus">Hapus</button> -->
+									<a href="<?=base_url("admin/$menu/cetak/$w->id_pengaduan")?>" target="_blank" class="btn btn-warning" title="Cetak">Cetak</a>
 								</td>
 							</tr>
 						<?php endforeach; ?>

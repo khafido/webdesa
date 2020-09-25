@@ -57,8 +57,12 @@ font-weight: bold;
                         <td><a href="<?=base_url("berita/detail/$b->judul/$b->id_berita")?>"><?=$b->judul?></a></td>
                         <td><?=$b->rubrik?></td>
                         <td><?=$b->tgl_berita?></td>
-                        <td class="badge badge-info"><?php $cont->cek_status($b->status);?></td>
-                        <td><a href="<?=base_url("berita/ubah/$b->id_berita")?>" class="btn btn-primary">Ubah</a>&ensp;<button onclick="hapus('<?=base_url("berita/hapus/$b->id_berita")?>')" class="btn btn-danger">Hapus</button></td>
+                        <td class="text-success"><?php $cont->cek_status($b->status);?></td>
+                        <td>
+                          <a style="font-size:12px;" href="<?=base_url("berita/ubah/$b->id_berita")?>" class="btn btn-primary">Ubah</a>
+                          &ensp;
+                          <button style="font-size:13px;" onclick="hapus('<?=base_url("berita/hapus/$b->id_berita")?>')" class="btn btn-danger">Hapus</button>
+                        </td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>

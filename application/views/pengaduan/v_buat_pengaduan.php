@@ -76,7 +76,6 @@ border-radius: 0px;
                 <div class="form-group col-md-6">
                   <?php echo $this->session->flashdata('upload_error'); ?>
                   <label for="" class="control-label">Lampiran
-                    <!-- <span class="text-danger">(Maks. 2MB) (JPG/JPEG/PNG)</span> -->
                   </label><br>
                   <input class="form-control" accept=".jpg, .jpeg, .png" type="file" name="lampiran_file" multiple>
                 </div>

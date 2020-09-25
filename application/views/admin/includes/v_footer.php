@@ -212,7 +212,9 @@ Blog
 <div class="modal fade" id="modaltanggapan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <form class="" action="<?=base_url("admin/")?>" method="post" id="formTanggapan">
+      <?php
+        $id = ($pengaduan->id_pengaduan)?$pengaduan->id_pengaduan:'';
+        echo form_open_multipart(base_url("admin/pengaduan/tanggapan/$id"),array('class' => 'form-horizontal')); ?>
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLongTitle">Tanggapan</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -223,15 +225,15 @@ Blog
           <div class="row">
             <div class="col-md-12">
               <label for="" class="control-label modal-label">Tanggapan <span class="text-danger">*</span> </label>
-              <textarea name="tanggapan" rows="8" cols="80" class="form-control" required></textarea>
+              <textarea name="komen" rows="8" cols="80" class="form-control" required></textarea>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-fill" data-dismiss="modal">Tidak</button>
-          <button type="submit" class="btn btn-danger btn-fill text-white" id="btnyakin">Yakin</a>
+          <button type="submit" name="tanggapan" class="btn btn-danger btn-fill text-white" id="btnyakin">Yakin</a>
           </div>
-        </form>
+        <?php echo form_close() ?>
       </div>
     </div>
   </div>
@@ -718,7 +720,7 @@ function tambahItemKeuangan(){
           let totpros = (realisasi/jumlah)*100;
           $('#lihatitemkeuangan').append(`
           <div class="row">
-          <div class="col-md-2 pull-right" id="totalfisik""><h4 for="" >Realisasi:<br/>${totalfisik} (${totpros}%)</h4></div>
+          <div class="col-md-2 pull-right" id="totalfisik""><h4 for="" >Realisasi:<br/>${totalfisik} (${totpros.toFixed(2)}%)</h4></div>
           <div class="col-md-2 pull-right" id="totalharga""><h4 for="" >Total:<br/> ${total}</h4></div>
           </div>`);
 

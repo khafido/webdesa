@@ -29,6 +29,8 @@ class Pengaduan extends CI_Controller{
 	function detail($id){
 		$title['judul'] = 'Detail Pengaduan';
 		$title['active'] = 'pengaduan';
+		$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('id_pengaduan'=>$id));
+		$footer['pengaduan'] = $pengaduan[0];
 
 		$detail = $this->m_crud->readBy('detail_pengaduan', array('id_pengaduan'=>$id));
 		$tahun = '2020';
@@ -56,5 +58,90 @@ class Pengaduan extends CI_Controller{
 	function tolak($id){
 		$pesan = $this->m_crud->delete('tbl_pengaduan', array('id_pengaduan'=>$id));
 		redirect(base_url("admin/pengaduan"));
+	}
+
+	function tanggapan($id){
+		if (isset($_POST['tanggapan'])) {
+			$pengaduan['tanggapan'] = $_POST['komen'];
+			$pengaduan['id_pengaduan'] = $id;
+			$pengaduan['nik'] = $_SESSION['nik'];
+			$pesan = $this->m_crud->save('tbl_tanggapan_pengaduan', $pengaduan);
+			if ($pesan) {
+				redirect(base_url("pengaduan/detail/$id"));
+				die();
+			}
+		}
+	}
+
+	function cetak($id){
+		$detail = $this->m_crud->readBy('detail_pengaduan', array('id_pengaduan'=>$id));
+
+		$hasil = $detail[0];
+		$data['judul'] = 'Cetak Pengaduan';
+
+		$data['element']  = "<div style='border-bottom:3px solid black; padding-bottom:20px;'>";
+		$data['element'] .= "<h4 class='text-center'>BADAN PERMUSYAWARATAN DESA</h4>";
+		$data['element'] .= "<h1 style='margin-top:-8px;' class='text-center'>BPD</h1>";
+		$data['element'] .= "<h4 style='margin-top:-8px;' class='text-center'>DESA PAGERNGUMBUK KECAMATAN WONOAYU</h4>";
+		$data['element'] .= "</div>";
+
+		$data['element'] .= '<br>';
+		$data['element'] .= '<table class="table table-borderless">';
+		$data['element'] .= '<tbody>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '<th scope="row" width="120" style="border:none;">Nama</th>';
+		$data['element'] .= '<td width="10" style="border:none;">:</td>';
+		$data['element'] .= '<td class="garisbawah" style="border-top:none; border-bottom: 1px solid black;">'.$hasil->nama.'</td>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '<th scope="row" width="120" style="border:none;">NIK</th>';
+		$data['element'] .= '<td width="10" style="border:none;">:</td>';
+		$data['element'] .= '<td class="garisbawah" style="border-top:none; border-bottom: 1px solid black;">'.$hasil->nik.'</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '<th scope="row" width="120" style="border:none;">Telp / Email</th>';
+		$data['element'] .= '<td width="10" style="border:none;">:</td>';
+		$data['element'] .= '<td class="garisbawah" style="border-top:none; border-bottom: 1px solid black;">'.$hasil->no_telp.' / '.$hasil->email.'</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '<th scope="row" width="120" style="border:none;">Alamat</th>';
+		$data['element'] .= '<td width="10" style="border:none;">:</td>';
+		$data['element'] .= '<td class="garisbawah" style="border-top:none; border-bottom: 1px solid black;">';
+		$data['element'] .= "Dusun ".DUSUN[$hasil->rw].", RT 0$hasil->rt";
+		$data['element'] .= '</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '<th scope="row" width="120" style="border:none;">Bidang</th>';
+		$data['element'] .= '<td width="10" style="border:none;">:</td>';
+		$data['element'] .= '<td class="garisbawah" style="border-top:none; border-bottom: 1px solid black;">';
+		$data['element'] .= ucwords($hasil->bidang);
+		$data['element'] .= '</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '<th scope="row" width="120" style="border:none;">Uraian</th>';
+		$data['element'] .= '<td width="10" style="border:none;">:</td>';
+		$data['element'] .= '<td class="garisbawah" style="text-align:justify;">';
+		$data['element'] .= '<strong>'.$hasil->judul.'</strong>';
+		$data['element'] .= '<br/>';
+		$data['element'] .= $hasil->uraian;
+		$data['element'] .= '</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '</tbody>';
+		$data['element'] .= '</table>';
+		$data['element'] .= '<br><br><br><br>';
+		$data['element'] .= '<div class="pull-right text-center" style="width: 250px; margin-right:50px; border-bottom:1px solid black;">';
+		$data['element'] .= '<h5 for="">Desa Pagerngumbuk, '.date("d M Y").'</h5>';
+		$data['element'] .= '<h5 for="">Pengadu</h5><br><br>';
+		$data['element'] .= '<h5><strong>Khafido Ilzam</strong></h5>';
+		$data['element'] .= '</div>';
+
+		$this->load->view('v_cetak', $data);
 	}
 }

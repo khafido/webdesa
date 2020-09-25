@@ -29,7 +29,7 @@ p{
       <!-- <p class="separator" style="">Isi data dibawah dengan sebenar-benarnya.</p> -->
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-12 mt-5">
       <div class="row">
         <div class="col-md-6">
           <img src="<?=base_url($pengaduan->lampiran_file)?>" alt="" style="width:100%;">
@@ -51,29 +51,23 @@ p{
               <span class="badge badge-danger py-2 px-1"><?php $cont->cek_status($pengaduan->status)?></span><br><br>
             </div>
           </div>
-          <!-- <div class="col-md-4"> -->
           <h5>Lokasi</h5>
           <p><?=$pengaduan->lokasi?></p>
-          <!-- </div> -->
-          <!-- <div class="col-md-4"> -->
           <h5>Tgl Lapor</h5>
           <p for=""><i class="fa fa-calendar">&ensp;</i><?=$pengaduan->tgl_pengaduan?></p>
-          <!-- </div> -->
-          <!-- <div class="col-md-4"> -->
           <h5>Pelapor</h5>
           <p for=""><i class="fa fa-user">&ensp;</i><?=$pengaduan->nama?></p>
-          <!-- </div> -->
-          <!-- <div class="col-md-12"> -->
           <h5>Detail</h5>
           <p class="text-justify"><?=$pengaduan->uraian?></p>
-          <!-- </div> -->
         </div>
         <div class="col-md-12 mt-3">
           <hr>
           <div class="col-md-12">
+            <?php echo form_open_multipart(base_url("pengaduan/tanggapan/$pengaduan->id_pengaduan"),array('class' => 'form-horizontal')); ?>
             <h5>Diskusi:</h5>
-            <textarea id="komen" name="name" rows="2" placeholder="Tuliskan Komentar Anda. . ." class="form-control mt-2" style=""></textarea>
-            <a type="button" name="button" class="btn btn-success text-white mt-2">Kirim</a>
+            <textarea id="komen" name="komen" rows="2" placeholder="Tuliskan Komentar Anda. . ." class="form-control mt-2" style="" required></textarea>
+            <input type="submit" name="tanggapan" class="btn btn-success text-white mt-2" value="Kirim">
+            <?php echo form_close() ?>
           </div>
           <script type="text/javascript">
           function balas(isi){
@@ -81,21 +75,17 @@ p{
             $('#komen').focus();
           }
           </script>
-
-          <div class="col-md-12 ml-4 mt-4 float-left">
-            <img class="float-left rounded-circle" src="<?=base_url("assets/img/team/1.jpg")?>" alt="" width="50" height="50">
-            <h5 class="float-left" style="margin-left:20px;">Khafido</h5>
-            <p class="float-left" style="margin-left:70px; margin-top:-25px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <button id="btnreply" onclick="balas('Khafido')" href="#" class="float-left" style="margin-top:-15px; margin-left:70px;">Replay</button>
-          </div>
-          <div class="col-md-12 ml-4 mt-4 float-left">
-            <img class="float-left rounded-circle" src="<?=base_url("assets/img/team/1.jpg")?>" alt="" width="50" height="50">
-            <h5 class="float-left" style="margin-left:20px;">Khafido</h5>
-            <p class="float-left" style="margin-left:70px; margin-top:-25px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. lorem</p>
-            <button id="btnreply" onclick="balas('Khafido')" href="#" class="float-left" style="margin-top:-15px; margin-left:70px;">Replay</button>
-          </div>
         </div>
       </div>
+      <hr>
+      <div class="col-md-12 ml-4 mt-4">
+      <?php foreach ($tanggapan as $key => $value) { ?>
+        <img class="float-left rounded-circle" src="<?=base_url("$value->foto_file")?>" alt="" width="50" height="50">
+        <h5 class="float-left mt-3 ml-3" style=""><?=$value->nama ?></h5><br><br><br>
+        <p class="" style="margin-top:-15px; margin-left:70px;"><?=$value->tanggapan?></p>
+        <button id="btnreply" onclick="balas('Khafido')" href="#" class="" style="margin-top:-15px; margin-left:70px;">Replay</button><br><br><hr>
+      <?php } ?>
+    </div>
     </div>
   </div>
 </section>

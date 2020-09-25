@@ -123,4 +123,20 @@ class Potensi extends CI_Controller{
 		$this->load->view('potensi/v_detail_umkm', $data);
 		$this->load->view('includes/v_footer');
 	}
+
+	function detail(){
+		$title['judul'] = 'Data Potensi Desa';
+		$data['hasil'] = $this->m_crud->readByOrder('tbl_potensi', array('tahun'=>TAHUN), "omzet desc");
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('potensi/v_detail', $data);
+		$this->load->view('includes/v_footer');
+	}
+
+	function dana(){
+		$title['judul'] = 'Data Sumber Anggaran';
+		$data['hasil'] = $this->m_crud->readByOrder('tbl_dana', array('status <>'=>-1, 'tahun'=>TAHUN), "jumlah desc");
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('potensi/v_dana', $data);
+		$this->load->view('includes/v_footer');
+	}
 }

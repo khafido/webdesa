@@ -8,7 +8,7 @@ class Akun extends CI_Controller{
 			$allowed = array("index","masuk","registrasi");
 			$method = $this->router->fetch_method();
 			if(!in_array($method, $allowed)){
-			    redirect(base_url("akun/masuk"));
+				redirect(base_url("akun/masuk"));
 			}
 		}
 		$this->load->model('m_crud');
@@ -196,6 +196,41 @@ class Akun extends CI_Controller{
 
 		$this->load->view('includes/v_header', $title);
 		$this->load->view('v_profil', $data);
+		$this->load->view('includes/v_footer');
+	}
+
+	function ganti_pass(){
+		if (isset($_POST['ganti'])) {
+			$nik = $_SESSION['nik'];
+			$lama = $_POST['lama'];
+			$pass = $_POST['pass'];
+			$conf = $_POST['conf'];
+
+			$warga = $this->m_crud->readBy('tbl_warga',array('nik'=>$nik));
+			if(count($warga)>0){
+				$warga = $warga[0];
+				$hashpass = $warga->pass;
+
+				if (password_verify($lama,$hashpass)) {
+					if ($pass==$conf) {
+						$profil['pass'] = password_hash($pass, PASSWORD_DEFAULT);
+						$pesan = $this->m_crud->update('tbl_warga', $profil, array('nik'=>$nik));
+						if ($pesan==true) {
+							redirect(base_url("/"));
+							die();
+						}
+					} else {
+						$this->session->set_flashdata('error', '<div class="alert alert-danger" role="alert">Kata Sandi Tidak Sama</div>');
+					}
+				} else {
+					$this->session->set_flashdata('error', '<div class="alert alert-danger" role="alert">Kata Sandi Lama Salah</div>');
+				}
+			}
+		}
+		$title['judul'] = 'Ganti Kata Sandi';
+
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('v_ganti');
 		$this->load->view('includes/v_footer');
 	}
 

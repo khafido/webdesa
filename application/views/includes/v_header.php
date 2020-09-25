@@ -186,6 +186,7 @@
               <li><a href="<?=base_url()?>potensi/pendidikan">Data Pendidikan</a></li>
               <li><a href="<?=base_url()?>potensi/pekerjaan">Data Pekerjaan</a></li>
               <li><a href="<?=base_url()?>potensi/agama">Data Agama</a></li>
+              <li><a href="<?=base_url()?>potensi/dana">Data Sumber Anggaran</a></li>
               <li><a href="<?=base_url()?>potensi/detail">Detail Potensi</a></li>
             </ul>
           </li>
@@ -205,6 +206,7 @@
               <ul>
                 <li><a href="<?=base_url()?>akun/profil" style="text-decoration:none;"><i class="fa fa-address-book-o" style="font-size:18px"></i>&ensp; Akun</a></li>
                 <!-- <li><a href="<?=base_url()?>informasi/profil">Ganti Kata Sandi</a></li> -->
+                <li><a href="<?=base_url()?>akun/ganti_pass" style="text-decoration:none;" id="btnkeluar"> Ganti Kata Sandi</a></li>
                 <li><a href="<?=base_url()?>akun/keluar" style="text-decoration:none;" id="btnkeluar"> Keluar</a></li>
               </ul>
             </li>

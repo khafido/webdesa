@@ -119,10 +119,26 @@ class Pengaduan extends CI_Controller{
 		$data['pengaduan'] = $pengaduan[0];
 		$data['cont'] = $this;
 
+		$data['tanggapan'] = $this->m_crud->readBy('detail_tanggapan_pengaduan', array('id_pengaduan'=>$id));
+
 		$title['judul'] = 'Detail Pengaduan';
 		$this->load->view('includes/v_header', $title);
 		$this->load->view('pengaduan/v_detail_pengaduan', $data);
 		$this->load->view('includes/v_footer');
+	}
+
+	function tanggapan($id){
+		if (isset($_POST['tanggapan'])) {
+			$pengaduan['tanggapan'] = $_POST['komen'];
+			$pengaduan['id_pengaduan'] = $id;
+			$pengaduan['nik'] = $_SESSION['nik'];
+			$pesan = $this->m_crud->save('tbl_tanggapan_pengaduan', $pengaduan);
+			if ($pesan) {
+				redirect(base_url("pengaduan/detail/$id"));
+				die();
+			}
+			var_dump($pesan);
+		}
 	}
 
 	function cari(){
@@ -144,16 +160,76 @@ class Pengaduan extends CI_Controller{
 		}
 	}
 
+	function ubah($id){
+		$nik = $_SESSION['nik'];
+		if (isset($_POST['pengaduan'])) {
+			$this->form_validation->set_rules('judul', 'Judul', 'required', array('required'=>'Isi Judul'));
+			$this->form_validation->set_rules('kategori', 'Kategori', 'required', array('required'=>'Isi Kategori'));
+			$this->form_validation->set_rules('lokasi', 'Lokasi', 'required', array('required'=>'Isi Lokasi'));
+			$this->form_validation->set_rules('kategori', 'Kategori', 'required', array('required'=>'Isi Kategori'));
+			$this->form_validation->set_rules('bidang', 'Bidang', 'required', array('required'=>'Isi Bidang'));
+			$this->form_validation->set_rules('uraian', 'Uraian', 'required', array('required'=>'Isi Uraian'));
+
+			if ($this->form_validation->run() != false){
+				$pengaduan['judul'] = $_POST['judul'];
+				$pengaduan['kategori'] = $_POST['kategori'];
+				$pengaduan['lokasi'] = $_POST['lokasi'];
+				$pengaduan['bidang'] = $_POST['bidang'];
+				$pengaduan['uraian'] = $_POST['uraian'];
+				$pengaduan['nik'] = $nik;
+
+				$config['upload_path']   = "./assets/img/pengaduan/";
+				$config['allowed_types'] = 'jpg|png|jpeg';
+				$config['allowed_size'] = 2048;
+
+				// Upload Pengantar
+				$post = 'lampiran_file';
+				$pengaduan[$post] = './assets/img/pengaduan/default.jpg';
+				$status = true;
+
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					if ($name==false) {
+						$status = false;
+					} else {
+						$pengaduan[$post] = $config['upload_path'].$name;
+					}
+				}
+
+				if ($status) {
+					$pesan = $this->m_crud->save('tbl_pengaduan', $pengaduan);
+					if ($pesan) {
+						redirect(base_url("pengaduan/riwayat"));
+						die();
+					}
+				}
+			}
+		}
+
+		$title['judul'] = 'Aspirasi/Keluhan';
+		$data = null;
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('pengaduan/v_buat_pengaduan', $data);
+		$this->load->view('includes/v_footer');
+	}
+
+	function hapus($id){
+		$pesan = $this->m_crud->delete('tbl_berita', array('id_berita'=>$id));
+		redirect(base_url("berita/riwayat"));
+	}
+
 	function cek_status($id){
 		switch ($id) {
 			case pengaduan_baru:
 			echo "Validasi";
 			break;
 			case pengaduan_proses:
-			echo "Dalam Proses";
+			echo "Sudah Terbit";
 			break;
 			case pengaduan_selesai:
-			echo "Selesai";
+			echo "Dilanjutkan";
 			default:
 			echo "";
 		}

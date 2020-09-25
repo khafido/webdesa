@@ -166,15 +166,15 @@ class Berita extends CI_Controller{
 	function cek_status($id){
 		switch ($id) {
 			case 0:
-			echo "Tahap Validasi";
+			echo "Validasi";
 			break;
 			case 1:
-			echo "Sudah Divalidasi";
+			echo "Sudah Terbit";
 			break;
 			case 2:
 			echo "Diturunkan";
 			default:
-			echo "Berita Ditolak";
+			echo "";
 		}
 	}
 }

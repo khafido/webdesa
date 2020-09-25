@@ -230,4 +230,216 @@ class Kegiatan extends CI_Controller{
 		$pesan = $this->m_crud->delete('tbl_kegiatan', array('id_kegiatan'=>$id));
 		redirect(base_url("admin/kegiatan"));
 	}
+
+	function cetak_rab($id){
+		$detail = $this->m_crud->readBy('detail_kegiatan', array('id_kegiatan'=>$id));
+
+		$hasil = $detail[0];
+		$data['judul'] = 'Cetak RAB';
+
+		$data['element']  = "<div style='border-bottom:3px solid black; padding-bottom:20px;'>";
+		$data['element'] .= "<h3 class='text-center'><strong>RENCANA ANGGARAN BIAYA</strong></h3>";
+		$data['element'] .= "<h4 style='margin-top:-8px;' class='text-center'>DESA PAGERNGUMBUK KECAMATAN WONOAYU</h4>";
+		$data['element'] .= "<h4 style='margin-top:-8px;' class='text-center'>TAHUN ANGGARAN ".TAHUN."</h4>";
+		$data['element'] .= "</div>";
+
+		$data['element'] .= '<br>';
+		$data['element'] .= '<table class="table table-borderless">';
+		$data['element'] .= '<tbody>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '<th scope="row" width="160" style="border:none;">Bidang</th>';
+		$data['element'] .= '<td width="10" style="border:none;">:</td>';
+		$data['element'] .= '<td class="garisbawah" style="border-top:none; border-bottom: 1px dotted black;">'.ucwords($hasil->bidang).'</td>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '<th scope="row" width="160" style="border:none;">Kegiatan</th>';
+		$data['element'] .= '<td width="10" style="border:none;">:</td>';
+		$data['element'] .= '<td class="garisbawah" style="border-top:none; border-bottom: 1px dotted black;">'.ucwords($hasil->nama).'</td>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '<th scope="row" width="160" style="border:none;">Waktu Pelaksanaan</th>';
+		$data['element'] .= '<td width="10" style="border:none;">:</td>';
+		$data['element'] .= '<td class="garisbawah" style="border-top:none; border-bottom: 1px dotted black;">'.date("d/m/Y",strtotime($hasil->tgl_mulai)).' sampai '.date("d/m/Y",strtotime($hasil->tgl_selesai)).'</td>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '<th scope="row" width="160" style="border:none;">Sumber Dana</th>';
+		$data['element'] .= '<td width="10" style="border:none;">:</td>';
+		$data['element'] .= '<td class="garisbawah" style="border-top:none; border-bottom: 1px dotted black;">'.$hasil->dana.'</td>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '<th scope="row" width="160" style="border:none;">Output</th>';
+		$data['element'] .= '<td width="10" style="border:none;">:</td>';
+		$data['element'] .= '<td class="garisbawah" style="border-top:none; border-bottom: 1px dotted black;">'.$hasil->output.'</td>';
+		$data['element'] .= '<td width="10" style="border:none;"></td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '</tbody>';
+		$data['element'] .= '</table>';
+		$data['element'] .= '<h5 style="margin-left:25px;">Rincian Pendanaan :<h5>';
+		$data['element'] .= '<table style="width:95%; margin-left:25px;" class="table table-bordered">';
+		$data['element'] .= '<thead class="" style="background:#B6F081;">';
+		$data['element'] .= '<th scope="col">#</th>';
+    $data['element'] .= '<th scope="col">Kode</th>';
+    $data['element'] .= '<th scope="col">Uraian</th>';
+    $data['element'] .= '<th scope="col">Volume</th>';
+    $data['element'] .= '<th scope="col">Satuan</th>';
+    $data['element'] .= '<th scope="col">Harga Satuan (Rp)</th>';
+    $data['element'] .= '<th scope="col">Jumlah (Rp)</th>';
+		$data['element'] .= '</thead>';
+		$data['element'] .= '<tbody>';
+		$item = $this->m_crud->readBy('tbl_item_keuangan', array('id_kegiatan'=>$id));
+		$no = 1;
+		$jumlah = 0;
+		foreach ($item as $k => $i) {
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<td>'.$no++.'</td>';
+			$data['element'] .= '<td>'.$i->kode.'</td>';
+			$data['element'] .= '<td>'.$i->uraian.'</td>';
+			$data['element'] .= '<td>'.$i->volume.'</td>';
+			$data['element'] .= '<td>'.$i->satuan.'</td>';
+			$data['element'] .= '<td>'.$i->harga_satuan.'</td>';
+			$data['element'] .= '<td>'.$i->jumlah.'</td>';
+			$data['element'] .= '</tr>';
+			$jumlah += $i->jumlah;
+		}
+
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td colspan="6" align="center">Jumlah</td>';
+		$data['element'] .= '<td>'.$jumlah.'</td>';
+		$data['element'] .= '</tr>';
+
+		$data['element'] .= '</tbody>';
+		$data['element'] .= '</table>';
+		$data['element'] .= '<br><br>';
+		$data['element'] .= '<div class="pull-right text-center" style="width: 100%;"><h5>Desa Pagerngumbuk, '.date("d M Y").'</h5></div>';
+		$data['element'] .= '<div class="pull-right text-center" style="width: 40%; margin-right:0px; border-bottom:1px solid black;">';
+		$data['element'] .= '<h5 for="">Ketua Pelaksana</h5><br><br><br><br>';
+		$data['element'] .= '<h5><strong>'.$hasil->ketua_pelaksana.'</strong></h5>';
+		$data['element'] .= '</div>';
+		$data['element'] .= '<div class=" text-center" style="margin-top:35px; width: 40%; margin-right:0px; border-bottom:1px solid black;">';
+		$data['element'] .= '<h5 for="">Disetujui </h5>';
+		$data['element'] .= '<h5 for="" style="margin-top:-8px;">Kepala Desa</h5><br><br><br>';
+		$data['element'] .= '<h5><strong>Khoirul Anam</strong></h5>';
+		$data['element'] .= '</div>';
+
+		$this->load->view('v_cetak', $data);
+	}
+
+	function cetak_lpj($id){
+		$detail = $this->m_crud->readBy('detail_kegiatan', array('id_kegiatan'=>$id));
+
+		$hasil = $detail[0];
+		$data['judul'] = 'Cetak LPJ';
+
+		$data['element']  = "<div style='padding-bottom:20px;'>";
+		$data['element'] .= "<h3 class='text-center'><strong>LAPORAN KEGIATAN ".strtoupper($hasil->nama)."</strong></h3>";
+		$data['element'] .= "<h4 style='margin-top:-8px;' class='text-center'>DESA PAGERNGUMBUK KECAMATAN WONOAYU</h4>";
+		$data['element'] .= "<h4 style='margin-top:-8px;' class='text-center'>TAHUN ANGGARAN ".TAHUN."</h4>";
+		$data['element'] .= "</div>";
+
+		$data['element'] .= '<div style="margin-left:25px;">';
+		$data['element'] .= '<h5>Yth. Kepala Desa <strong>Khoirul Anam</strong></h5>';
+		$data['element'] .= '<h5>melalui Sekretaris Kesa</h5>';
+		$data['element'] .= '<h5>di Tempat</h5>';
+		$data['element'] .= '</div>';
+		$data['element'] .= '<div style="margin-top:25px; margin-left:25px;">';
+		$data['element'] .= '<p>Dengan memperhatikan Peraturan Kepala Daerah........No.....Tahun.....Tentang Pengelolaan Keu Desa, bersama ini kami sampaikan Laporan Kegiatan '.ucwords($hasil->nama).' sebagai berikut:</p>';
+		$data['element'] .= '</div>';
+		$data['element'] .= '<h5 style="margin-top:25px; margin-left:25px;">A. Realisasi Keuangan:<h5>';
+		$data['element'] .= '<table style="width:95%; margin-left:25px;" class="table table-bordered">';
+		$data['element'] .= '<thead class="" style="background:#B6F081;">';
+		$data['element'] .= '<th scope="col">#</th>';
+    $data['element'] .= '<th scope="col">Kode</th>';
+    $data['element'] .= '<th scope="col">Uraian</th>';
+    $data['element'] .= '<th scope="col">Anggaran (Rp)</th>';
+    $data['element'] .= '<th scope="col">Realisasi (Rp)</th>';
+    $data['element'] .= '<th scope="col">%</th>';
+		$data['element'] .= '</thead>';
+		$data['element'] .= '<tbody>';
+		$item = $this->m_crud->readBy('tbl_item_keuangan', array('id_kegiatan'=>$id));
+		$no = 1;
+		$jumlah = 0;
+		$realisasi = 0;
+		$prosentase = 0.0;
+		foreach ($item as $k => $i) {
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<td>'.$no.'</td>';
+			$data['element'] .= '<td>'.$i->kode.'</td>';
+			$data['element'] .= '<td>'.$i->uraian.'</td>';
+			$data['element'] .= '<td>'.$i->jumlah.'</td>';
+			$data['element'] .= '<td>'.$i->realisasi.'</td>';
+			$data['element'] .= '<td>'.$i->prosentase.'</td>';
+			$data['element'] .= '</tr>';
+			$jumlah += $i->jumlah;
+			$realisasi += $i->realisasi;
+			$prosentase += $i->prosentase;
+			$no++;
+		}
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td colspan="3" align="center">Jumlah</td>';
+		$data['element'] .= '<td>'.$jumlah.'</td>';
+		$data['element'] .= '<td>'.$realisasi.'</td>';
+		$data['element'] .= '<td>'.$prosentase/($no-1).'</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '</tbody>';
+		$data['element'] .= '</table>';
+		$data['element'] .= '<h5 style="margin-top:25px; margin-left:25px;">B. Realisasi Fisik/Output:<h5>';
+		$data['element'] .= '<h5 style="margin-left:45px;">Output akhir dari kegiatan yang dilakukan sebagai berikut:<h5>';
+		$data['element'] .= '<table style="width:95%; margin-left:25px;" class="table table-bordered">';
+		$data['element'] .= '<thead class="" style="background:#B6F081;">';
+		$data['element'] .= '<th scope="col">#</th>';
+    $data['element'] .= '<th scope="col">Uraian</th>';
+    $data['element'] .= '<th scope="col">Satuan</th>';
+		$data['element'] .= '<th scope="col">Volume</th>';
+    $data['element'] .= '<th scope="col">Nilai (Rp)</th>';
+    $data['element'] .= '<th scope="col">ket</th>';
+		$data['element'] .= '</thead>';
+		$data['element'] .= '<tbody>';
+		$item = $this->m_crud->readBy('tbl_item_fisik', array('id_kegiatan'=>$id));
+		$no = 1;
+		$nilai = 0;
+		foreach ($item as $k => $i) {
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<td>'.$no++.'</td>';
+			$data['element'] .= '<td>'.$i->uraian.'</td>';
+			$data['element'] .= '<td>'.$i->satuan.'</td>';
+			$data['element'] .= '<td>'.$i->volume.'</td>';
+			$data['element'] .= '<td>'.$i->nilai.'</td>';
+			$data['element'] .= '<td>'.$i->ket.'</td>';
+			$data['element'] .= '</tr>';
+			$nilai += $i->nilai;
+		}
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td colspan="4" align="center">Jumlah</td>';
+		$data['element'] .= '<td>'.$nilai.'</td>';
+		$data['element'] .= '<td></td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '</tbody>';
+		$data['element'] .= '</table>';
+		$data['element'] .= '<h5 style="margin-top:-10px; margin-left:25px;">Nilai output/aset merupakan keseluruhan belanja yang dikeluarkan (Belanja Barang dan Jasa + Belanja Modal)<h5>';
+		$data['element'] .= '<h5 style="margin-top:25px; margin-left:25px;">C. Kendala dan Upaya Mengatasinya<h5>';
+		$data['element'] .= '<h5 style="margin-top:-5px; margin-left:43px; text-align:justify;">'.$hasil->kendala.'<h5>';
+		$data['element'] .= '<h5 style="margin-top:25px; margin-left:25px;">D. Saran dan Rekomendasi<h5>';
+		$data['element'] .= '<h5 style="margin-top:-5px; margin-left:43px; text-align:justify;">'.$hasil->saran.'<h5>';
+		$data['element'] .= '<div class="text-center" style="width: 40%; margin-left:60%; border-bottom:1px solid black;">';
+		$data['element'] .= '<h5 for="">Desa Pagerngumbuk, '.date("d M Y").'</h5>';
+		$data['element'] .= '<h5 for=""><strong>Ketua Pelaksana</strong></h5><br><br><br><br>';
+		$data['element'] .= '<h5><strong>'.$hasil->ketua_pelaksana.'</strong></h5>';
+		$data['element'] .= '</div>';
+		// $data['element'] .= '<div class=" text-center" style="color:white;margin-top:35px; width: 40%; margin-right:0px;">';
+		// $data['element'] .= '<h5 for="">Disetujui </h5>';
+		// $data['element'] .= '<h5 for="" style="margin-top:-8px;">Kepala Desa</h5><br><br><br>';
+		// $data['element'] .= '<h5><strong>Khoirul Anam</strong></h5>';
+		// $data['element'] .= '</div>';
+
+		$this->load->view('v_cetak', $data);
+	}
 }
