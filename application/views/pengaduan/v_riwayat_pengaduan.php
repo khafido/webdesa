@@ -22,11 +22,21 @@ font-weight: bold;
   <div class="container">
     <div class="section-title text-center">
       <h2>Riwayat Pengaduan</h2>
+      <?php if($this->session->flashdata('upload_error')){ ?>
+      <!-- <div class="alert alert-success" role="alert"> -->
+        <?php echo $this->session->flashdata('upload_error'); ?>
+      <!-- </div> -->
+      <?php } ?>
+      <?php if($this->session->flashdata('sukses')){ ?>
+      <div class="alert alert-success" role="alert">
+        <?php echo $this->session->flashdata('sukses'); ?>
+      </div>
+    <?php } ?>
+
       <!-- <p class="separator" style="">Isi data dibawah dengan sebenar-benarnya.</p> -->
     </div>
     <div class="row">
       <div class="col-md-12">
-        <?php echo form_open_multipart(base_url("admin/guru_mapel/proses/"),array('class' => 'form-horizontal')); ?>
         <div class="card wow fadeInUp" id="get-started" style="visibility: visible; animation-name: fadeInUp;">
           <ul class="nav nav-tabs" id="pills-tab" role="tablist">
             <li class="nav-item">
@@ -76,7 +86,6 @@ font-weight: bold;
             </div>
           </div>
         </div>
-        <?php echo form_close(); ?>
       </div>
     </div>
   </div>

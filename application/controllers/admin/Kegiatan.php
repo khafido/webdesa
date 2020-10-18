@@ -202,6 +202,7 @@ class Kegiatan extends CI_Controller{
 			$keu = $this->m_crud->updateBatch('tbl_item_keuangan', $item, 'kode');
 
 			if ($keu==true && $keg==true && $fisik==true) {
+				$this->session->set_flashdata('sukses', '<div class="alert alert-success" role="alert">Buat LPJ Sukses!</div>');
 				redirect(base_url("admin/kegiatan/"));
 				die();
 			}

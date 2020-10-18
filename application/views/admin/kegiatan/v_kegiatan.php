@@ -6,6 +6,7 @@
 		<div class="header">
 			<!-- <a href="<?=base_url("admin/$judul/form/tambah")?>" class="btn btn-success btn-fill pull-right">Tambah</a> -->
 			<h4 class="title" style="text-transform:capitalize;">Data <?=$judul?> Baru</h4>
+			<?php echo $this->session->flashdata('sukses'); ?>
 			<!-- <p class="category">Last Campaign Performance</p> -->
 		</div>
 		<div class="content">
@@ -36,7 +37,7 @@
 								<td><?=$w->dana?></td>
 								<td><?=$w->pelapor?></td>
 								<td class="tindakan">
-									<a href="<?=base_url("admin/$menu/detail/$w->id_pengaduan")?>" class="btn btn-info" title="Lihat">Lihat</a>
+									<a href="<?=base_url("admin/$menu/detail/$w->id_kegiatan")?>" class="btn btn-info" title="Lihat">Lihat</a>
 									<!-- <a href="<?=base_url("admin/$menu/form/ubah/$w->id_pengaduan")?>" class="btn btn-success" title="Ubah">Ubah</a>
 									<button onclick="proses('<?=base_url("admin/$menu/hapus/$w->id_pengaduan")?>')" class="btn btn-danger" title="Hapus">Hapus</button> -->
 								</td>
@@ -84,7 +85,7 @@
 								<td><?=$w->dana?></td>
 								<td><?=$w->pelapor?></td>
 								<td class="tindakan">
-									<a href="<?=base_url("admin/$menu/detail/$w->id_pengaduan")?>" class="btn btn-info" title="Lihat">Lihat</a>
+									<a href="<?=base_url("admin/$menu/detail/$w->id_kegiatan")?>" class="btn btn-info" title="Lihat">Lihat</a>
 									<!-- <a href="<?=base_url("admin/$menu/form/ubah/$w->id_pengaduan")?>" class="btn btn-success" title="Ubah">Ubah</a>
 									<button onclick="proses('<?=base_url("admin/$menu/hapus/$w->id_pengaduan")?>')" class="btn btn-danger" title="Hapus">Hapus</button> -->
 								</td>
@@ -132,7 +133,7 @@
 								<td><?=$w->dana?></td>
 								<td><?=$w->pelapor?></td>
 								<td class="tindakan">
-									<a href="<?=base_url("admin/$menu/detail/$w->id_pengaduan")?>" class="btn btn-info" title="Lihat">Lihat</a>
+									<a href="<?=base_url("admin/$menu/detail/$w->id_kegiatan")?>" class="btn btn-info" title="Lihat">Lihat</a>
 									<!-- <a href="<?=base_url("admin/$menu/form/ubah/$w->id_pengaduan")?>" class="btn btn-success" title="Ubah">Ubah</a>
 									<button onclick="proses('<?=base_url("admin/$menu/hapus/$w->id_pengaduan")?>')" class="btn btn-danger" title="Hapus">Hapus</button> -->
 								</td>
@@ -180,7 +181,7 @@
 								<td><?=$w->dana?></td>
 								<td><?=$w->pelapor?></td>
 								<td class="tindakan">
-									<a href="<?=base_url("admin/$menu/detail/$w->id_pengaduan")?>" class="btn btn-info" title="Lihat">Lihat</a>
+									<a href="<?=base_url("admin/$menu/detail/$w->id_kegiatan")?>" class="btn btn-info" title="Lihat">Lihat</a>
 									<!-- <a href="<?=base_url("admin/$menu/form/ubah/$w->id_pengaduan")?>" class="btn btn-success" title="Ubah">Ubah</a>
 									<button onclick="proses('<?=base_url("admin/$menu/hapus/$w->id_pengaduan")?>')" class="btn btn-danger" title="Hapus">Hapus</button> -->
 								</td>
@@ -228,7 +229,7 @@
 								<td><?=$w->dana?></td>
 								<td><?=$w->pelapor?></td>
 								<td class="tindakan">
-									<a href="<?=base_url("admin/$menu/detail/$w->id_pengaduan")?>" class="btn btn-info" title="Lihat">Lihat</a>
+									<a href="<?=base_url("admin/$menu/detail/$w->id_kegiatan")?>" class="btn btn-info" title="Lihat">Lihat</a>
 									<!-- <a href="<?=base_url("admin/$menu/form/ubah/$w->id_pengaduan")?>" class="btn btn-success" title="Ubah">Ubah</a>
 									<button onclick="proses('<?=base_url("admin/$menu/hapus/$w->id_pengaduan")?>')" class="btn btn-danger" title="Hapus">Hapus</button> -->
 								</td>

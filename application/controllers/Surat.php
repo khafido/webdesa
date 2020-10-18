@@ -39,73 +39,21 @@ class Surat extends CI_Controller{
 			$config['allowed_types'] = 'jpg|png|jpeg|pdf';
 			$config['max_size']      = 2048;
 
-			// Upload Pengantar
-			if ($_FILES["pengantar_file"]["name"]!="") {
-				$post = 'pengantar_file';
-				$filename = $_FILES[$post]['name'];
-				$config['upload_path']   = "./assets/img/surat/kelahiran";
+			$lampiran = array("pengantar_file","ket_file","kk_file","ktp_file","buku_file");
+			foreach ($lampiran as $kl => $vl) {
+				$post = $vl;
+				if ($_FILES[$post]["name"]!="") {
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/kelahiran";
 
-				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
-					$status = false;
-				} else {
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// if ($name=="default.jpg") {
+					// 	$status = false;
+					// 	$this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Perhatikan Ukuran(Maks 2MB) atau Tipe File(JPG,PNG,PDF)!</div>');
+					// 	break;
+					// } else {
 					$kelahiran[$post] = $config['upload_path'].'/'.$name;
-				}
-			}
-
-			// Upload Keterangan
-			if ($_FILES["ket_file"]["name"]!="") {
-				$post = 'ket_file';
-				$filename = $_FILES[$post]['name'];
-				$config['upload_path']   = "./assets/img/surat/kelahiran";
-
-				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
-					$status = false;
-				} else {
-					$kelahiran[$post] = $config['upload_path'].'/'.$name;
-				}
-			}
-
-			// Upload KK
-			if ($_FILES["kk_file"]["name"]!="") {
-				$post = 'kk_file';
-				$filename = $_FILES[$post]['name'];
-				$config['upload_path']   = "./assets/img/surat/kelahiran";
-
-				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
-					$status = false;
-				} else {
-					$kelahiran[$post] = $config['upload_path'].'/'.$name;
-				}
-			}
-
-			// Upload KTP
-			if ($_FILES["ktp_file"]["name"]!="") {
-				$post = 'ktp_file';
-				$filename = $_FILES[$post]['name'];
-				$config['upload_path']   = "./assets/img/surat/kelahiran";
-
-				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
-					$status = false;
-				} else {
-					$kelahiran[$post] = $config['upload_path'].'/'.$name;
-				}
-			}
-
-			// Upload Buku Nikah
-			if ($_FILES["buku_file"]["name"]!="") {
-				$post = 'buku_file';
-				$filename = $_FILES[$post]['name'];
-				$config['upload_path']   = "./assets/img/surat/kelahiran";
-
-				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
-					$status = false;
-				} else {
-					$kelahiran[$post] = $config['upload_path'].'/'.$name;
+					// }
 				}
 			}
 
@@ -114,13 +62,12 @@ class Surat extends CI_Controller{
 			$date = date("j/n/Y");
 			$kelahiran['id_kelahiran'] = $id.'/I/'.$date;
 
-			if($status){
-				$pesan = $this->m_crud->save('tbl_kelahiran', $kelahiran);
-					redirect(base_url("surat/riwayat"));
-					die();
-				// 	if ($pesan) {
-				// }
-			}
+			// if($status){
+				$this->m_crud->save('tbl_kelahiran', $kelahiran);
+				redirect(base_url("surat/riwayat"));
+			// } else {
+			// 	$this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Perhatikan Ukuran(Maks 2MB) atau Tipe File(JPG,PNG,PDF)!</div>');
+			// }
 		}
 
 		$title['judul'] = 'Surat Kelahiran';

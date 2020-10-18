@@ -611,6 +611,78 @@ class Surat extends CI_Controller{
 	}
 
 	public function cetak($surat, $id){
-		
+		$view = array('kelahiran' => 'tbl_kelahiran', 'kematian'=>'tbl_kematian', 'tdkmampu'=>'tbl_tdk_mampu', 'biodata'=>'tbl_biodata', 'umum'=>'tbl_umum', 'domisili'=>'tbl_domisili');
+		$hasil = $this->m_crud->read($view[$surat], array('id'=>$id))[0];
+
+		$data['element'] = "<div style='padding-bottom:20px; margin-right:13%; width:400px;' class='pull-right'>";
+		$data['element'] .= "<h4 class='text-center'><strong>PEMERINTAH KABUPATEN SIDOARJO</strong></h4>";
+		$data['element'] .= "<h4 style='margin-top:-8px;' class='text-center'><strong>KECAMATAN WONOAYU</strong></h4>";
+		$data['element'] .= "<h4 style='font-size:20px; margin-top:-8px; font-weight:bold;' class='text-center'>KANTOR DESA PAGERNGUMBUK</h4>";
+		$data['element'] .= "<h5 style='margin-top:-8px;' class='text-center'>Jl. Pagerjajar No.05 - Telp. 031-867146 Fax. 031-880880</h5>";
+		$data['element'] .= "<h5 style='margin-top:-8px;' class='text-center'>SIDOARJO - 61261</h5>";
+		$data['element'] .= "</div>";
+		$data['element'] .= "<div style='padding-bottom:20px; width:3cm; margin-right:20px;' class='pull-right'>";
+		$data['element'] .= "<img src='".base_url("assets/img/favicon.png")."' style='width:3cm;'>";
+		$data['element'] .= "</div><br/><br/>";
+		$data['element'] .= "<br/><br/>";
+		$data['element'] .= "<br/><br/>";
+		$data['element'] .= "<div class='col-md-12 text-center' style='border-top:3px solid black; padding-top:50px;'>";
+		$judul = ($surat=='tdkmampu')?'TIDAK MAMPU':$surat;
+		$data['element'] .= "<h5 style='text-transform:uppercase;'><strong>SURAT ".$judul."</strong></h5>";
+		$data['element'] .= "<h5 style='letter-spacing:1.5px;'><strong>Nomor: ".$hasil->id_kelahiran."</strong></h5>";
+		$data['element'] .= "</div>";
+		$data['element'] .= "<div class='col-md-12' style='margin-top:30px;'>";
+		$data['element'] .= "<p>Yang bertanda di bawah ini, menerangkan bahwa:</p>";
+
+		$data['element'] .= '<table class="table table-borderless">';
+		$data['element'] .= '<tbody>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<th style="width:20px;border:none;">Tanggal</th>';
+		$data['element'] .= '<td style="border:none;">: '.date("D, d M Y",strtotime($hasil->tgl_lahir)).'</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<th style="width:20px;border:none;">Tempat</th>';
+		$data['element'] .= '<td style="border:none;">: '.$hasil->tempat_lahir.'</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '</tbody>';
+		$data['element'] .= '</table>';
+
+		$data['element'] .= '<table class="table table-borderless">';
+		$data['element'] .= '<tbody>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<th style="width:200px;border:none;">Telah Lahir Seorang Anak</th>';
+		$data['element'] .= '<td style="border:none;">: '.($hasil->jk=='L'?'Laki-laki':'Perempuan').'</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<th style="width:20px;border:none;">Yang bernama</th>';
+		$data['element'] .= '<td style="border:none;">: '.$hasil->anak.'</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<th style="width:20px;border:none;">Dari seorang Ibu</th>';
+		$data['element'] .= '<td style="border:none;">: '.$hasil->ibu.'</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<th style="width:20px;border:none;">Istri dari</th>';
+		$data['element'] .= '<td style="border:none;">: '.$hasil->ayah.'</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<th style="width:20px;border:none;">Alamat</th>';
+		$data['element'] .= '<td style="border:none;">: Desa Pagerngumbuk, RW '.$hasil->rw.', RT '.$hasil->rt.'</td>';
+		$data['element'] .= '</tr>';
+		$data['element'] .= '</tbody>';
+		$data['element'] .= '</table>';
+		$data['element'] .= "<p style='margin-top:-15px;'>Surat ini dibuat atas dasar yang sebenar-benarnya</p>";
+		$data['element'] .= "</div>";
+		$data['element'] .= '<br><br><br><br>';
+		$data['element'] .= '<div class="pull-right text-center" style="width: 250px; margin-top:50px; margin-right:50px; border-bottom:1px solid black;">';
+		$data['element'] .= '<h5 for="">Desa Pagerngumbuk, '.date("d M Y").'</h5>';
+		$data['element'] .= '<h5 for="">Kepala Desa</h5><br><br>';
+		$data['element'] .= '<h5><strong>Khoirul Anam</strong></h5>';
+		$data['element'] .= '</div>';
+
+		if ($surat=='kelahiran') {
+			$data['judul'] = 'Cetak Kelahiran';
+		}
+		$this->load->view('v_cetak', $data);
 	}
 }

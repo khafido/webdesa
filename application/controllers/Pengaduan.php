@@ -2,8 +2,7 @@
 class Pengaduan extends CI_Controller{
 	function __construct(){
 		parent::__construct();
-		if (!$this->session->userdata('nik'))
-		{
+		if (!$this->session->userdata('nik')){
 			$allowed = array("lihat","detail");
 			$method = $this->router->fetch_method();
 			if(!in_array($method, $allowed)){
@@ -27,18 +26,10 @@ class Pengaduan extends CI_Controller{
 			$this->form_validation->set_rules('judul', 'Judul', 'required', array('required'=>'Isi Judul'));
 			$this->form_validation->set_rules('kategori', 'Kategori', 'required', array('required'=>'Isi Kategori'));
 			$this->form_validation->set_rules('lokasi', 'Lokasi', 'required', array('required'=>'Isi Lokasi'));
-			$this->form_validation->set_rules('kategori', 'Kategori', 'required', array('required'=>'Isi Kategori'));
 			$this->form_validation->set_rules('bidang', 'Bidang', 'required', array('required'=>'Isi Bidang'));
 			$this->form_validation->set_rules('uraian', 'Uraian', 'required', array('required'=>'Isi Uraian'));
 
 			if ($this->form_validation->run() != false){
-				$pengaduan['judul'] = $_POST['judul'];
-				$pengaduan['kategori'] = $_POST['kategori'];
-				$pengaduan['lokasi'] = $_POST['lokasi'];
-				$pengaduan['bidang'] = $_POST['bidang'];
-				$pengaduan['uraian'] = $_POST['uraian'];
-				$pengaduan['nik'] = $nik;
-
 				$config['upload_path']   = "./assets/img/pengaduan/";
 				$config['allowed_types'] = 'jpg|png|jpeg';
 				$config['allowed_size'] = 2048;
@@ -52,20 +43,27 @@ class Pengaduan extends CI_Controller{
 					$filename = $_FILES[$post]['name'];
 
 					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-					if ($name==false) {
-						$status = false;
-					} else {
+					// if ($name!=="default.jpg") {
+					// 	$status = true;
 						$pengaduan[$post] = $config['upload_path'].$name;
-					}
+					// } else {
+					// 	$status = false;
+					// }
 				}
+				$pengaduan['judul'] = $_POST['judul'];
+				$pengaduan['kategori'] = $_POST['kategori'];
+				$pengaduan['lokasi'] = $_POST['lokasi'];
+				$pengaduan['bidang'] = $_POST['bidang'];
+				$pengaduan['uraian'] = $_POST['uraian'];
+				$pengaduan['nik'] = $nik;
 
-				if ($status) {
-					$pesan = $this->m_crud->save('tbl_pengaduan', $pengaduan);
-					if ($pesan) {
-						redirect(base_url("pengaduan/riwayat"));
-						die();
-					}
-				}
+				// if ($status) {
+					$this->m_crud->save('tbl_pengaduan', $pengaduan);
+					$this->session->set_flashdata('sukses', 'Buat Pengaduan Sukses!');
+					redirect(base_url("pengaduan/riwayat"));
+				// } else {
+				// 	$this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Perhatikan Ukuran(Maks 2MB) atau Tipe File(JPG,PNG,PDF)!</div>');
+				// }
 			}
 		}
 
@@ -216,8 +214,8 @@ class Pengaduan extends CI_Controller{
 	}
 
 	function hapus($id){
-		$pesan = $this->m_crud->delete('tbl_berita', array('id_berita'=>$id));
-		redirect(base_url("berita/riwayat"));
+		$pesan = $this->m_crud->hard_delete('tbl_pengaduan', array('id_pengaduan'=>$id));
+		redirect(base_url("pengaduan/riwayat"));
 	}
 
 	function cek_status($id){

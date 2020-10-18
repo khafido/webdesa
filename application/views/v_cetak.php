@@ -8,7 +8,7 @@
   <title><?=$judul?></title>
   <style media="screen">
   #wrapper{
-    width: 680px; height: auto; padding-bottom:200px; border: 1px solid black; margin: 0 auto; padding: 20px 30px;
+    width: 680px; height: 1000px; padding-bottom:200px; border: 1px solid black; margin: 0 auto; padding: 20px 30px;
   }
   .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
     /* border: none; */
@@ -21,7 +21,7 @@
     <button  class="btn btn-default pull-right" onclick="PrintElem('wrapper')" type="button" name="button">Cetak</button>
   </div>
   <br><br><br>
-  <div id="wrapper" style="border: 1px solid black; ">
+  <div id="wrapper" style="border: 1px solid black;">
     <div id="page">
       <?=$element?>
     </div>
