@@ -78,14 +78,14 @@ p{
         </div>
       </div>
       <hr>
-      <div class="col-md-12 ml-4 mt-4">
-      <?php foreach ($tanggapan as $key => $value) { ?>
+      <!-- <div class="col-md-12 ml-4 mt-4">
+      <?php //foreach ($tanggapan as $key => $value) { ?>
         <img class="float-left rounded-circle" src="<?=base_url("$value->foto_file")?>" alt="" width="50" height="50">
         <h5 class="float-left mt-3 ml-3" style=""><?=$value->nama ?></h5><br><br><br>
         <p class="" style="margin-top:-15px; margin-left:70px;"><?=$value->tanggapan?></p>
         <button id="btnreply" onclick="balas('Khafido')" href="#" class="" style="margin-top:-15px; margin-left:70px;">Replay</button><br><br><hr>
-      <?php } ?>
-    </div>
+      <?php //} ?>
+      </div> -->
     </div>
   </div>
 </section>
