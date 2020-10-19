@@ -78,7 +78,7 @@ class Pengaduan extends CI_Controller{
 		$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status='=>pengaduan_proses, 'bidang'=>$id));
 		if ($id=="semua") {
 			$active = "semua";
-			$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status='=>pengaduan_proses));
+			$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status<>'=>pengaduan_ditolak));
 		} elseif ($id=="infrastruktur") {
 			$active = "infrastruktur";
 		} elseif ($id=="pendidikan") {
@@ -117,7 +117,8 @@ class Pengaduan extends CI_Controller{
 		$data['pengaduan'] = $pengaduan[0];
 		$data['cont'] = $this;
 
-		$data['tanggapan'] = $this->m_crud->readBy('detail_tanggapan_pengaduan', array('id_pengaduan'=>$id));
+		// $data['tanggapan'] = $this->m_crud->readBy('detail_tanggapan_pengaduan', array('id_pengaduan'=>$id));
+		$data['tanggapan'] = null;
 
 		$title['judul'] = 'Detail Pengaduan';
 		$this->load->view('includes/v_header', $title);
