@@ -42,7 +42,7 @@ class Surat extends CI_Controller{
 			$lampiran = array("pengantar_file","ket_file","kk_file","ktp_file","buku_file");
 			foreach ($lampiran as $kl => $vl) {
 				$post = $vl;
-				if ($_FILES[$post]["name"]!="") {
+				// if ($_FILES[$post]["name"]!="") {
 					$filename = $_FILES[$post]['name'];
 					$config['upload_path']   = "./assets/img/surat/kelahiran";
 
@@ -54,7 +54,7 @@ class Surat extends CI_Controller{
 					// } else {
 					$kelahiran[$post] = $config['upload_path'].'/'.$name;
 					// }
-				}
+				// }
 			}
 
 			$jumlah = $this->m_crud->read('tbl_kelahiran');
