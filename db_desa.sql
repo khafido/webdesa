@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2020 at 10:11 AM
+-- Generation Time: Oct 27, 2020 at 03:11 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -83,6 +83,42 @@ CREATE TABLE `detail_pengaduan` (
 ,`lampiran_file` varchar(60)
 ,`nik` varchar(16)
 ,`nama` varchar(60)
+,`no_telp` varchar(15)
+,`email` varchar(40)
+,`rw` int(1)
+,`rt` int(1)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `detail_tanggapan_berita`
+-- (See below for the actual view)
+--
+CREATE TABLE `detail_tanggapan_berita` (
+`id_tan` int(11)
+,`tanggapan` varchar(255)
+,`nik` varchar(16)
+,`id_berita` int(11)
+,`waktu` timestamp
+,`nama` varchar(60)
+,`foto_file` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `detail_tanggapan_pengaduan`
+-- (See below for the actual view)
+--
+CREATE TABLE `detail_tanggapan_pengaduan` (
+`id_tanggapan` int(11)
+,`tanggapan` varchar(255)
+,`nik` varchar(16)
+,`id_pengaduan` int(11)
+,`waktu` timestamp
+,`nama` varchar(60)
+,`foto_file` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -128,7 +164,9 @@ CREATE TABLE `tbl_berita` (
 
 INSERT INTO `tbl_berita` (`id_berita`, `judul`, `isi`, `tgl_berita`, `rubrik`, `cover_file`, `status`, `nik`) VALUES
 (3, 'Ruwah Desa Pagerngumbuk', '<p>Ini adalah acara Ulang Tahun Desa&nbsp;Pagerngumbuk</p>\r\n\r\n<p><img alt=\"\" src=\"/webdesa/assets/img/surat/images/banner%20(6).jpg\" style=\"height:780px; width:780px\" /></p>\r\n', '2020-06-14 20:54:29', 'umum', './assets/img/berita/123456-1592142869-cover_file.jpg', 1, '123456'),
-(6, 'Jual Ikan', '<p><img alt=\"\" src=\"/webdesa/assets/img/surat/images/mujair.jpeg\" style=\"height:461px; width:673px\" /></p>\r\n', '2020-06-14 22:17:22', 'umkm', './assets/img/berita/123456-1592147842-cover_file.jpg', 0, '123456');
+(6, 'Jual Ikan', '<p><img alt=\"\" src=\"/webdesa/assets/img/surat/images/mujair.jpeg\" style=\"height:461px; width:673px\" /></p>\r\n', '2020-06-14 22:17:22', 'umkm', './assets/img/berita/123456-1592147842-cover_file.jpg', 1, '123456'),
+(7, 'Ruwah Desa', '<p>Tes</p>\r\n', '2020-07-07 20:19:10', 'umum', 'default.jpg', -1, '123456'),
+(8, 'Ruwah Desa', 'Perayaan Ruwah Desa', '2020-07-07 20:26:15', 'umum', '', 0, '123456');
 
 -- --------------------------------------------------------
 
@@ -266,8 +304,8 @@ CREATE TABLE `tbl_item_fisik` (
 --
 
 INSERT INTO `tbl_item_fisik` (`kode`, `uraian`, `volume`, `satuan`, `nilai`, `ket`, `id_kegiatan`) VALUES
-(1, 'Seminar', '4', 'Jam', 25000, 'Lancar', 4),
-(2, 'Pos Kamling', '1', 'Unit', 12000, 'Kosong', 3);
+(2, 'Pos Kamling', '1', 'Unit', 12000, 'Kosong', 3),
+(3, 'Jembatan', '1', 'Unit', 200000, '-', 4);
 
 -- --------------------------------------------------------
 
@@ -276,6 +314,7 @@ INSERT INTO `tbl_item_fisik` (`kode`, `uraian`, `volume`, `satuan`, `nilai`, `ke
 --
 
 CREATE TABLE `tbl_item_keuangan` (
+  `id` int(11) NOT NULL,
   `kode` varchar(4) NOT NULL,
   `uraian` varchar(50) NOT NULL,
   `volume` varchar(10) NOT NULL,
@@ -291,12 +330,13 @@ CREATE TABLE `tbl_item_keuangan` (
 -- Dumping data for table `tbl_item_keuangan`
 --
 
-INSERT INTO `tbl_item_keuangan` (`kode`, `uraian`, `volume`, `satuan`, `harga_satuan`, `jumlah`, `realisasi`, `prosentase`, `id_kegiatan`) VALUES
-('1', '', '', '', 0, 0, 0, '75', 4),
-('1111', 'Kayu Jati', '4', 'Meter', 2000, 8000, 6500, '81.25', 3),
-('1112', 'Paku', '2', 'Kg', 100, 200, 155, '77.5', 3),
-('1113', 'Semen', '3', 'Karung 5kg', 500, 1500, 1350, '90', 3),
-('1114', 'Lem', '2', 'Kaleng 1L', 400, 800, 740, '92.5', 3);
+INSERT INTO `tbl_item_keuangan` (`id`, `kode`, `uraian`, `volume`, `satuan`, `harga_satuan`, `jumlah`, `realisasi`, `prosentase`, `id_kegiatan`) VALUES
+(2, '1111', 'Kayu Jati', '4', 'Meter', 2000, 8000, 140000, '93.33', 3),
+(3, '1112', 'Paku', '2', 'Kg', 100, 200, 2900000, '96.66', 3),
+(4, '1113', 'Semen', '3', 'Karung 5kg', 500, 1500, 1350, '90', 3),
+(5, '1114', 'Lem', '2', 'Kaleng 1L', 400, 800, 740, '92.5', 3),
+(11, '1111', 'Semen', '3', 'Karung 50kg', 50000, 150000, 140000, '93.33', 4),
+(12, '1112', 'Batu', '2', 'Truk', 1500000, 3000000, 2900000, '96.66', 4);
 
 -- --------------------------------------------------------
 
@@ -326,8 +366,9 @@ CREATE TABLE `tbl_kegiatan` (
 --
 
 INSERT INTO `tbl_kegiatan` (`id_kegiatan`, `bidang`, `nama`, `tgl_mulai`, `tgl_selesai`, `output`, `kendala`, `saran`, `ketua_pelaksana`, `catatan`, `status`, `lampiran_file`, `id_pengaduan`, `kode`) VALUES
-(3, 'infrastruktur', 'Bangun Pos', '2020-10-31', '2020-12-31', 'Pos Kamling', 'Musim Hujan', 'Semangat', 'Tok Dalang', 'Harga Satuan Salah', 3, '.\\assets\\img\\kegiatan\\jalan.jpg', 3, '3172'),
-(4, 'infrastruktur', 'Bangun Jembatan', '2020-12-31', '2020-12-31', 'Jembatan', 'Cuaca', 'Tidak Ada', 'Sunaryo', '-', 3, '', 4, '3172');
+(3, 'infrastruktur', 'Bangun Pos', '2020-10-31', '2020-12-31', 'Pos Kamling', 'Musim Hujan', 'Semangat', 'Tok Dalang', 'Harga Satuan Salah', 1, '.\\assets\\img\\kegiatan\\jalan.jpg', 3, '3172'),
+(4, 'infrastruktur', 'Bangun Jembatan', '2020-12-31', '2020-12-31', 'Jembatan', 'Cuaca', 'Cat', 'Sunaryo', '-', 3, '', 4, '3172'),
+(5, 'infrastruktur', 'Bangun Pos', '2020-09-29', '2020-10-29', 'Pos Kamling', '', '', 'Sutoyo', '-', 0, '', 3, '3172');
 
 -- --------------------------------------------------------
 
@@ -363,7 +404,8 @@ CREATE TABLE `tbl_kelahiran` (
 --
 
 INSERT INTO `tbl_kelahiran` (`id`, `id_kelahiran`, `hubungan`, `tgl_lahir`, `tempat_lahir`, `jk`, `status`, `anak`, `ayah`, `ibu`, `alamat`, `rt`, `rw`, `tgl_buat`, `pengantar_file`, `ket_file`, `kk_file`, `ktp_file`, `buku_file`, `nik`) VALUES
-(2, '2/I/16/6/2020', 'tetangga', '2015-03-12', 'B', 'L', 2, 'A', 'F', 'G', '', 8, 3, '2020-06-17 01:01:20', '', '', '', '', '', '165150201111134');
+(2, '2/I/16/6/2020', 'tetangga', '2015-03-12', 'Malang', 'L', 3, 'Ijam', 'Ajim', 'Jami', '', 8, 3, '2020-06-17 01:01:20', '', '', '', '', '', '165150201111134'),
+(3, '2/I/8/7/2020', 'anak', '2017-10-28', 'Sidoarjo', 'L', 1, 'Bestari', 'Khaf', 'Rayu', '', 6, 3, '2020-07-08 16:23:38', './assets/img/surat/kelahiran/123456-1594200218-pengantar_file.jpg', './assets/img/surat/kelahiran/123456-1594200218-ket_file.jpg', './assets/img/surat/kelahiran/123456-1594200218-kk_file.jpg', './assets/img/surat/kelahiran/123456-1594200218-ktp_file.jpg', './assets/img/surat/kelahiran/123456-1594200218-buku_file.jpg', '123456');
 
 -- --------------------------------------------------------
 
@@ -404,7 +446,7 @@ CREATE TABLE `tbl_kematian` (
 --
 
 INSERT INTO `tbl_kematian` (`id`, `id_kematian`, `hubungan`, `nik_alm`, `nama`, `tgl_lahir`, `jk`, `agama`, `status_kawin`, `pekerjaan`, `kwn`, `tgl_meninggal`, `tempat_meninggal`, `penyebab`, `penentu`, `kota_meninggal`, `alamat`, `tgl_buat`, `pernyataan_file`, `ktp_file`, `kk_file`, `ktp_alm_file`, `kk_alm_file`, `status`, `nik`) VALUES
-(1, '2/II/17/6/2020', 'saudara', '9279821749', 'axes', '2015-12-30', 'L', 'islam', 'belum', 'petani', 'wna', '2020-06-01', 'rumah sakit', 'sakit hati', 'dokter', 'durian runtuh', 'aaa', '2020-06-08 23:55:23', './assets/img/surat/kematian/-1592419927-', '123456-1591635323-kt', '123456-1591635323-kk', '123456-1591635323-kt', '123456-1591635323-kk', 0, '123456');
+(1, '2/II/17/6/2020', 'saudara', '9279821749', 'axes', '2015-12-30', 'L', 'islam', 'belum', 'petani', 'wna', '2020-06-01', 'rumah sakit', 'sakit hati', 'dokter', 'durian runtuh', 'aaa', '2020-06-08 23:55:23', './assets/img/surat/kematian/-1592419927-', '123456-1591635323-kt', '123456-1591635323-kk', '123456-1591635323-kt', '123456-1591635323-kk', 1, '123456');
 
 -- --------------------------------------------------------
 
@@ -432,9 +474,8 @@ CREATE TABLE `tbl_pengaduan` (
 INSERT INTO `tbl_pengaduan` (`id_pengaduan`, `judul`, `bidang`, `kategori`, `uraian`, `lokasi`, `tgl_pengaduan`, `status`, `lampiran_file`, `nik`) VALUES
 (3, 'Bangun Pos', 'infrastruktur', 'anggaran', 'Mohon segera diperbaiki', 'RT6/RW2', '2020-06-15 00:28:55', 2, './assets/img/pengaduan/123456-1592155735-lampiran_file.jpg', '123456'),
 (4, 'Mantap', 'pendidikan', 'anggaran', 'jkjahkdjashkfjh', 'jks', '2020-06-18 02:44:11', 2, './assets/img/pengaduan/123456-1592155735-lampiran_file.jpg', '123456'),
-(5, 'Lapor', 'kesehatan', 'anggaran', 'kjsak asjkdba', 'skajdh', '2020-06-18 02:46:08', 1, './assets/img/pengaduan/123456-1592155735-lampiran_file.jpg', '123456'),
-(6, 'tes', 'administrasi', 'anggaran', 'tes', 'a', '2020-06-18 02:51:48', 0, './assets/img/pengaduan/default.jpg', '123456'),
-(7, 'Balap Liar', 'kasus', 'non-anggaran', 'Mohon segera ditertibkan', 'Jalan Raya RT06/RW02', '2020-07-05 02:07:15', 1, './assets/img/pengaduan/default.jpg', '123456');
+(5, 'Lapor', 'kesehatan', 'anggaran', 'kjsak asjkdba', 'skajdh', '2020-06-18 02:46:08', 2, './assets/img/pengaduan/123456-1592155735-lampiran_file.jpg', '123456'),
+(7, 'Balap Liar', 'kasus', 'non-anggaran', 'Mohon segera ditertibkan', 'Jalan Raya RT06/RW02', '2020-07-05 02:07:15', 2, './assets/img/pengaduan/default.jpg', '123456');
 
 -- --------------------------------------------------------
 
@@ -457,7 +498,46 @@ CREATE TABLE `tbl_potensi` (
 --
 
 INSERT INTO `tbl_potensi` (`id_potensi`, `bidang`, `omzet`, `waktu_awal`, `waktu_akhir`, `tahun`, `orang`) VALUES
-(1, 'agribisnis', 2000000, 2, 3, '2020', 10);
+(1, 'agribisnis', 2000000, 2, 3, '2020', 10),
+(2, 'kuliner', 1500000, 1, 1, '2020', 25);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_tanggapan_berita`
+--
+
+CREATE TABLE `tbl_tanggapan_berita` (
+  `id_tan` int(11) NOT NULL,
+  `tanggapan` varchar(255) NOT NULL,
+  `nik` varchar(16) NOT NULL,
+  `id_berita` int(11) NOT NULL,
+  `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_tanggapan_pengaduan`
+--
+
+CREATE TABLE `tbl_tanggapan_pengaduan` (
+  `id_tanggapan` int(11) NOT NULL,
+  `tanggapan` varchar(255) NOT NULL,
+  `nik` varchar(16) NOT NULL,
+  `id_pengaduan` int(11) NOT NULL,
+  `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_tanggapan_pengaduan`
+--
+
+INSERT INTO `tbl_tanggapan_pengaduan` (`id_tanggapan`, `tanggapan`, `nik`, `id_pengaduan`, `waktu`) VALUES
+(1, 'Mantap', '123456', 7, '2020-09-17 08:59:48'),
+(2, 'Jos', '123456', 7, '2020-09-17 10:26:34'),
+(3, 'dari admin', '123456', 5, '2020-09-17 10:59:24'),
+(4, 'tes', '123456', 3, '2020-09-21 06:25:40');
 
 -- --------------------------------------------------------
 
@@ -575,7 +655,7 @@ CREATE TABLE `tbl_warga` (
 --
 
 INSERT INTO `tbl_warga` (`nik`, `nama`, `email`, `pass`, `tempat_lahir`, `tgl_lahir`, `no_telp`, `alamat`, `rt`, `rw`, `jk`, `goldar`, `agama`, `pendidikan`, `pekerjaan`, `status`, `role`, `ktp_file`, `kk_file`, `foto_file`) VALUES
-('123456', 'Khafido', 'ilz@gmail.com', '$2y$10$41B81e5tXWar7GnNSQUo5eLex3z.SOPuesbddFRPBU.Zr2XSWBBC2', 'Sidoarjo', '1998-08-29', '085646433651', '', 4, 2, 'l', 'b', 'islam', 's1', 'pelajar', 0, 1, '1591623610-ktp.png', '1591623610-kk.png', '123456-1591693485-foto.png'),
+('123456', 'Khafido Ilzam', 'ilz@gmail.com', '$2y$10$1E9TplgvnUlnGQqIHl4jMuI/hJP4bmLFr8OGI3KW.Ule8WHfuXucG', 'Sidoarjo', '1998-08-29', '085646433651', '', 4, 2, 'l', 'b', 'islam', 's1', 'pelajar', 0, 1, '1591623610-ktp.png', '1591623610-kk.png', './assets/img/warga/foto/123456-1600323139-foto_file.png'),
 ('165150201111134', 'Muchamad Khafido Ilzam', 'khaf@gmail.com', '$2y$10$41B81e5tXWar7GnNSQUo5eLex3z.SOPuesbddFRPBU.Zr2XSWBBC2', 'Malang', '2007-02-12', '08593753289', '', 4, 3, 'l', 'o', 'kristen', 's1', 'wiraswasta', 0, 0, './assets/img/warga/ktp/165150201111134-1592312875-ktp_file.jpg', './assets/img/warga/kk/165150201111134-1592312875-kk_file.png', './assets/img/warga/foto/165150201111134-1592312875-foto_file.png'),
 ('215123551464646', 'Ilzam', 'khaf@gmail.com', '$2y$10$xsEjU/NXze9ekJwgBoluGeNKZw2adPiYULq4bPE3Z5zXhsjE3E/I6', 'Tokyo', '2008-03-11', '0856672483', '', 5, 1, 'l', 'o', 'kristen', 's2', 'pns', 0, 0, '', '', ''),
 ('29481284021', 'Citara', 'citara@gmail.com', '$2y$10$D1kmRrXAE7lj8ym9dSa7B.GjqfZBaFMO0gEuMUBd2X20oQpjxFQfa', 'Jakarta', '1996-08-03', '087647385687', '', 3, 2, 'p', 'ab', 'hindu', 'd3', 'swasta', 0, 0, '', '', '');
@@ -605,7 +685,25 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `detail_pengaduan`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detail_pengaduan`  AS  select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama` from (`tbl_pengaduan` `p` join `tbl_warga` `w` on((`p`.`nik` = `w`.`nik`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detail_pengaduan`  AS  select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama`,`w`.`no_telp` AS `no_telp`,`w`.`email` AS `email`,`w`.`rw` AS `rw`,`w`.`rt` AS `rt` from (`tbl_pengaduan` `p` join `tbl_warga` `w` on((`p`.`nik` = `w`.`nik`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `detail_tanggapan_berita`
+--
+DROP TABLE IF EXISTS `detail_tanggapan_berita`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detail_tanggapan_berita`  AS  select `t`.`id_tan` AS `id_tan`,`t`.`tanggapan` AS `tanggapan`,`t`.`nik` AS `nik`,`t`.`id_berita` AS `id_berita`,`t`.`waktu` AS `waktu`,`w`.`nama` AS `nama`,`w`.`foto_file` AS `foto_file` from ((`tbl_berita` `p` join `tbl_tanggapan_berita` `t` on((`p`.`id_berita` = `t`.`id_berita`))) join `tbl_warga` `w` on((`w`.`nik` = `t`.`nik`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `detail_tanggapan_pengaduan`
+--
+DROP TABLE IF EXISTS `detail_tanggapan_pengaduan`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detail_tanggapan_pengaduan`  AS  select `t`.`id_tanggapan` AS `id_tanggapan`,`t`.`tanggapan` AS `tanggapan`,`t`.`nik` AS `nik`,`t`.`id_pengaduan` AS `id_pengaduan`,`t`.`waktu` AS `waktu`,`w`.`nama` AS `nama`,`w`.`foto_file` AS `foto_file` from ((`tbl_pengaduan` `p` join `tbl_tanggapan_pengaduan` `t` on((`p`.`id_pengaduan` = `t`.`id_pengaduan`))) join `tbl_warga` `w` on((`w`.`nik` = `t`.`nik`))) ;
 
 -- --------------------------------------------------------
 
@@ -664,7 +762,7 @@ ALTER TABLE `tbl_item_fisik`
 -- Indexes for table `tbl_item_keuangan`
 --
 ALTER TABLE `tbl_item_keuangan`
-  ADD PRIMARY KEY (`kode`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `id_kegiatan` (`id_kegiatan`);
 
 --
@@ -703,6 +801,18 @@ ALTER TABLE `tbl_potensi`
   ADD PRIMARY KEY (`id_potensi`);
 
 --
+-- Indexes for table `tbl_tanggapan_berita`
+--
+ALTER TABLE `tbl_tanggapan_berita`
+  ADD PRIMARY KEY (`id_tan`);
+
+--
+-- Indexes for table `tbl_tanggapan_pengaduan`
+--
+ALTER TABLE `tbl_tanggapan_pengaduan`
+  ADD PRIMARY KEY (`id_tanggapan`);
+
+--
 -- Indexes for table `tbl_tdk_mampu`
 --
 ALTER TABLE `tbl_tdk_mampu`
@@ -738,7 +848,7 @@ ALTER TABLE `tbl_warga`
 -- AUTO_INCREMENT for table `tbl_berita`
 --
 ALTER TABLE `tbl_berita`
-  MODIFY `id_berita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_berita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_biodata`
@@ -762,19 +872,25 @@ ALTER TABLE `tbl_domisili`
 -- AUTO_INCREMENT for table `tbl_item_fisik`
 --
 ALTER TABLE `tbl_item_fisik`
-  MODIFY `kode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `kode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_item_keuangan`
+--
+ALTER TABLE `tbl_item_keuangan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_kegiatan`
 --
 ALTER TABLE `tbl_kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_kelahiran`
 --
 ALTER TABLE `tbl_kelahiran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_kematian`
@@ -792,7 +908,19 @@ ALTER TABLE `tbl_pengaduan`
 -- AUTO_INCREMENT for table `tbl_potensi`
 --
 ALTER TABLE `tbl_potensi`
-  MODIFY `id_potensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_potensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_tanggapan_berita`
+--
+ALTER TABLE `tbl_tanggapan_berita`
+  MODIFY `id_tan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_tanggapan_pengaduan`
+--
+ALTER TABLE `tbl_tanggapan_pengaduan`
+  MODIFY `id_tanggapan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_tdk_mampu`
