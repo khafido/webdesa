@@ -138,8 +138,9 @@ class Pengaduan extends CI_Controller{
 		$data['element'] .= '<br><br><br><br>';
 		$data['element'] .= '<div class="pull-right text-center" style="width: 250px; margin-right:50px; border-bottom:1px solid black;">';
 		$data['element'] .= '<h5 for="">Desa Pagerngumbuk, '.date("d M Y").'</h5>';
-		$data['element'] .= '<h5 for="">Pengadu</h5><br><br>';
-		$data['element'] .= '<h5><strong>Khafido Ilzam</strong></h5>';
+		$data['element'] .= '<h5 for="">Pengadu</h5>';
+		$data['element'] .= "<img src='".base_url($hasil->ttd_file)."' style='width:5cm;'>";
+		$data['element'] .= "<h5><strong>$hasil->nama</strong></h5>";
 		$data['element'] .= '</div>';
 
 		$this->load->view('v_cetak', $data);

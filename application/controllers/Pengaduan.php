@@ -28,11 +28,20 @@ class Pengaduan extends CI_Controller{
 			$this->form_validation->set_rules('lokasi', 'Lokasi', 'required', array('required'=>'Isi Lokasi'));
 			$this->form_validation->set_rules('bidang', 'Bidang', 'required', array('required'=>'Isi Bidang'));
 			$this->form_validation->set_rules('uraian', 'Uraian', 'required', array('required'=>'Isi Uraian'));
+			$this->form_validation->set_rules('ttd', 'TTD', 'required', array('required'=>'Isi TTD'));
 
 			if ($this->form_validation->run() != false){
+				$img = $_POST['ttd'];
+				$img = str_replace('data:image/png;base64,', '', $img);
+				$img = str_replace(' ', '+', $img);
+				$data = base64_decode($img);
+				$file = './assets/img/pengaduan/' . uniqid() . '.png';
+
+				$success = file_put_contents($file, $data);
 				$config['upload_path']   = "./assets/img/pengaduan/";
 				$config['allowed_types'] = 'jpg|png|jpeg';
 				$config['allowed_size'] = 2048;
+
 
 				// Upload Pengantar
 				$post = 'lampiran_file';
@@ -56,6 +65,7 @@ class Pengaduan extends CI_Controller{
 				$pengaduan['bidang'] = $_POST['bidang'];
 				$pengaduan['uraian'] = $_POST['uraian'];
 				$pengaduan['nik'] = $nik;
+				$pengaduan['ttd_file'] = $file;
 
 				// if ($status) {
 					$this->m_crud->save('tbl_pengaduan', $pengaduan);
@@ -117,8 +127,8 @@ class Pengaduan extends CI_Controller{
 		$data['pengaduan'] = $pengaduan[0];
 		$data['cont'] = $this;
 
-		// $data['tanggapan'] = $this->m_crud->readBy('detail_tanggapan_pengaduan', array('id_pengaduan'=>$id));
-		$data['tanggapan'] = null;
+		$data['tanggapan'] = $this->m_crud->readBy('detail_tanggapan_pengaduan', array('id_pengaduan'=>$id));
+		// $data['tanggapan'] = null;
 
 		$title['judul'] = 'Detail Pengaduan';
 		$this->load->view('includes/v_header', $title);

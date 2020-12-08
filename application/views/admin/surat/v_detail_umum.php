@@ -45,7 +45,8 @@
 				</table>
 				<?php if ($detail->status==0): ?>
 					<button onclick="proses('<?=base_url("admin/surat/proses/$detail->id/$surat/1")?>')" target="_blank" class="btn btn-success btn-fill">Proses</button>
-					<button onclick="proses('<?=base_url("admin/surat/tolak/$detail->id/$surat")?>')" class="btn btn-danger btn-fill">Tolak</button>
+					<!-- <button onclick="proses('<?=base_url("admin/surat/tolak/$detail->id/$surat")?>')" class="btn btn-danger btn-fill">Tolak</button> -->
+					<button onclick="catatan('<?=base_url("admin/surat/tolak/$detail->id/$surat")?>')" class="btn btn-danger btn-fill">Tolak</button>
 					&ensp;&ensp;&ensp;
 				<?php endif; ?>
 				<?php if ($detail->status==2): ?>

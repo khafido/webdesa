@@ -53,6 +53,11 @@
 							<th>:</th>
 							<td><a id="file_lampiran" href="<?=base_url($detail->lampiran_file)?>" target="_blank">Lihat</a></td>
 						</tr>
+						<tr>
+							<th>TTD</th>
+							<th>:</th>
+							<td><a id="file_ttd" href="<?=base_url($detail->ttd_file)?>" target="_blank">Lihat</a></td>
+						</tr>
 					</tbody>
 				</table>
 				<?php if ($detail->status==0){ ?>

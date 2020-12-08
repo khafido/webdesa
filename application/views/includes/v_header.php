@@ -47,10 +47,10 @@
   <script type="text/javascript" src="<?=base_url()?>assets/datatable/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="<?=base_url()?>assets/datatable/dataTables.bootstrap4.js"></script>
   <script type="text/javascript" src="<?=base_url()?>assets/datatable/dataTables.bootstrap4.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url();?>assets/js/signature-pad.js"></script>
 
   <link rel="stylesheet" href="<?=base_url()?>assets/datatable/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="<?=base_url()?>assets/datatable/dataTables.bootstrap4.css">
-
   <script type="text/javascript">
   function hapus(link){
     $('#btnyakin').attr('href', link);

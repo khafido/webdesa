@@ -63,7 +63,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="" class="control-label">Nama <span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="nama" placeholder="Nama" value="<?=$_SESSION['nama']?>" disabled required>
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="nama" placeholder="Nama" value="<?=$_SESSION['nama']?>" disabled required>
               </div>
               <div class="form-group col-md-4">
                 <label for="" class="control-label">Hubungan <span class="text-danger">*</span> </label>
@@ -102,7 +102,7 @@
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Nama<span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="nama_alm" placeholder="Nama" value="" required>
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="nama_alm" placeholder="Nama" value="" required>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Tanggal Lahir <span class="text-danger">*</span> </label>
@@ -148,7 +148,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="" class="control-label">Alamat<span class="text-danger">*</span> </label>
-                <textarea class="form-control" name="alamat" placeholder="Alamat" rows="5" value=""></textarea>
+                <textarea pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" name="alamat" placeholder="Alamat" rows="5" value=""></textarea>
               </div>
               <div class="form-group col-md-12"></div>
               <div class="form-group col-md-3">
@@ -165,7 +165,7 @@
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Penentu Meninggal<span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="penentu" placeholder="Penentu Meninggal" value="">
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="penentu" placeholder="Penentu Meninggal" value="">
               </div>
               <div class="form-group col-md-12"></div>
               <div class="form-group col-md-2 offset-md-8">

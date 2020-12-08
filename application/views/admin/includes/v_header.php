@@ -42,6 +42,7 @@
 
   <script src="<?=base_url("assets/js/jquery.validate.min.js")?>"></script>
   <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script> -->
+  <script type="text/javascript" src="<?php echo base_url();?>assets/js/signature-pad.js"></script>
 
   <script type="text/javascript">
   function proses(link){
@@ -60,6 +61,11 @@
       $('#modalRencana').modal('show');
   }
 
+  function tambahItem(link){
+      $('#formItem').attr('action', link);
+      $('#modalItem').modal('show');
+  }
+
   function catatan(link){
       $('#formCatatan').attr('action', link);
       $('#modalCatatan').modal('show');
@@ -70,6 +76,81 @@
       $('#btnyakin').attr('href', link);
       $('#modaltanggapan').modal('show');
   }
+
+  function showSign(id){
+    $('#kode').val($('#'+id).data("kode"));
+    $('#sign-modal').modal('show');
+  }
+
+  window.datai = '[]';
+  window.undef;
+  function pilihItem(id,kode_kegiatan){
+    var kode = kode_kegiatan;
+    var uraian = $('#'+id).data("uraian");
+    var satuan = $('#'+id).data("satuan");
+    var hst = $('#'+id).data("hst");
+    var volume = $('#'+id+"-qty").val();
+
+    var data = JSON.parse(window.datai);
+    data.push({"kode":kode+'.'+(data.length+1), "uraian":uraian, "satuan":satuan, "volume":volume, "hst":hst});
+    window.datai = JSON.stringify(data);
+    showItem(window.datai);
+  }
+
+  function showItem(data){
+    var html = '';
+    $("input[name='daftarItem']").val(data);
+    data = JSON.parse(data);
+    var panjang = 0;
+    if(data!==window.undef){
+      panjang = data.length;
+    }
+    for(var i=0; i < panjang; i++){
+      // html += '<tr><td>'+(i+1)+'</td><td>'+data[i].kode+'</td><td>'+data[i].uraian+'</td><td>'+data[i].volume+'</td><td>'+data[i].satuan+'</td><td>'+data[i].hst+'</td>';
+      // $('#listitemkeuangan').append(`
+      html +=`
+        <div class="row" id="rowitemkeuangan">
+        <div class="col-md-2">
+        <label for="" class="control-label modal-label">Kode <span class="text-danger">*</span> </label>
+        <input class="form-control" type="text" name="kode[]" title="Isi Kode" value="`+data[i].kode+`" required readonly>
+        </div>
+        <div class="col-md-3">
+        <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
+        <input class="form-control" type="text" name="uraian[]" title="Isi Uraian" value="`+data[i].uraian+`" required readonly>
+        </div>
+        <div class="col-md-2">
+        <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
+        <input class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" value="`+data[i].volume+`" required>
+        </div>
+        <div class="col-md-2">
+        <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
+        <input class="form-control" type="text" name="satuan[]" value="`+data[i].satuan+`" required readonly>
+        </div>
+        <div class="col-md-2">
+        <label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger">*</span> </label>
+        <input class="form-control" type="number" min="1" pattern="[0-9]+" name="harga[]" title="Masukkan Angka" value="`+data[i].hst+`" required readonly>
+        </div>
+        <div class="col-md-1">
+        <label for="" class="control-label modal-label"><span class="text-danger"></span> </label>
+        <button type="button" class="btn btn-danger btn-fill form-control" name="button" id="btnhapusitemkeuangan`+i+`" data-hapus="`+i+`" onclick="hapusItem(`+i+`)">Hapus</button>
+        </div>
+        </div>`;
+        // `);
+      // html += '<td><a id="hapusItem" data-hapus="'+i+'" class="text text-xl-right text-danger"><i class="fa fa-remove"></i>&nbsp; Hapus</a></td></tr>';
+    }
+    // console.log(html);
+    // $('#listItem').html(html);
+    $('#listitemkeuangan').html(html);
+  }
+
+
+  function hapusItem(id){
+    var data = JSON.parse(window.datai);
+    data.splice(id,1);
+    window.datai = JSON.stringify(data);
+    showItem(window.datai);
+  }
+
 
   </script>
   <style media="screen">
@@ -90,7 +171,7 @@
     color: red;
   }
 
-/* 
+/*
   .form-control, .card{
   border: 2px solid black;
   }
@@ -189,11 +270,11 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-left">
-          <li class="<?=($active=='dashboard')?'active':''?>">
+          <!-- <li class="<?=($active=='dashboard')?'active':''?>">
             <a href="<?=base_url("admin/dashboard")?>">
               <p>Dashboard</p>
             </a>
-          </li>
+          </li> -->
           <li class="<?=($active=='warga')?'active':''?>">
             <a href="<?=base_url("admin/warga")?>">
               <p>Warga</p>
@@ -226,6 +307,11 @@
           <li class="<?=($active=='dana')?'active':''?>">
             <a href="<?=base_url("admin/dana")?>">
               <p>Dana</p>
+            </a>
+          </li>
+          <li class="<?=($active=='item')?'active':''?>">
+            <a href="<?=base_url("admin/item")?>">
+              <p>Item</p>
             </a>
           </li>
           <li class="<?=($active=='berita')?'active':''?>">

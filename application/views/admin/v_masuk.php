@@ -105,6 +105,10 @@ body {
   /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
 }
+.alert-danger{
+  color: red;
+  margin-bottom: 10px;
+}
 </style>
 </head>
 <body>

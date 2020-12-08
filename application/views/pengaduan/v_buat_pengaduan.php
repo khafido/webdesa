@@ -79,6 +79,24 @@ border-radius: 0px;
                   </label><br>
                   <input class="form-control" accept=".jpg, .jpeg, .png" type="file" name="lampiran_file" multiple>
                 </div>
+                <div class="form-group col-md-16">
+                  <label for="" class="control-label">Tanda Tangan
+                  </label><br>
+                  <div class="signature-pad" id="signature-pad">
+                    <div class="m-signature-pad">
+                      <div class="m-signature-pad-body form-control">
+                        <canvas class=""></canvas>
+                      </div>
+                      <?=form_error('ttd')?>
+                      <div id="savettd"></div>
+                    </div>
+                    <div class="m-signature-pad-footer">
+                      <button type="button"  id="save2" data-action="save" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+                      <button type="button" data-action="clear"  class="btn btn-danger"><i class="fa fa-trash-o"></i> Clear</button>
+                    </div>
+                  </div>
+                </div>
+                <input type="hidden" name="ttd" id="ttd" value="">
                 <div class="form-group col-md-12">
                   <button name="pengaduan" class="btn btn-success form-control col-md-12">Selesai</button>
                 </div>
@@ -95,4 +113,32 @@ border-radius: 0px;
 </section>
 
 <script type="text/javascript">
+var wrapper = document.getElementById("signature-pad"),
+clearButton = wrapper.querySelector("[data-action=clear]"),
+saveButton = wrapper.querySelector("[data-action=save]"),
+canvas = wrapper.querySelector("canvas"),
+signaturePad;
+
+function resizeCanvas() {
+  var ratio =  window.devicePixelRatio || 1;
+  canvas.width = canvas.offsetWidth * ratio;
+  canvas.height = canvas.offsetHeight * ratio;
+  canvas.getContext("2d").scale(ratio, ratio);
+}
+
+signaturePad = new SignaturePad(canvas);
+
+clearButton.addEventListener("click", function (event) {
+  $('#savettd').html('<p class="alert alert-danger">TTD Kosong</p>');
+  $('#ttd').val('');
+  signaturePad.clear();
+});
+saveButton.addEventListener("click", function (event) {
+  if (signaturePad.isEmpty()) {
+    $('#savettd').html('<p class="alert alert-danger">TTD Kosong</p>');
+  } else {
+    $('#ttd').val(signaturePad.toDataURL());
+    $('#savettd').html('<p class="alert alert-success" style="color:white; background:green;">Sudah Tersimpan</p>');
+  }
+});
 </script>

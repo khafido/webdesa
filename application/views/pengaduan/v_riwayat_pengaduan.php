@@ -74,7 +74,7 @@ font-weight: bold;
                         <td><?=$p->tgl_pengaduan?></td>
                         <td class="text-success"><?php $cont->cek_status($p->status);?></td>
                         <td>
-                          <a style="font-size:12px;" href="<?=base_url("pengaduan/ubah/$p->id_pengaduan")?>" class="btn btn-primary">Ubah</a>
+                          <!-- <a style="font-size:12px;" href="<?=base_url("pengaduan/ubah/$p->id_pengaduan")?>" class="btn btn-primary">Ubah</a> -->
                           &ensp;
                           <button style="font-size:13px;" onclick="hapus('<?=base_url("pengaduan/hapus/$p->id_pengaduan")?>')" class="btn btn-danger">Hapus</button>
                         </td>

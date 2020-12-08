@@ -34,7 +34,7 @@
                 <label for="" class="control-label">Nama Terkait<span class="text-danger">*</span> </label>
                 <input class="form-control" type="text" name="nama_terkait" placeholder="Nama" value="<?=$hasil->nama_terkait?>">
               </div>
-              <div class="form-group col-md-3">
+              <div class="form-group col-md-2">
                 <label for="" class="control-label">Pekerjaan<span class="text-danger">*</span> </label>
                 <select class="form-control" name="pekerjaan">
 									<?php
@@ -48,11 +48,12 @@
                   } ?>
                 </select>
               </div>
-              <div class="form-group col-md-3">
+              <div class="form-group col-md-5">
                 <label for="" class="control-label">Tujuan<span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="tujuan" placeholder="Tujuan" value="<?=$hasil->tujuan?>">
+                <!-- <input class="form-control" type="text" name="tujuan" placeholder="Tujuan" value="<?=$hasil->tujuan?>"> -->
+								<textarea class="form-control" name="tujuan" placeholder="Tujuan" rows="5" value="" required><?=$hasil->tujuan?></textarea>
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-5">
                 <label for="" class="control-label">Alamat<span class="text-danger">*</span> </label>
                 <textarea class="form-control" name="alamat" placeholder="Alamat" rows="5" value="" required><?=$hasil->alamat?></textarea>
               </div>

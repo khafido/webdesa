@@ -105,7 +105,7 @@
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Nama Terkait<span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="nama_terkait" placeholder="Nama" value="">
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="nama_terkait" placeholder="Nama" value="">
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Pekerjaan<span class="text-danger">*</span> </label>

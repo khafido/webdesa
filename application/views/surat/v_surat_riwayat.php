@@ -23,6 +23,11 @@ font-weight: bold;
     <div class="section-title text-center">
       <h2>Riwayat Surat</h2>
       <!-- <p class="separator" style="">Isi data dibawah dengan sebenar-benarnya.</p> -->
+      <?php if($this->session->flashdata('sukses')){ ?>
+      <div class="alert alert-success" role="alert">
+        <?php echo $this->session->flashdata('sukses'); ?>
+      </div>
+      <?php } ?>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -62,6 +67,7 @@ font-weight: bold;
                       <th width="120">Nama Ayah</th>
                       <th width="120">Nama Ibu</th>
                       <th width="140">Tgl Permohonan</th>
+                      <th width="140">Catatan</th>
                       <th width="100">Status</th>
                     </tr>
                   </thead>
@@ -74,7 +80,8 @@ font-weight: bold;
                         <td><?=$v->ayah?></td>
                         <td><?=$v->ibu?></td>
                         <td><?=$v->tgl_buat?></td>
-                        <td class="badge badge-info"><?php $surat->cek_status($v->status);?></td>
+                        <td><?=$v->catatan?></td>
+                        <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -94,6 +101,7 @@ font-weight: bold;
                         <th>Tempat Meninggal</th>
                         <th>Penyebab</th>
                         <th>Tgl Permohonan</th>
+                        <th>Catatan</th>
                         <th>Status</th>
                       </tr>
                     </thead>
@@ -106,7 +114,8 @@ font-weight: bold;
                           <td><?=$v->tempat_meninggal?></td>
                           <td><?=$v->penyebab?></td>
                           <td><?=$v->tgl_buat?></td>
-                          <td class="badge badge-info"><?php $surat->cek_status($v->status);?></td>
+                          <td><?=$v->catatan?></td>
+                          <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
                         </tr>
                       <?php endforeach; ?>
                     </tbody>
@@ -125,6 +134,7 @@ font-weight: bold;
                       <th>Nama Terkait</th>
                       <th>Tujuan</th>
                       <th>Tgl Permohonan</th>
+                      <th>Catatan</th>
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -136,7 +146,8 @@ font-weight: bold;
                         <td><?=$v->nama_terkait?></td>
                         <td><?=$v->tujuan?></td>
                         <td><?=$v->tgl_buat?></td>
-                        <td class="badge badge-info"><?php $surat->cek_status($v->status);?></td>
+                        <td><?=$v->catatan?></td>
+                        <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -153,6 +164,7 @@ font-weight: bold;
                       <th>Nama Kepala Keluarga</th>
                       <th>Alamat</th>
                       <th>Tgl Permohonan</th>
+                      <th>Catatan</th>
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -163,7 +175,8 @@ font-weight: bold;
                         <th><?=$v->nama_kepala?></th>
                         <th><?=$v->alamat?></th>
                         <th><?=$v->tgl_buat?></th>
-                        <td class="badge badge-info"><?php $surat->cek_status($v->status);?></td>
+                        <td><?=$v->catatan?></td>
+                        <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -179,6 +192,7 @@ font-weight: bold;
                       <th>No Surat</th>
                       <th>Tujuan</th>
                       <th>Tgl Permohonan</th>
+                      <th>Catatan</th>
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -188,7 +202,8 @@ font-weight: bold;
                         <th><?=$v->id_umum?></th>
                         <td><?=$v->tujuan?></td>
                         <td><?=$v->tgl_buat?></td>
-                        <td class="badge badge-info"><?php $surat->cek_status($v->status);?></td>
+                        <td><?=$v->catatan?></td>
+                        <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -206,6 +221,7 @@ font-weight: bold;
                       <th>Nama Usaha</th>
                       <th>Alamat</th>
                       <th>Tgl Permohonan</th>
+                      <th>Catatan</th>
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -217,7 +233,8 @@ font-weight: bold;
                         <td><?=$v->nama_usaha?></td>
                         <td><?=$v->alamat?></td>
                         <td><?=$v->tgl_buat?></td>
-                        <td class="badge badge-info"><?php $surat->cek_status($v->status);?></td>
+                        <td><?=$v->catatan?></td>
+                        <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>

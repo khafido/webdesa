@@ -26,12 +26,12 @@ class Surat extends CI_Controller{
 		if (isset($_POST['kelahiran'])) {
 			$kelahiran['nik'] = $nik;
 			$kelahiran['hubungan'] = $_POST['hubungan'];
-			$kelahiran['anak'] = $_POST['anak'];
+			$kelahiran['anak'] = preg_replace("/[^a-zA-Z\s]+/", "", $_POST['anak']);
 			$kelahiran['tgl_lahir'] = $_POST['tgllahir'];
 			$kelahiran['tempat_lahir'] = $_POST['tempatlahir'];
 			$kelahiran['jk'] = $_POST['jk'];
-			$kelahiran['ayah'] = $_POST['ayah'];
-			$kelahiran['ibu'] = $_POST['ibu'];
+			$kelahiran['ayah'] = preg_replace("/[^a-zA-Z\s]+/", "", $_POST['ayah']);
+			$kelahiran['ibu'] = preg_replace("/[^a-zA-Z\s]+/", "", $_POST['ibu']);
 			$kelahiran['rw'] = $_POST['rw'];
 			$kelahiran['rt'] = $_POST['rt'];
 
@@ -64,6 +64,7 @@ class Surat extends CI_Controller{
 
 			// if($status){
 				$this->m_crud->save('tbl_kelahiran', $kelahiran);
+				$this->session->set_flashdata('sukses', 'Buat Surat Sukses!');
 				redirect(base_url("surat/riwayat"));
 			// } else {
 			// 	$this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Perhatikan Ukuran(Maks 2MB) atau Tipe File(JPG,PNG,PDF)!</div>');
@@ -681,5 +682,27 @@ class Surat extends CI_Controller{
 			array_push($anggota, array('nama'=>$nama,'nik'=>$nik,'jk'=>$jk,'tempat'=>$tempat,'tgl'=>$tgl,'jk'=>$jk,'hubungan'=>$hubungan,'pendidikan'=>$pendidikan,'goldar'=>$goldar,'kawin'=>$kawin,'agama'=>$agama,'pekerjaan'=>$pekerjaan,'ayah'=>$ayah,'ibu'=>$ibu));
 		}
 		$biodata['anggota'] = json_encode($anggota);
+	}
+
+	function sign(){
+		$img = $_POST['sign'];
+		$img = str_replace('data:image/png;base64,', '', $img);
+		$img = str_replace(' ', '+', $img);
+		$data = base64_decode($img);
+		$image=uniqid() . '.png';
+		$file = './assets/img/sign/' .$image;
+		$success = file_put_contents($file, $data);
+
+		$apiKeyAuthorization = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTYwNjEzMTcyMSwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjg1NTE3LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.FVgumAJkNfwMxHUy-2G9jqGAaCbc6gbX7BnS2Z8CvRs";
+		$this->load->library('smsgateway', array('apiKeyAuthorization'=>$apiKeyAuthorization));
+
+		$phone_number = "085230839313";
+		$message = "Test smsGatewayV4";
+		$deviceID = 121683;
+		$options = [];
+
+		$this->smsgateway->sendMessageToNumber($phone_number, $message, $deviceID, $options);
+
+		$this->m_crud->update($_POST['surat'], array('ttd_file'=>$file, 'status'=>surat_selesai), array('id'=>$_POST['kode']));
 	}
 }

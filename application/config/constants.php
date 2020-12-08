@@ -112,6 +112,7 @@ define('warga',0);
 define('kades',1);
 define('sekretaris',2);
 define('bpd',3);
+define('master',99);
 
 // Status Surat
 define('surat_ditolak',-1);

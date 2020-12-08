@@ -99,7 +99,7 @@
             <div class="form-row col-md-12">
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Nama Anak <span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="anak" placeholder="Nama Anak" value="" required>
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="anak" placeholder="Nama Anak" value="" required>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Tanggal Lahir <span class="text-danger">*</span> </label>
@@ -107,7 +107,7 @@
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Tempat Lahir <span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="tempatlahir" placeholder="Tempat Lahir" value="">
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="tempatlahir" placeholder="Tempat Lahir" value="">
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Jenis Kelamin <span class="text-danger">*</span> </label>
@@ -118,11 +118,11 @@
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Nama Ayah <span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="ayah" placeholder="Nama Ayah" value="">
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="ayah" placeholder="Nama Ayah" value="">
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Nama Ibu <span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="ibu" placeholder="Nama Ibu" value="">
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="ibu" placeholder="Nama Ibu" value="">
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Dusun <span class="text-danger">*</span> </label>

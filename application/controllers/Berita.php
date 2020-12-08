@@ -94,12 +94,27 @@ class Berita extends CI_Controller{
 
 	function detail($judul, $id){
 		$detail = $this->m_crud->readBy('detail_berita', array('id_berita'=>$id));
-
 		$title['judul'] = 'Detail Berita';
 		$data['berita'] = $detail[0];
+		$data['tanggapan'] = $this->m_crud->readBy('detail_tanggapan_berita', array('id_berita'=>$id));
+
 		$this->load->view('includes/v_header', $title);
 		$this->load->view('berita/v_detail_berita', $data);
 		$this->load->view('includes/v_footer');
+	}
+
+	function tanggapan($id){
+		if (isset($_POST['tanggapan'])) {
+			$berita['tanggapan'] = $_POST['komen'];
+			$berita['id_berita'] = $id;
+			$berita['nik'] = $_SESSION['nik'];
+			$pesan = $this->m_crud->save('tbl_tanggapan_berita', $berita);
+			if ($pesan) {
+				redirect(base_url("berita/detail/$id"));
+				die();
+			}
+			var_dump($pesan);
+		}
 	}
 
 	function cari(){

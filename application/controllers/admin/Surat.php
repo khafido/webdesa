@@ -3,8 +3,7 @@ class Surat extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->library('form_validation');
-		if (!$this->session->userdata('nik_admin'))
-		{
+		if (!$this->session->userdata('nik_admin')){
 			redirect(base_url("admin/akun/masuk"));
 		}
 		$this->load->model('m_crud');
@@ -34,10 +33,11 @@ class Surat extends CI_Controller{
 
 		$data['judul'] = 'surat';
 		$data['surat'] = $surat;
+		$footer['tabel'] = $tbl;
 
 		$this->load->view('admin/includes/v_header', $title);
 		$this->load->view("admin/surat/$view[$surat]", $data);
-		$this->load->view('admin/includes/v_footer');
+		$this->load->view('admin/includes/v_footer', $footer);
 	}
 
 	function detail($surat, $id){
@@ -606,13 +606,17 @@ class Surat extends CI_Controller{
 
 	function tolak($id, $surat){
 		$tbl = TABEL;
-		$pesan = $this->m_crud->delete($tbl[$surat], array('id'=>$id));
-		redirect(base_url("admin/surat/lihat/$surat"));
+		if (isset($_POST['tanggapan'])) {
+			$data['catatan'] = $_POST['catatan'];
+			$pesan = $this->m_crud->update($tbl[$surat], $data,array('id'=>$id));
+			$pesan = $this->m_crud->delete($tbl[$surat], array('id'=>$id));
+			redirect(base_url("admin/surat/lihat/$surat"));
+		}
 	}
 
 	public function cetak($surat, $id){
 		$view = array('kelahiran' => 'tbl_kelahiran', 'kematian'=>'tbl_kematian', 'tdkmampu'=>'tbl_tdk_mampu', 'biodata'=>'tbl_biodata', 'umum'=>'tbl_umum', 'domisili'=>'tbl_domisili');
-		$hasil = $this->m_crud->read($view[$surat], array('id'=>$id))[0];
+		$hasil = $this->m_crud->readBy($view[$surat], array('id'=>$id))[0];
 
 		$data['element'] = "<div style='padding-bottom:20px; margin-right:13%; width:400px;' class='pull-right'>";
 		$data['element'] .= "<h4 class='text-center'><strong>PEMERINTAH KABUPATEN SIDOARJO</strong></h4>";
@@ -676,7 +680,8 @@ class Surat extends CI_Controller{
 		$data['element'] .= '<br><br><br><br>';
 		$data['element'] .= '<div class="pull-right text-center" style="width: 250px; margin-top:50px; margin-right:50px; border-bottom:1px solid black;">';
 		$data['element'] .= '<h5 for="">Desa Pagerngumbuk, '.date("d M Y").'</h5>';
-		$data['element'] .= '<h5 for="">Kepala Desa</h5><br><br>';
+		$data['element'] .= '<h5 for="">Kepala Desa</h5>';
+		$data['element'] .= "<img src='".base_url($hasil->ttd_file)."' style='width:5cm;'>";
 		$data['element'] .= '<h5><strong>Khoirul Anam</strong></h5>';
 		$data['element'] .= '</div>';
 

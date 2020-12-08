@@ -111,7 +111,7 @@ td{
             <div class="form-row col-md-12">
               <div class="form-group col-md-6">
                 <label for="" class="control-label">Nama Kepala Keluarga <span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="nama_kepala" placeholder="Nama Kepala Keluarga" value="" required>
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="nama_kepala" placeholder="Nama Kepala Keluarga" value="" required>
               </div>
               <div class="form-group col-md-6">
                 <label for="" class="control-label">Alamat <span class="text-danger">*</span> </label>

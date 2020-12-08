@@ -11,8 +11,8 @@
 --------------------------------------------------------------*/
 body {
   /* background-color: #fff; */
-  /* background-image: url('../img/bg-strip.jpg');
-  background-size: 2px; */
+  /* background-image: url('../img/bannersawahh1.jpg');
+  background-size: 90vw; */
   background-color: #FAFAFA;
   color: #333;
 }
@@ -243,7 +243,7 @@ span {
 # Header
 --------------------------------------------------------------*/
 #header {
-  background: #fff;
+  background: #75B33F;
   position: fixed;
   left: 0;
   top: 0;
@@ -277,7 +277,8 @@ span {
 }
 
 #header #logo h1 a span {
-  color: #71c55d;
+  /* color: #71c55d; */
+  color: #fff;
 }
 
 #header #logo img {
@@ -500,7 +501,7 @@ span {
   padding: 8px 8px;
   text-decoration: none;
   display: inline-block;
-  color: #555;
+  color: #fff;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 14px;
@@ -1436,7 +1437,8 @@ body.mobile-nav-active #mobile-nav-toggle i {
 # Footer
 --------------------------------------------------------------*/
 .footer {
-  background: #2a2c30;
+  /* background: #2a2c30; */
+  background: #75B33F;
   padding-top: 50px;
 }
 

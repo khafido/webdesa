@@ -40,19 +40,24 @@ class Kegiatan extends CI_Controller{
 		$data['item'] = count($item);
 
 		$data['detail'] = $detail[0];
+		$data['kode_kegiatan'] = $detail[0]->kode_kegiatan;
 		$data['judul'] = 'kegiatan';
 		$data['dusun'] = DUSUN;
 
+		$footer['itembarang'] = $this->m_crud->read('tbl_item');
+
 		$this->load->view('admin/includes/v_header', $title);
 		$this->load->view('admin/kegiatan/v_detail_kegiatan', $data);
-		$this->load->view('admin/includes/v_footer');
+		$this->load->view('admin/includes/v_footer', $footer);
 	}
 
 	function form($action){
 		$nik = $_SESSION['nik_admin'];
 		if (isset($_POST['nama'])) {
 			$store['nama'] = $_POST['nama'];
-			$store['bidang'] = $_POST['bidang'];
+			$exp = explode("-",$_POST['bidang']);
+			$kode_kegiatan = $exp[0];
+			$store['bidang'] = $exp[1];
 			$store['tgl_mulai'] = $_POST['tgl_mulai'];
 			$store['tgl_selesai'] = $_POST['tgl_selesai'];
 			$store['output'] = $_POST['output'];
@@ -79,6 +84,8 @@ class Kegiatan extends CI_Controller{
 				if ($action=="tambah") {
 					$id = $this->uri->segment(5);
 					$store['id_pengaduan'] = $id;
+					$nomor = $this->m_crud->readBy('tbl_kegiatan', array('tgl_mulai >='=>TAHUN."-01-01", 'tgl_selesai <='=>TAHUN."-12-31"));
+					$store['kode_kegiatan'] = $kode_kegiatan.".".(count($nomor)+1);
 					$pengaduan['status'] = pengaduan_selesai;
 					$this->m_crud->update('tbl_pengaduan', $pengaduan, array('id_pengaduan'=>$id));
 					$pesan = $this->m_crud->save('tbl_kegiatan', $store);

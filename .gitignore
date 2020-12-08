@@ -21,3 +21,4 @@ application/logs/*
 #.htaccess
 psudocode
 application/config/database.php
+application/config/database.php

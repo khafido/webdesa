@@ -3,10 +3,10 @@
 ?>
 <div class="col-md-12">
 	<div class="card">
+		<?php echo $this->session->flashdata('sukses'); ?>
 		<div class="header">
 			<!-- <a href="<?=base_url("admin/$judul/form/tambah")?>" class="btn btn-success btn-fill pull-right">Tambah</a> -->
 			<h4 class="title" style="text-transform:capitalize;">Data <?=$judul?> Baru</h4>
-			<?php echo $this->session->flashdata('sukses'); ?>
 			<!-- <p class="category">Last Campaign Performance</p> -->
 		</div>
 		<div class="content">
@@ -14,6 +14,7 @@
 				<table class="table table-hover table-striped table-responsive" id="tbl_kegiatan">
 					<thead>
 						<th>#</th>
+						<th>Kode</th>
 						<th>Nama</th>
 						<th>Bidang</th>
 						<th>Tgl Mulai</th>
@@ -28,6 +29,7 @@
 						<?php $i=1; foreach ($hasil as $w): ?>
 							<tr>
 								<td><?=$i++?></td>
+								<td><?=$w->kode_kegiatan?></td>
 								<td><?=$w->nama?></td>
 								<td><?=$w->bidang?></td>
 								<td><?=$w->tgl_mulai?></td>
@@ -62,6 +64,7 @@
 				<table class="table table-hover table-striped table-responsive" id="tbl_rencana">
 					<thead>
 						<th>#</th>
+						<th>Kode</th>
 						<th>Nama</th>
 						<th>Bidang</th>
 						<th>Tgl Mulai</th>
@@ -76,6 +79,7 @@
 						<?php $i=1; foreach ($rencana as $w): ?>
 							<tr>
 								<td><?=$i++?></td>
+								<td><?=$w->kode_kegiatan?></td>
 								<td><?=$w->nama?></td>
 								<td><?=$w->bidang?></td>
 								<td><?=$w->tgl_mulai?></td>
@@ -110,6 +114,7 @@
 				<table class="table table-hover table-striped table-responsive" id="tbl_proses">
 					<thead>
 						<th>#</th>
+						<th>Kode</th>
 						<th>Nama</th>
 						<th>Bidang</th>
 						<th>Tgl Mulai</th>
@@ -124,6 +129,7 @@
 						<?php $i=1; foreach ($proses as $w): ?>
 							<tr>
 								<td><?=$i++?></td>
+								<td><?=$w->kode_kegiatan?></td>
 								<td><?=$w->nama?></td>
 								<td><?=$w->bidang?></td>
 								<td><?=$w->tgl_mulai?></td>
@@ -158,6 +164,7 @@
 				<table class="table table-hover table-striped table-responsive" id="tbl_selesai">
 					<thead>
 						<th>#</th>
+						<th>Kode</th>
 						<th>Nama</th>
 						<th>Bidang</th>
 						<th>Tgl Mulai</th>
@@ -172,6 +179,7 @@
 						<?php $i=1; foreach ($selesai as $w): ?>
 							<tr>
 								<td><?=$i++?></td>
+								<td><?=$w->kode_kegiatan?></td>
 								<td><?=$w->nama?></td>
 								<td><?=$w->bidang?></td>
 								<td><?=$w->tgl_mulai?></td>
@@ -206,6 +214,7 @@
 				<table class="table table-hover table-striped table-responsive" id="tbl_selesai">
 					<thead>
 						<th>#</th>
+						<th>Kode</th>
 						<th>Nama</th>
 						<th>Bidang</th>
 						<th>Tgl Mulai</th>
@@ -220,6 +229,7 @@
 						<?php $i=1; foreach ($arsip as $w): ?>
 							<tr>
 								<td><?=$i++?></td>
+								<td><?=$w->kode_kegiatan?></td>
 								<td><?=$w->nama?></td>
 								<td><?=$w->bidang?></td>
 								<td><?=$w->tgl_mulai?></td>
