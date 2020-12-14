@@ -71,12 +71,9 @@
 								<th><?=$v->tgl_buat?></th>
 								<td class="tindakan">
 									<a href="<?=base_url("admin/surat/detail/$surat/$v->id")?>" class="btn btn-info btn-fill" title="Lihat">Lihat</a>
-									<a href="<?=base_url("admin/surat/cetak/$surat/$v->id")?>" class="btn btn-danger btn-fill" title="Cetak">Cetak</a>
-									<button onclick="proses('<?=base_url("admin/surat/proses/$v->id/$surat/2")?>')" class="btn btn-success btn-fill" title="Selesai">Selesai</button>
-									<!--
-									<a href="<?=base_url("admin/surat/detail/$v->nik")?>" class="btn btn-info" title="Lihat">Lihat</a>
-									<a href="<?=base_url("admin/surat/form/ubah/$v->nik")?>" class="btn btn-success" title="Ubah">Ubah</a>
-									<button onclick="hapus('<?=base_url("admin/surat/hapus/$v->nik")?>')" class="btn btn-danger" title="Hapus">Hapus</button> -->
+									<!-- <a href="<?=base_url("admin/surat/cetak/$surat/$v->id")?>" class="btn btn-danger btn-fill" title="Cetak">Cetak</a>
+									<button onclick="proses('<?=base_url("admin/surat/proses/$v->id/$surat/2")?>')" class="btn btn-success btn-fill" title="Selesai">Selesai</button>									 -->
+									<button class="btn signbtn" type="button" id="sbnt<?=$v->id?>" onclick="showSign(this.id)" data-kode="<?=$v->id?>">Sign</button>
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -117,7 +114,7 @@
 								<th><?=$v->tgl_buat?></th>
 								<td class="tindakan">
 									<a href="<?=base_url("admin/surat/detail/$surat/$v->id")?>" class="btn btn-info btn-fill" title="Lihat">Lihat</a>
-									<a href="<?=base_url("admin/surat/cetak/$surat/$v->id")?>" class="btn btn-danger btn-fill" title="Cetak">Cetak</a>
+									<a href="<?=base_url("admin/surat/cetak/$surat/$v->id")?>" target="_blank" class="btn btn-danger btn-fill" title="Cetak">Cetak</a>
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -130,6 +127,6 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
+
 } );
 </script>

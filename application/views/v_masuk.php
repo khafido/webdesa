@@ -116,7 +116,7 @@ body {
         <?php echo $this->session->flashdata('error'); ?>
           <input value="123456" type="text" placeholder="NIK" name="nik" required/>
           <?=form_error('nik'); ?>
-          <input value="123456" type="password" placeholder="Kata Sandi" name="pass" required/>
+          <input value="webdesa" type="password" placeholder="Kata Sandi" name="pass" required/>
           <?=form_error('pass'); ?>
           <button name="masuk">masuk</button>
           <label class="message">Belum terdaftar? <a href="<?=base_url("akun/registrasi")?>">Buat Akun</a></label>

@@ -15,8 +15,7 @@
 						<th>#</th>
 						<th>Bidang</th>
 						<th>Omzet</th>
-						<th>Awal</th>
-						<th>Akhir</th>
+						<th>Bulan</th>
 						<th>Tahun</th>
 						<th>Orang Terlibat</th>
 						<th>Tindakan</th>
@@ -28,9 +27,7 @@
 								<td><?=$w->bidang?></td>
 								<td><?=$w->omzet?></td>
 								<?php $awal  = DateTime::createFromFormat('!m', $w->waktu_awal);?>
-								<?php $akhir = DateTime::createFromFormat('!m', $w->waktu_akhir);?>
 								<td><?=$awal->format('F');?></td>
-								<td><?=$akhir->format('F');?></td>
 								<td><?=$w->tahun?></td>
 								<td><?=$w->orang?></td>
 								<td class="tindakan">

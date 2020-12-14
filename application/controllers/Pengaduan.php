@@ -86,9 +86,12 @@ class Pengaduan extends CI_Controller{
 
 	function lihat($id){
 		$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status='=>pengaduan_proses, 'bidang'=>$id));
+		// $sql = "select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama`,`w`.`no_telp` AS `no_telp`,`w`.`email` AS `email`,`w`.`rw` AS `rw`,`w`.`rt` AS `rt`,`p`.`ttd_file` AS `ttd_file` from (`tbl_pengaduan` `p` join `tbl_warga` `w` on((`p`.`nik` = `w`.`nik`)))";
+		// $pengaduan = $this->db->query($sql." WHERE bidang='$id' AND p.status=".pengaduan_proses)->result();
 		if ($id=="semua") {
 			$active = "semua";
 			$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status<>'=>pengaduan_ditolak));
+			// $pengaduan = $this->db->query($sql." WHERE p.status<>".pengaduan_ditolak)->result();
 		} elseif ($id=="infrastruktur") {
 			$active = "infrastruktur";
 		} elseif ($id=="pendidikan") {
@@ -103,6 +106,7 @@ class Pengaduan extends CI_Controller{
 			$active = "lain";
 		}
 		$data['active'] = $active;
+
 		$data['pengaduan'] = $pengaduan;
 		$data['cont'] = $this;
 
@@ -124,6 +128,9 @@ class Pengaduan extends CI_Controller{
 
 	function detail($id){
 		$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('id_pengaduan'=>$id));
+		// $sql = "select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama`,`w`.`no_telp` AS `no_telp`,`w`.`email` AS `email`,`w`.`rw` AS `rw`,`w`.`rt` AS `rt`,`p`.`ttd_file` AS `ttd_file` from (`tbl_pengaduan` `p` join `tbl_warga` `w` on((`p`.`nik` = `w`.`nik`)))";
+		// $pengaduan = $this->db->query($sql." WHERE p.id_pengaduan=".$id)->result();
+
 		$data['pengaduan'] = $pengaduan[0];
 		$data['cont'] = $this;
 
@@ -153,10 +160,16 @@ class Pengaduan extends CI_Controller{
 	function cari(){
 		if (isset($_POST['caripengaduan'])) {
 			$id=$_POST['bidang'];
+			$judul = $_POST['judul'];
+
 			$pengaduan = $this->m_crud->selectLike('detail_pengaduan', array('status <>'=>pengaduan_ditolak, 'bidang'=>$_POST['bidang']), array('judul'=>$_POST['judul']));
+
+			// $sql = "select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama`,`w`.`no_telp` AS `no_telp`,`w`.`email` AS `email`,`w`.`rw` AS `rw`,`w`.`rt` AS `rt`,`p`.`ttd_file` AS `ttd_file` from `tbl_pengaduan` `p` join `tbl_warga` `w` on `p`.`nik` = `w`.`nik`";
+			// $pengaduan = $this->db->query($sql." WHERE p.status<>".pengaduan_ditolak." AND bidang='".$_POST['judul']."' AND judul LIKE '%$judul%'")->result();
 			if ($id=="semua") {
 				$active = "semua";
 				$pengaduan = $this->m_crud->selectLike('detail_pengaduan', array('status <>'=>pengaduan_ditolak), array('judul'=>$_POST['judul']));
+				// $pengaduan = $this->db->query($sql." WHERE p.status<>".pengaduan_ditolak." AND judul LIKE '%".$_POST['judul']."%'")->result();
 			}
 			$data['pengaduan'] = $pengaduan;
 			$data['active'] = $id;

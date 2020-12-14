@@ -111,6 +111,8 @@ class Potensi extends CI_Controller{
 	function umkm(){
 		$title['judul'] = 'Data UMKM';
 		$data['hasil'] = $this->m_crud->readBy('detail_umkm', array('status <>'=>-1));
+		// $sql = "select `u`.`id_umkm` AS `id_umkm`,`u`.`nama` AS `nama`,`u`.`bidang` AS `bidang`,`u`.`nik_pemilik` AS `nik_pemilik`,`u`.`no_telp` AS `no_telp`,`u`.`alamat` AS `alamat`,`u`.`tgl_berdiri` AS `tgl_berdiri`,`u`.`deskripsi` AS `deskripsi`,`u`.`logo_file` AS `logo_file`,`u`.`status` AS `status`,`w`.`nama` AS `pemilik` from (`tbl_umkm` `u` join `tbl_warga` `w` on((`u`.`nik_pemilik` = `w`.`nik`))) where ";
+		// $data['hasil'] = $this->db->query($sql."u.status<>-1")->result();
 		$this->load->view('includes/v_header', $title);
 		$this->load->view('potensi/v_umkm', $data);
 		$this->load->view('includes/v_footer');
@@ -118,7 +120,10 @@ class Potensi extends CI_Controller{
 
 	function detail_umkm($id){
 		$title['judul'] = 'Data UMKM';
+		// $sql = "select `u`.`id_umkm` AS `id_umkm`,`u`.`nama` AS `nama`,`u`.`bidang` AS `bidang`,`u`.`nik_pemilik` AS `nik_pemilik`,`u`.`no_telp` AS `no_telp`,`u`.`alamat` AS `alamat`,`u`.`tgl_berdiri` AS `tgl_berdiri`,`u`.`deskripsi` AS `deskripsi`,`u`.`logo_file` AS `logo_file`,`u`.`status` AS `status`,`w`.`nama` AS `pemilik` from (`tbl_umkm` `u` join `tbl_warga` `w` on((`u`.`nik_pemilik` = `w`.`nik`))) where ";
+		// $data['hasil'] = $this->db->query($sql."u.status<>-1")->row();
 		$data['hasil'] = $this->m_crud->readBy('detail_umkm', array('id_umkm'=>$id, 'status <>'=>-1))[0];
+
 		$this->load->view('includes/v_header', $title);
 		$this->load->view('potensi/v_detail_umkm', $data);
 		$this->load->view('includes/v_footer');

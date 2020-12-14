@@ -70,7 +70,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'default';
+// $active_group = 'default';
+$active_group = 'online';
+// $active_group = 'infinity';
 $query_builder = TRUE;
 
 $db['default'] = array(
@@ -79,6 +81,50 @@ $db['default'] = array(
 	'username' => 'root',
 	'password' => '',
 	'database' => 'db_desa',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+
+$db['online'] = array(
+	'dsn'	=> '',
+	'hostname' => 'ub-learningtechnology.com',
+	'username' => 'ublearni_mhsc_root',
+	'password' => 'r8rwtt3OZoho',
+	'database' => 'ublearni_web',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+
+$db['infinity'] = array(
+	'dsn'	=> '',
+	'hostname' => 'sql202.epizy.com',
+	'username' => 'epiz_27451022',
+	'password' => '4M7RoifzI7h',
+	'database' => 'epiz_27451022_webdesa',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

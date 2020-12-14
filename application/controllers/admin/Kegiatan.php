@@ -13,12 +13,25 @@ class Kegiatan extends CI_Controller{
 	function index(){
 		$title['judul'] = 'Daftar Kegiatan';
 		$title['active'] = 'Kegiatan';
-
 		$data['hasil'] = $this->m_crud->readBy('detail_kegiatan', array('status'=>kegiatan_baru));
+		// $sql = "select `k`.`id_kegiatan` AS `id_kegiatan`,`k`.`bidang` AS `bidang`,`k`.`nama` AS `nama`,`k`.`tgl_mulai` AS `tgl_mulai`,`k`.`tgl_selesai` AS `tgl_selesai`,`k`.`output` AS `output`,`k`.`kendala` AS `kendala`,`k`.`saran` AS `saran`,`k`.`ketua_pelaksana` AS `ketua_pelaksana`,`k`.`catatan` AS `catatan`,`k`.`status` AS `status`,`k`.`lampiran_file` AS `lampiran_file`,`k`.`id_pengaduan` AS `id_pengaduan`,`k`.`kode` AS `kode`,`d`.`nama` AS `dana`,`p`.`nama` AS `pelapor`,`k`.`kode_kegiatan` AS `kode_kegiatan` from ((`tbl_kegiatan` `k` join `tbl_dana` `d` on((`k`.`kode` = `d`.`kode`))) join `detail_pengaduan` `p` on((`k`.`id_pengaduan` = `p`.`id_pengaduan`))) where ";
+		// $data['hasil'] = $this->db->query($sql."k.status=".kegiatan_baru)->result();
+
 		$data['rencana'] = $this->m_crud->readBy('detail_kegiatan', array('status'=>kegiatan_rencana));
+		$data['rencana'] = $this->db->query($sql."k.status=".kegiatan_rencana)->result();
+		$data['rencana'] = $this->db->query($sql."k.status=".kegiatan_rencana)->result();
+
 		$data['proses'] = $this->m_crud->readBy('detail_kegiatan', array('status'=>kegiatan_proses));
+		$data['proses'] = $this->db->query($sql."k.status=".kegiatan_proses)->result();
+		$data['proses'] = $this->db->query($sql."k.status=".kegiatan_proses)->result();
+
 		$data['selesai'] = $this->m_crud->readBy('detail_kegiatan', array('status'=>kegiatan_selesai));
+		$data['selesai'] = $this->db->query($sql."k.status=".kegiatan_selesai)->result();
+		$data['selesai'] = $this->db->query($sql."k.status=".kegiatan_selesai)->result();
+
 		$data['arsip'] = $this->m_crud->readBy('detail_kegiatan', array('status'=>kegiatan_arsip));
+		$data['arsip'] = $this->db->query($sql."k.status=".kegiatan_arsip)->result();
+		$data['arsip'] = $this->db->query($sql."k.status=".kegiatan_arsip)->result();
 
 		$data['dusun'] = DUSUN;
 		$data['judul'] = 'kegiatan';
@@ -33,6 +46,10 @@ class Kegiatan extends CI_Controller{
 		$title['active'] = 'kegiatan';
 
 		$detail = $this->m_crud->readBy('detail_kegiatan', array('id_kegiatan'=>$id));
+
+		// $sql = "select `k`.`id_kegiatan` AS `id_kegiatan`,`k`.`bidang` AS `bidang`,`k`.`nama` AS `nama`,`k`.`tgl_mulai` AS `tgl_mulai`,`k`.`tgl_selesai` AS `tgl_selesai`,`k`.`output` AS `output`,`k`.`kendala` AS `kendala`,`k`.`saran` AS `saran`,`k`.`ketua_pelaksana` AS `ketua_pelaksana`,`k`.`catatan` AS `catatan`,`k`.`status` AS `status`,`k`.`lampiran_file` AS `lampiran_file`,`k`.`id_pengaduan` AS `id_pengaduan`,`k`.`kode` AS `kode`,`d`.`nama` AS `dana`,`p`.`nama` AS `pelapor`,`k`.`kode_kegiatan` AS `kode_kegiatan` from ((`tbl_kegiatan` `k` join `tbl_dana` `d` on((`k`.`kode` = `d`.`kode`))) join `detail_pengaduan` `p` on((`k`.`id_pengaduan` = `p`.`id_pengaduan`))) where ";
+		// $detail = $this->db->query($sql."k.id_kegiatan=$id")->result();
+
 		$item = $this->m_crud->readBy('tbl_item_keuangan', array('id_kegiatan'=>$id));
 		$fisik = $this->m_crud->readBy('tbl_item_fisik', array('id_kegiatan'=>$id));
 		$data['itemkeuangan'] = json_encode($item);
@@ -241,6 +258,8 @@ class Kegiatan extends CI_Controller{
 
 	function cetak_rab($id){
 		$detail = $this->m_crud->readBy('detail_kegiatan', array('id_kegiatan'=>$id));
+		// $sql = "select `k`.`id_kegiatan` AS `id_kegiatan`,`k`.`bidang` AS `bidang`,`k`.`nama` AS `nama`,`k`.`tgl_mulai` AS `tgl_mulai`,`k`.`tgl_selesai` AS `tgl_selesai`,`k`.`output` AS `output`,`k`.`kendala` AS `kendala`,`k`.`saran` AS `saran`,`k`.`ketua_pelaksana` AS `ketua_pelaksana`,`k`.`catatan` AS `catatan`,`k`.`status` AS `status`,`k`.`lampiran_file` AS `lampiran_file`,`k`.`id_pengaduan` AS `id_pengaduan`,`k`.`kode` AS `kode`,`d`.`nama` AS `dana`,`p`.`nama` AS `pelapor`,`k`.`kode_kegiatan` AS `kode_kegiatan` from ((`tbl_kegiatan` `k` join `tbl_dana` `d` on((`k`.`kode` = `d`.`kode`))) join `detail_pengaduan` `p` on((`k`.`id_pengaduan` = `p`.`id_pengaduan`))) where ";
+		// $detail = $this->db->query($sql."k.id_kegiatan=$id")->result();
 
 		$hasil = $detail[0];
 		$data['judul'] = 'Cetak RAB';
@@ -343,6 +362,9 @@ class Kegiatan extends CI_Controller{
 
 	function cetak_lpj($id){
 		$detail = $this->m_crud->readBy('detail_kegiatan', array('id_kegiatan'=>$id));
+
+		// $sql = "select `k`.`id_kegiatan` AS `id_kegiatan`,`k`.`bidang` AS `bidang`,`k`.`nama` AS `nama`,`k`.`tgl_mulai` AS `tgl_mulai`,`k`.`tgl_selesai` AS `tgl_selesai`,`k`.`output` AS `output`,`k`.`kendala` AS `kendala`,`k`.`saran` AS `saran`,`k`.`ketua_pelaksana` AS `ketua_pelaksana`,`k`.`catatan` AS `catatan`,`k`.`status` AS `status`,`k`.`lampiran_file` AS `lampiran_file`,`k`.`id_pengaduan` AS `id_pengaduan`,`k`.`kode` AS `kode`,`d`.`nama` AS `dana`,`p`.`nama` AS `pelapor`,`k`.`kode_kegiatan` AS `kode_kegiatan` from ((`tbl_kegiatan` `k` join `tbl_dana` `d` on((`k`.`kode` = `d`.`kode`))) join `detail_pengaduan` `p` on((`k`.`id_pengaduan` = `p`.`id_pengaduan`))) where ";
+		// $detail = $this->db->query($sql."k.id_kegiatan=$id")->result();
 
 		$hasil = $detail[0];
 		$data['judul'] = 'Cetak LPJ';

@@ -15,6 +15,8 @@ class Umkm extends CI_Controller{
 		$title['active'] = 'umkm';
 
 		$data['hasil'] = $this->m_crud->readBy('detail_umkm', array('status <>'=>-1));
+		// $sql = "select `u`.`id_umkm` AS `id_umkm`,`u`.`nama` AS `nama`,`u`.`bidang` AS `bidang`,`u`.`nik_pemilik` AS `nik_pemilik`,`u`.`no_telp` AS `no_telp`,`u`.`alamat` AS `alamat`,`u`.`tgl_berdiri` AS `tgl_berdiri`,`u`.`deskripsi` AS `deskripsi`,`u`.`logo_file` AS `logo_file`,`u`.`status` AS `status`,`w`.`nama` AS `pemilik` from (`tbl_umkm` `u` join `tbl_warga` `w` on((`u`.`nik_pemilik` = `w`.`nik`))) where ";
+		// $data['hasil'] = $this->db->query($sql."u.status<>-1")->result();
 		$data['judul'] = 'umkm';
 
 		$this->load->view('admin/includes/v_header', $title);

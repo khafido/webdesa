@@ -22,7 +22,7 @@ $menu = $this->uri->segment(2);
 					<div class="content">
 						<?php echo form_open_multipart(base_url("admin/$judul/form/$action")) ?>
 						<div class="form-row">
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-3">
 								<label for="" class="control-label modal-label">Bidang <span class="text-danger">*</span> </label>
 								<select class="form-control" name="bidang" required>
 									<?php
@@ -34,16 +34,16 @@ $menu = $this->uri->segment(2);
 									} ?>
 								</select>
 							</div>
-							<div class="form-group col-md-2">
+							<div class="form-group col-md-3">
 								<label for="" class="control-label">Omzet <span class="text-danger">*</span> </label>
 								<input class="form-control" type="text" name="omzet" placeholder="Omzet" value="<?=$detail->omzet?>" required>
 							</div>
-							<div class="form-group col-md-2">
+							<div class="form-group col-md-3">
 								<label for="" class="control-label">Orang Terlibat <span class="text-danger">*</span> </label>
 								<input class="form-control" type="number" name="orang" placeholder="Orang" value="<?=$detail->tahun?>" required>
 							</div>
-							<div class="form-group col-md-2">
-								<label for="" class="control-label">Awal <span class="text-danger">*</span> </label>
+							<div class="form-group col-md-3">
+								<label for="" class="control-label">Bulan <span class="text-danger">*</span> </label>
 								<select class="form-control" name="waktu_awal">
 									<option value="1" <?=($detail->waktu_awal==1)?'selected':''?>>Januari</option>
 									<option value="2" <?=($detail->waktu_awal==2)?'selected':''?>>Februari</option>
@@ -59,7 +59,7 @@ $menu = $this->uri->segment(2);
 									<option value="12" <?=($detail->waktu_awal==12)?'selected':''?>>Desember</option>
 								</select>
 							</div>
-							<div class="form-group col-md-2">
+							<!-- <div class="form-group col-md-2">
 								<label for="" class="control-label">Akhir <span class="text-danger">*</span> </label>
 								<select class="form-control" name="waktu_akhir">
 									<option value="1" <?=($detail->waktu_akhir==1)?'selected':''?>>Januari</option>
@@ -75,7 +75,7 @@ $menu = $this->uri->segment(2);
 									<option value="11" <?=($detail->waktu_akhir==11)?'selected':''?>>November</option>
 									<option value="12" <?=($detail->waktu_akhir==12)?'selected':''?>>Desember</option>
 								</select>
-							</div>
+							</div> -->
 							<div class="form-group col-md-12">
 								<button name="potensi" class="btn btn-fill btn-success form-control col-md-12 py-2">Simpan</button>
 							</div>

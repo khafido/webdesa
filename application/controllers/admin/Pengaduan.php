@@ -13,10 +13,13 @@ class Pengaduan extends CI_Controller{
 	function index(){
 		$title['judul'] = 'Daftar Pengaduan';
 		$title['active'] = 'Pengaduan';
-
+		// $sql = "select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama`,`w`.`no_telp` AS `no_telp`,`w`.`email` AS `email`,`w`.`rw` AS `rw`,`w`.`rt` AS `rt`,`p`.`ttd_file` AS `ttd_file` from (`tbl_pengaduan` `p` join `tbl_warga` `w` on((`p`.`nik` = `w`.`nik`))) where ";
 		$data['baru'] = $this->m_crud->readBy('detail_pengaduan', array('status'=>pengaduan_baru));
+		// $data['baru'] = $this->db->query($sql."p.status=".pengaduan_baru)->result();
 		$data['proses'] = $this->m_crud->readBy('detail_pengaduan', array('status'=>pengaduan_proses));
+		// $data['baru'] = $this->db->query($sql."p.status=".pengaduan_proses)->result();
 		$data['selesai'] = $this->m_crud->readBy('detail_pengaduan', array('status'=>pengaduan_selesai));
+		// $data['baru'] = $this->db->query($sql."p.status=".pengaduan_selesai)->result();
 
 		$data['dusun'] = DUSUN;
 		$data['judul'] = 'pengaduan';
@@ -33,13 +36,15 @@ class Pengaduan extends CI_Controller{
 		$footer['pengaduan'] = $pengaduan[0];
 
 		$detail = $this->m_crud->readBy('detail_pengaduan', array('id_pengaduan'=>$id));
-		$tahun = '2020';
-
-		$footer['dana'] = $this->m_crud->readBy('tbl_dana', array('status <>'=>-1, 'tahun'=>$tahun));
-
 		$data['detail'] = $detail[0];
+
+		// $sql = "select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama`,`w`.`no_telp` AS `no_telp`,`w`.`email` AS `email`,`w`.`rw` AS `rw`,`w`.`rt` AS `rt`,`p`.`ttd_file` AS `ttd_file` from (`tbl_pengaduan` `p` join `tbl_warga` `w` on((`p`.`nik` = `w`.`nik`))) where ";
+		// $data['detail'] = $this->db->query($sql."p.id_pengaduan=$id")->row();
 		$data['judul'] = 'pengaduan';
 		$data['dusun'] = DUSUN;
+
+		$tahun = '2020';
+		$footer['dana'] = $this->m_crud->readBy('tbl_dana', array('status <>'=>-1, 'tahun'=>$tahun));
 
 		$this->load->view('admin/includes/v_header', $title);
 		$this->load->view('admin/pengaduan/v_detail_pengaduan', $data);
@@ -77,6 +82,9 @@ class Pengaduan extends CI_Controller{
 		$detail = $this->m_crud->readBy('detail_pengaduan', array('id_pengaduan'=>$id));
 
 		$hasil = $detail[0];
+		// $sql = "select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama`,`w`.`no_telp` AS `no_telp`,`w`.`email` AS `email`,`w`.`rw` AS `rw`,`w`.`rt` AS `rt`,`p`.`ttd_file` AS `ttd_file` from (`tbl_pengaduan` `p` join `tbl_warga` `w` on((`p`.`nik` = `w`.`nik`))) where ";
+		// $hasil = $this->db->query($sql."p.id_pengaduan=$id")->row();
+
 		$data['judul'] = 'Cetak Pengaduan';
 
 		$data['element']  = "<div style='border-bottom:3px solid black; padding-bottom:20px;'>";

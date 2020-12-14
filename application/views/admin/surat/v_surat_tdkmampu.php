@@ -70,7 +70,7 @@
 					<tbody>
 						<?php $i=1; foreach ($proses as $v): ?>
 							<tr>
-								<th><?=$i++?></th>								
+								<th><?=$i++?></th>
 								<th><?=$v->id_tdk_mampu?></th>
 								<td><?=$v->nama_terkait?></td>
 								<td><?=$v->jenis?></td>
@@ -79,8 +79,9 @@
 								<td><?=$v->tgl_buat?></td>
 								<td class="tindakan">
 									<a href="<?=base_url("admin/surat/detail/$surat/$v->id")?>" class="btn btn-info btn-fill" title="Lihat">Lihat</a>
-									<a href="<?=base_url("admin/surat/cetak/$surat/$v->id")?>" class="btn btn-danger btn-fill" title="Cetak">Cetak</a>
-									<button onclick="proses('<?=base_url("admin/surat/proses/$v->id/$surat/2")?>')" class="btn btn-success btn-fill" title="Selesai">Selesai</button>
+									<!-- <a href="<?=base_url("admin/surat/cetak/$surat/$v->id")?>" class="btn btn-danger btn-fill" title="Cetak">Cetak</a>
+									<button onclick="proses('<?=base_url("admin/surat/proses/$v->id/$surat/2")?>')" class="btn btn-success btn-fill" title="Selesai">Selesai</button> -->
+									<button class="btn signbtn" type="button" id="sbnt<?=$v->id?>" onclick="showSign(this.id)" data-kode="<?=$v->id?>">Sign</button>
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -125,7 +126,7 @@
 								<td><?=$v->tgl_buat?></td>
 								<td class="tindakan">
 									<a href="<?=base_url("admin/surat/detail/$surat/$v->id")?>" class="btn btn-info btn-fill" title="Lihat">Lihat</a>
-									<a href="<?=base_url("admin/surat/cetak/$surat/$v->id")?>" class="btn btn-danger btn-fill" title="Cetak">Cetak</a>
+									<a href="<?=base_url("admin/surat/cetak/$surat/$v->id")?>" target="_blank" class="btn btn-danger btn-fill" title="Cetak">Cetak</a>
 								</td>
 							</tr>
 						<?php endforeach; ?>

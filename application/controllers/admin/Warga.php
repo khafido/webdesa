@@ -53,6 +53,7 @@ class Warga extends CI_Controller{
 			$store['agama'] = $_POST['agama'];
 			$store['pendidikan'] = $_POST['pendidikan'];
 			$store['pekerjaan'] = $_POST['pekerjaan'];
+			$store['kawin'] = $_POST['kawin'];
 			$store['rw'] = $_POST['rw'];
 			$store['rt'] = $_POST['rt'];
 

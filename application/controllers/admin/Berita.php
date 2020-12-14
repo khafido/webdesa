@@ -13,8 +13,14 @@ class Berita extends CI_Controller{
 		$title['judul'] = 'Daftar Berita';
 		$title['active'] = 'Berita';
 
+
 		$data['baru'] = $this->m_crud->readBy('detail_berita', array('status'=>berita_baru));
+		// $sql = "select `b`.`id_berita` AS `id_berita`,`b`.`judul` AS `judul`,`b`.`isi` AS `isi`,`b`.`tgl_berita` AS `tgl_berita`,`b`.`rubrik` AS `rubrik`,`b`.`cover_file` AS `cover_file`,`b`.`status` AS `status`,`b`.`nik` AS `nik`,`w`.`nama` AS `nama` from `tbl_berita` `b` join `tbl_warga` `w` on `b`.`nik` = `w`.`nik` where b.status=".berita_baru;
+		// $data['baru'] = $this->db->query($sql)->result();
+
 		$data['terbit'] = $this->m_crud->readBy('detail_berita', array('status'=>berita_valid));
+		// $sql = "select `b`.`id_berita` AS `id_berita`,`b`.`judul` AS `judul`,`b`.`isi` AS `isi`,`b`.`tgl_berita` AS `tgl_berita`,`b`.`rubrik` AS `rubrik`,`b`.`cover_file` AS `cover_file`,`b`.`status` AS `status`,`b`.`nik` AS `nik`,`w`.`nama` AS `nama` from `tbl_berita` `b` join `tbl_warga` `w` on `b`.`nik` = `w`.`nik` where b.status=".berita_valid;
+		// $data['terbit'] = $this->db->query($sql)->result();
 
 		$data['dusun'] = DUSUN;
 		$data['judul'] = 'berita';

@@ -11,7 +11,7 @@
     width: 680px; height: 1000px; padding-bottom:200px; border: 1px solid black; margin: 0 auto; padding: 20px 30px;
   }
   .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-    /* border: none; */
+    padding: 2px 8px;
   }
   </style>
 </head>
@@ -30,14 +30,14 @@
   <br><br>
 </body>
 </html>
-
 <script type="text/javascript">
 function PrintElem(elem){
   var mywindow = window.open('', 'PRINT', 'width=800,fullscreen=yes');
 
   mywindow.document.write('<html><head><title>Cetak</title>');
-  // mywindow.document.write('<style>.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{border:none;}</style>');
-  mywindow.document.write('<link href="<?=base_url("assets/admin")?>/css/bootstrap.min.css" rel="stylesheet" /></head><body >');
+  mywindow.document.write('<link href="<?=base_url("assets/admin")?>/css/bootstrap.min.css" rel="stylesheet" />');
+  mywindow.document.write('<style>.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{padding:2px 8px;}</style>');
+  mywindow.document.write('</head><body >');
   mywindow.document.write(document.getElementById(elem).innerHTML);
   mywindow.document.write('</body></html>');
 

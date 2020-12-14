@@ -119,6 +119,18 @@ font-weight: bold;
                   </select>
                 </div>
                 <div class="form-group col-md-3">
+                  <label for="" class="control-label">Status Kawin <span class="text-danger">*</span> </label>
+                  <select class="form-control" name="kawin">
+                    <?php foreach (PERKAWINAN as $v => $c){
+                      $s = '';
+                      if ($v==$warga->kawin) {
+                        $s = "selected";
+                      }
+                      echo "<option value='$v' $s>$c</option>";
+                    } ?>
+                  </select>
+                </div>
+                <div class="form-group col-md-2">
                   <label for="" class="control-label">Dusun <span class="text-danger">*</span> </label>
                   <select class="form-control" name="rw">
                     <?php foreach ($d_rw as $v => $c){
@@ -130,7 +142,7 @@ font-weight: bold;
                     } ?>
                   </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-1">
                   <label for="" class="control-label">RT <span class="text-danger">*</span> </label>
                   <input class="form-control" type="text" name="rt" placeholder="RT" value="0<?=$warga->rt?>" required>
                 </div>

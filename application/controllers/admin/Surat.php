@@ -617,6 +617,7 @@ class Surat extends CI_Controller{
 	public function cetak($surat, $id){
 		$view = array('kelahiran' => 'tbl_kelahiran', 'kematian'=>'tbl_kematian', 'tdkmampu'=>'tbl_tdk_mampu', 'biodata'=>'tbl_biodata', 'umum'=>'tbl_umum', 'domisili'=>'tbl_domisili');
 		$hasil = $this->m_crud->readBy($view[$surat], array('id'=>$id))[0];
+		$warga = $this->m_crud->readBy('tbl_warga', array('nik'=>$hasil->nik))[0];
 
 		$data['element'] = "<div style='padding-bottom:20px; margin-right:13%; width:400px;' class='pull-right'>";
 		$data['element'] .= "<h4 class='text-center'><strong>PEMERINTAH KABUPATEN SIDOARJO</strong></h4>";
@@ -632,62 +633,293 @@ class Surat extends CI_Controller{
 		$data['element'] .= "<br/><br/>";
 		$data['element'] .= "<div class='col-md-12 text-center' style='border-top:3px solid black; padding-top:50px;'>";
 		$judul = ($surat=='tdkmampu')?'TIDAK MAMPU':$surat;
-		$data['element'] .= "<h5 style='text-transform:uppercase;'><strong>SURAT ".$judul."</strong></h5>";
-		$data['element'] .= "<h5 style='letter-spacing:1.5px;'><strong>Nomor: ".$hasil->id_kelahiran."</strong></h5>";
+		$data['element'] .= "<h5 style='text-transform:uppercase;'><strong>SURAT KETERANGAN ".$judul."</strong></h5>";
+		if ($surat=='kelahiran') {
+			$data['element'] .= "<h5 style='letter-spacing:1.5px;'><strong>Nomor: ".$hasil->id_kelahiran."</strong></h5>";
+		} elseif ($surat=='kematian') {
+			$data['element'] .= "<h5 style='letter-spacing:1.5px;'><strong>Nomor: ".$hasil->id_kematian."</strong></h5>";
+		} elseif ($surat=='tdkmampu') {
+			$data['element'] .= "<h5 style='letter-spacing:1.5px;'><strong>Nomor: ".$hasil->id_tdk_mampu."</strong></h5>";
+		} elseif ($surat=='biodata') {
+			$data['element'] .= "<h5 style='letter-spacing:1.5px;'><strong>Nomor: ".$hasil->id_biodata."</strong></h5>";
+		} elseif ($surat=='umum') {
+			$data['element'] .= "<h5 style='letter-spacing:1.5px;'><strong>Nomor: ".$hasil->id_umum."</strong></h5>";
+		} elseif ($surat=='domisili') {
+			$data['element'] .= "<h5 style='letter-spacing:1.5px;'><strong>Nomor: ".$hasil->id_domisili."</strong></h5>";
+		}
+
 		$data['element'] .= "</div>";
 		$data['element'] .= "<div class='col-md-12' style='margin-top:30px;'>";
-		$data['element'] .= "<p>Yang bertanda di bawah ini, menerangkan bahwa:</p>";
+		$data['element'] .= "<p>Saya yang bertanda di bawah ini selaku Kepala Desa Pagerngumbuk, dengan ini menerangkan bahwa:</p>";
 
-		$data['element'] .= '<table class="table table-borderless">';
-		$data['element'] .= '<tbody>';
-		$data['element'] .= '<tr>';
-		$data['element'] .= '<th style="width:20px;border:none;">Tanggal</th>';
-		$data['element'] .= '<td style="border:none;">: '.date("D, d M Y",strtotime($hasil->tgl_lahir)).'</td>';
-		$data['element'] .= '</tr>';
-		$data['element'] .= '<tr>';
-		$data['element'] .= '<th style="width:20px;border:none;">Tempat</th>';
-		$data['element'] .= '<td style="border:none;">: '.$hasil->tempat_lahir.'</td>';
-		$data['element'] .= '</tr>';
-		$data['element'] .= '</tbody>';
-		$data['element'] .= '</table>';
+		if ($surat=='kelahiran') {
+			$data['judul'] = 'Cetak Kelahiran';
+			$data['element'] .= '<table class="table table-borderless">';
+			$data['element'] .= '<tbody>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:20px;border:none;">Tanggal</th>';
+			$data['element'] .= '<td style="border:none;">: '.date("D, d M Y",strtotime($hasil->tgl_lahir)).'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:20px;border:none;">Tempat</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->tempat_lahir.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '</tbody>';
+			$data['element'] .= '</table>';
 
-		$data['element'] .= '<table class="table table-borderless">';
-		$data['element'] .= '<tbody>';
-		$data['element'] .= '<tr>';
-		$data['element'] .= '<th style="width:200px;border:none;">Telah Lahir Seorang Anak</th>';
-		$data['element'] .= '<td style="border:none;">: '.($hasil->jk=='L'?'Laki-laki':'Perempuan').'</td>';
-		$data['element'] .= '</tr>';
-		$data['element'] .= '<tr>';
-		$data['element'] .= '<th style="width:20px;border:none;">Yang bernama</th>';
-		$data['element'] .= '<td style="border:none;">: '.$hasil->anak.'</td>';
-		$data['element'] .= '</tr>';
-		$data['element'] .= '<tr>';
-		$data['element'] .= '<th style="width:20px;border:none;">Dari seorang Ibu</th>';
-		$data['element'] .= '<td style="border:none;">: '.$hasil->ibu.'</td>';
-		$data['element'] .= '</tr>';
-		$data['element'] .= '<tr>';
-		$data['element'] .= '<th style="width:20px;border:none;">Istri dari</th>';
-		$data['element'] .= '<td style="border:none;">: '.$hasil->ayah.'</td>';
-		$data['element'] .= '</tr>';
-		$data['element'] .= '<tr>';
-		$data['element'] .= '<th style="width:20px;border:none;">Alamat</th>';
-		$data['element'] .= '<td style="border:none;">: Desa Pagerngumbuk, RW '.$hasil->rw.', RT '.$hasil->rt.'</td>';
-		$data['element'] .= '</tr>';
-		$data['element'] .= '</tbody>';
-		$data['element'] .= '</table>';
-		$data['element'] .= "<p style='margin-top:-15px;'>Surat ini dibuat atas dasar yang sebenar-benarnya</p>";
+			$data['element'] .= '<table class="table table-borderless">';
+			$data['element'] .= '<tbody>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:200px;border:none;">Telah Lahir Seorang Anak</th>';
+			$data['element'] .= '<td style="border:none;">: '.($hasil->jk=='L'?'Laki-laki':'Perempuan').'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:20px;border:none;">Yang bernama</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->anak.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:20px;border:none;">Dari seorang Ibu</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->ibu.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:20px;border:none;">Istri dari</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->ayah.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:20px;border:none;">Alamat</th>';
+			$data['element'] .= '<td style="border:none;">: Desa Pagerngumbuk, RW '.$hasil->rw.', RT '.$hasil->rt.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '</tbody>';
+			$data['element'] .= '</table>';
+		} elseif ($surat=='kematian') {
+			$data['judul'] = 'Cetak Kematian';
+
+			$data['element'] .= '<table class="table table-borderless">';
+			$data['element'] .= '<tbody>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Nama</th>';
+			$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.$hasil->nama.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">NIK</th>';
+			$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.$hasil->nik_alm.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Jenis Kelamin</th>';
+			$data['element'] .= '<td style="border:none;">: '.($hasil->jk=='L'?'Laki-laki':'Perempuan').'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Tanggal Lahir</th>';
+			$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.$hasil->tgl_lahir.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Agama</th>';
+			$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.$hasil->agama.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Pekerjaan</th>';
+			$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.$hasil->pekerjaan.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Kewarganegaraan</th>';
+			$data['element'] .= '<td style="border:none; text-transform:uppercase;">: '.$hasil->kwn.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Alamat</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->alamat.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '</tbody>';
+			$data['element'] .= '</table>';
+			$data['element'] .= "<p>Telah meninggal pada:</p>";
+			$data['element'] .= '<table class="table table-borderless">';
+			$data['element'] .= '<tbody>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Tanggal</th>';
+			$data['element'] .= '<td style="border:none;">: '.date("D, d M Y",strtotime($hasil->tgl_meninggal)).'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Tempat</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->tempat_meninggal.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Penyebab</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->penyebab.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Penentu</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->penentu.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '</tbody>';
+			$data['element'] .= '</table>';
+		} elseif ($surat=="tdkmampu") {
+			$data['judul'] = 'Cetak Tidak Mampu';
+
+			$data['element'] .= '<table class="table table-borderless">';
+			$data['element'] .= '<tbody>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Nama</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->nama_terkait.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Pekerjaan</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->pekerjaan.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Alamat</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->alamat.'</td>';
+			$data['element'] .= '</tr>';
+			// $data['element'] .= '<tr>';
+			// $data['element'] .= '<th style="width:120px;border:none;">Tujuan</th>';
+			// $data['element'] .= '<td style="border:none;">: '.$hasil->tujuan.'</td>';
+			// $data['element'] .= '</tr>';
+			$data['element'] .= '</tbody>';
+			$data['element'] .= '</table>';
+			$data['element'] .= "<p>Yang bersangkutan benar-benar warga Desa Pagerngumbuk yang tidak mampu untuk melakukan pembayaran $hasil->tujuan.</p><br/>";
+		} elseif ($surat=='biodata') {
+			$data['judul'] = 'Cetak Biodata';
+
+			$data['element'] .= '<table class="table table-borderless">';
+			$data['element'] .= '<tbody>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:150px;border:none;">Kepala Keluarga</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->nama_kepala.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:150px;border:none;">Alamat</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->alamat.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '</tbody>';
+			$data['element'] .= '</table>';
+			$data['element'] .= "<p>Yang bersangkutan benar-benar warga Desa Pagerngumbuk yang memiliki anggota keluarga sebagai berikut:.</p><br/>";
+			$data['element'] .= '<table class="table table-borderless">';
+			$data['element'] .= '<tbody>';
+			$data['element'] .= "
+				<tr>
+					<th>Nama</th>
+					<th>NIK</th>
+					<th>JK</th>
+					<th>TTL</th>
+					<th>Hubungan</th>
+					<th>Pendidikan</th>
+					<th>Status Kawin</th>
+					<th>Pekerjaan</th>
+				</tr>
+			";
+
+			$anggota = json_decode($hasil->anggota);
+			foreach ($anggota as $key => $value) {
+				$data['element'] .= "<tr>
+								<td style='text-transform:capitalize;'>$value->nama</td>
+								<td style='text-transform:capitalize;'>$value->nik</td>
+								<td style='text-transform:capitalize;'>".($value->jk=='L'?'Laki-laki':'Perempuan')."</td>
+								<td style='text-transform:capitalize;'>$value->tempat, $value->tgl</td>
+								<td style='text-transform:capitalize;'>$value->hubungan</td>
+								<td style='text-transform:capitalize;'>$value->pendidikan</td>
+								<td style='text-transform:capitalize;'>$value->kawin</td>
+								<td style='text-transform:capitalize;'>$value->pekerjaan</td>
+							</tr>";
+			}
+
+			$data['element'] .= '</tbody>';
+			$data['element'] .= '</table>';
+		} elseif ($surat=="umum") {
+			$data['judul'] = 'Cetak Tidak Mampu';
+
+			$data['element'] .= '<table class="table table-borderless">';
+			$data['element'] .= '<tbody>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Nama</th>';
+			$data['element'] .= '<td style="border:none;">: '.$warga->nama.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">NIK</th>';
+			$data['element'] .= '<td style="border:none;">: '.$hasil->nik.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Alamat</th>';
+			$data['element'] .= '<td style="border:none;">: Dusun '.DUSUN[$warga->rw].' RW'.$warga->rw.'/RT'.$warga->rt.'</td>';
+			$data['element'] .= '</tr>';
+			// $data['element'] .= '<tr>';
+			// $data['element'] .= '<th style="width:120px;border:none;">Tujuan</th>';
+			// $data['element'] .= '<td style="border:none;">: '.$hasil->tujuan.'</td>';
+			// $data['element'] .= '</tr>';
+			$data['element'] .= '</tbody>';
+			$data['element'] .= '</table>';
+			$data['element'] .= "<p>Yang bersangkutan benar-benar warga Desa Pagerngumbuk yang $hasil->tujuan.</p><br/>";
+		} elseif ($surat=="domisili") {
+			$data['judul'] = 'Cetak Domisili';
+
+			$data['element'] .= '<table class="table table-borderless">';
+			$data['element'] .= '<tbody>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Nama</th>';
+			$data['element'] .= '<td style="border:none;">: '.$warga->nama.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">Alamat</th>';
+			$data['element'] .= '<td style="border:none;">: '.DUSUN[$warga->rw].', RT'.$warga->rt.' RW '.$warga->rw.'</td>';
+			$data['element'] .= '</tr>';
+
+			if ($hasil->jenis=="usaha") {
+				$data['element'] .= '</tbody>';
+				$data['element'] .= '</table>';
+				$data['element'] .= "<p>Yang bersangkutan benar-benar warga Desa Pagerngumbuk yang memiliki usaha bernama $hasil->nama_usaha, yang beralamat di $hasil->alamat.</p><br/>";
+			} else {
+				$data['element'] .= '<tr>';
+				$data['element'] .= '<th style="width:120px;border:none;">TTL</th>';
+				$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.$warga->tempat_lahir.','.$warga->tgl_lahir.'</td>';
+				$data['element'] .= '</tr>';
+				$data['element'] .= '<tr>';
+				$data['element'] .= '<th style="width:120px;border:none;">Pekerjaan</th>';
+				$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.$warga->pekerjaan.'</td>';
+				$data['element'] .= '</tr>';
+				$data['element'] .= '<tr>';
+				$data['element'] .= '<th style="width:120px;border:none;">Agama</th>';
+				$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.$warga->agama.'</td>';
+				$data['element'] .= '</tr>';
+				$data['element'] .= '<tr>';
+				$data['element'] .= '<th style="width:120px;border:none;">Kawin</th>';
+				$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.PERKAWINAN[$warga->kawin].'</td>';
+				$data['element'] .= '</tr>';
+				$data['element'] .= '</tbody>';
+				$data['element'] .= '</table>';
+				$data['element'] .= "<p>Yang bersangkutan benar-benar warga yang berdomisili di Desa Pagerngumbuk.</p><br/>";
+			}
+		}
+
+		// $data['element'] .= "<p style='margin-top:-15px;'>Surat ini dibuat atas dasar yang sebenar-benarnya berdasarkan permohonan saudara/i $warga->nama ($hasil->nik)</p>";
+		$data['element'] .= "<p style='margin-top:-15px;'>Demikian surat keterangan $judul ini dibuat untuk dapat digunakan sebagaimana semestinya.</p>";
 		$data['element'] .= "</div>";
-		$data['element'] .= '<br><br><br><br>';
-		$data['element'] .= '<div class="pull-right text-center" style="width: 250px; margin-top:50px; margin-right:50px; border-bottom:1px solid black;">';
+		$data['element'] .= '<br>';
+		$data['element'] .= '<div class="pull-right text-center" style="width: 250px; margin-top:20px; margin-right:50px; border-bottom:1px solid black;">';
 		$data['element'] .= '<h5 for="">Desa Pagerngumbuk, '.date("d M Y").'</h5>';
 		$data['element'] .= '<h5 for="">Kepala Desa</h5>';
 		$data['element'] .= "<img src='".base_url($hasil->ttd_file)."' style='width:5cm;'>";
 		$data['element'] .= '<h5><strong>Khoirul Anam</strong></h5>';
 		$data['element'] .= '</div>';
-
-		if ($surat=='kelahiran') {
-			$data['judul'] = 'Cetak Kelahiran';
-		}
 		$this->load->view('v_cetak', $data);
+	}
+
+	function sign(){
+		$img = $_POST['sign'];
+		$img = str_replace('data:image/png;base64,', '', $img);
+		$img = str_replace(' ', '+', $img);
+		$data = base64_decode($img);
+		$image=uniqid() . '.png';
+		$file = './assets/img/sign/' .$image;
+		$success = file_put_contents($file, $data);
+
+		$apiKeyAuthorization = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTYwNjEzMTcyMSwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjg1NTE3LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.FVgumAJkNfwMxHUy-2G9jqGAaCbc6gbX7BnS2Z8CvRs";
+		$this->load->library('smsgateway', array('apiKeyAuthorization'=>$apiKeyAuthorization));
+
+		$phone_number = "085230839313";
+		$message = "Test smsGatewayV4";
+		$deviceID = 121683;
+		$options = [];
+
+		$this->smsgateway->sendMessageToNumber($phone_number, $message, $deviceID, $options);
+
+		$this->m_crud->update($_POST['surat'], array('ttd_file'=>$file, 'status'=>surat_selesai), array('id'=>$_POST['kode']));
 	}
 }

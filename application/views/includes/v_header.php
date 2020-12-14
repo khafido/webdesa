@@ -167,7 +167,7 @@
             </li>
           <?php endif; ?>
 
-          <li class="menu-has-children"><a href="">Pengaduan</a>
+          <li class="menu-has-children"><a href="#">Pengaduan</a>
             <ul>
               <li class="menu"><a href="<?=base_url()?>pengaduan/lihat/semua">Lihat Pengaduan</a></li>
               <?php if (isset($_SESSION['nik'])): ?>
@@ -177,7 +177,7 @@
             </ul>
           </li>
           <!-- <li class="menu-has-children"><a href="<?=base_url("kegiatan")?>">Kegiatan</a></li> -->
-          <li class="menu-has-children"><a href="">Potensi Desa</a>
+          <li class="menu-has-children"><a href="#">Potensi Desa</a>
             <ul>
               <li><a href="<?=base_url()?>potensi/profil">Profil Desa</a></li>
               <li><a href="<?=base_url()?>potensi/bumdes">Data BUMDes</a></li>
@@ -190,7 +190,7 @@
               <li><a href="<?=base_url()?>potensi/detail">Detail Potensi</a></li>
             </ul>
           </li>
-          <li class="menu-has-children"><a href="<?=base_url()?>kegiatan/daftar">Berita</a>
+          <li class="menu-has-children"><a href="#">Berita</a>
             <ul>
               <li><a href="<?=base_url("berita/lihat/semua")?>">Lihat Berita</a></li>
               <?php if (isset($_SESSION['nik'])): ?>
