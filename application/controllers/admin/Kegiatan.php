@@ -18,20 +18,20 @@ class Kegiatan extends CI_Controller{
 		// $data['hasil'] = $this->db->query($sql."k.status=".kegiatan_baru)->result();
 
 		$data['rencana'] = $this->m_crud->readBy('detail_kegiatan', array('status'=>kegiatan_rencana));
-		$data['rencana'] = $this->db->query($sql."k.status=".kegiatan_rencana)->result();
-		$data['rencana'] = $this->db->query($sql."k.status=".kegiatan_rencana)->result();
+		// $data['rencana'] = $this->db->query($sql."k.status=".kegiatan_rencana)->result();
+		// $data['rencana'] = $this->db->query($sql."k.status=".kegiatan_rencana)->result();
 
 		$data['proses'] = $this->m_crud->readBy('detail_kegiatan', array('status'=>kegiatan_proses));
-		$data['proses'] = $this->db->query($sql."k.status=".kegiatan_proses)->result();
-		$data['proses'] = $this->db->query($sql."k.status=".kegiatan_proses)->result();
+		// $data['proses'] = $this->db->query($sql."k.status=".kegiatan_proses)->result();
+		// $data['proses'] = $this->db->query($sql."k.status=".kegiatan_proses)->result();
 
 		$data['selesai'] = $this->m_crud->readBy('detail_kegiatan', array('status'=>kegiatan_selesai));
-		$data['selesai'] = $this->db->query($sql."k.status=".kegiatan_selesai)->result();
-		$data['selesai'] = $this->db->query($sql."k.status=".kegiatan_selesai)->result();
+		// $data['selesai'] = $this->db->query($sql."k.status=".kegiatan_selesai)->result();
+		// $data['selesai'] = $this->db->query($sql."k.status=".kegiatan_selesai)->result();
 
 		$data['arsip'] = $this->m_crud->readBy('detail_kegiatan', array('status'=>kegiatan_arsip));
-		$data['arsip'] = $this->db->query($sql."k.status=".kegiatan_arsip)->result();
-		$data['arsip'] = $this->db->query($sql."k.status=".kegiatan_arsip)->result();
+		// $data['arsip'] = $this->db->query($sql."k.status=".kegiatan_arsip)->result();
+		// $data['arsip'] = $this->db->query($sql."k.status=".kegiatan_arsip)->result();
 
 		$data['dusun'] = DUSUN;
 		$data['judul'] = 'kegiatan';
@@ -148,9 +148,9 @@ class Kegiatan extends CI_Controller{
 		$this->load->view('admin/includes/v_footer');
 	}
 
-	function buat_itemkeuangan($id){
+	function buat_rab($id){
 		$item = array();
-		if (isset($_POST['rencana'])) {
+		if (isset($_POST['kode'])) {
 			for ($i=0; $i < count($_POST['kode']); $i++) {
 				$kode = $_POST['kode'][$i];
 				$uraian = $_POST['uraian'][$i];
@@ -165,13 +165,17 @@ class Kegiatan extends CI_Controller{
 			$store['status'] = kegiatan_rencana;
 			$keg = $this->m_crud->update('tbl_kegiatan', $store, array('id_kegiatan'=>$id));
 			if ($keu==true && $keg==true) {
+				$this->session->set_flashdata( 'sukses', '<div class="alert alert-success" role="alert">Berhasil Buat RAB!</div>');
 				redirect(base_url("admin/kegiatan"));
 				die();
 			}
+		} else {
+			$this->session->set_flashdata( 'error', '<div class="alert alert-danger" role="alert">Item Tidak Boleh Kosong!</div>');
+			redirect(base_url("admin/kegiatan/detail/$id"));
 		}
 	}
 
-	function ubah_itemkeuangan($id){
+	function ubah_rab($id){
 		$item = array();
 		if (isset($_POST['rencana'])) {
 			for ($i=0; $i < count($_POST['kode']); $i++) {
@@ -193,7 +197,7 @@ class Kegiatan extends CI_Controller{
 		}
 	}
 
-	public function buat_lpj($id){
+	function buat_lpj($id){
 		$item = array();
 		$fisik = array();
 
@@ -314,12 +318,12 @@ class Kegiatan extends CI_Controller{
 		$data['element'] .= '<table style="width:95%; margin-left:25px;" class="table table-bordered">';
 		$data['element'] .= '<thead class="" style="background:#B6F081;">';
 		$data['element'] .= '<th scope="col">#</th>';
-    $data['element'] .= '<th scope="col">Kode</th>';
-    $data['element'] .= '<th scope="col">Uraian</th>';
-    $data['element'] .= '<th scope="col">Volume</th>';
-    $data['element'] .= '<th scope="col">Satuan</th>';
-    $data['element'] .= '<th scope="col">Harga Satuan (Rp)</th>';
-    $data['element'] .= '<th scope="col">Jumlah (Rp)</th>';
+		$data['element'] .= '<th scope="col">Kode</th>';
+		$data['element'] .= '<th scope="col">Uraian</th>';
+		$data['element'] .= '<th scope="col">Volume</th>';
+		$data['element'] .= '<th scope="col">Satuan</th>';
+		$data['element'] .= '<th scope="col">Harga Satuan (Rp)</th>';
+		$data['element'] .= '<th scope="col">Jumlah (Rp)</th>';
 		$data['element'] .= '</thead>';
 		$data['element'] .= '<tbody>';
 		$item = $this->m_crud->readBy('tbl_item_keuangan', array('id_kegiatan'=>$id));
@@ -387,11 +391,11 @@ class Kegiatan extends CI_Controller{
 		$data['element'] .= '<table style="width:95%; margin-left:25px;" class="table table-bordered">';
 		$data['element'] .= '<thead class="" style="background:#B6F081;">';
 		$data['element'] .= '<th scope="col">#</th>';
-    $data['element'] .= '<th scope="col">Kode</th>';
-    $data['element'] .= '<th scope="col">Uraian</th>';
-    $data['element'] .= '<th scope="col">Anggaran (Rp)</th>';
-    $data['element'] .= '<th scope="col">Realisasi (Rp)</th>';
-    $data['element'] .= '<th scope="col">%</th>';
+		$data['element'] .= '<th scope="col">Kode</th>';
+		$data['element'] .= '<th scope="col">Uraian</th>';
+		$data['element'] .= '<th scope="col">Anggaran (Rp)</th>';
+		$data['element'] .= '<th scope="col">Realisasi (Rp)</th>';
+		$data['element'] .= '<th scope="col">%</th>';
 		$data['element'] .= '</thead>';
 		$data['element'] .= '<tbody>';
 		$item = $this->m_crud->readBy('tbl_item_keuangan', array('id_kegiatan'=>$id));
@@ -426,11 +430,11 @@ class Kegiatan extends CI_Controller{
 		$data['element'] .= '<table style="width:95%; margin-left:25px;" class="table table-bordered">';
 		$data['element'] .= '<thead class="" style="background:#B6F081;">';
 		$data['element'] .= '<th scope="col">#</th>';
-    $data['element'] .= '<th scope="col">Uraian</th>';
-    $data['element'] .= '<th scope="col">Satuan</th>';
+		$data['element'] .= '<th scope="col">Uraian</th>';
+		$data['element'] .= '<th scope="col">Satuan</th>';
 		$data['element'] .= '<th scope="col">Volume</th>';
-    $data['element'] .= '<th scope="col">Nilai (Rp)</th>';
-    $data['element'] .= '<th scope="col">ket</th>';
+		$data['element'] .= '<th scope="col">Nilai (Rp)</th>';
+		$data['element'] .= '<th scope="col">ket</th>';
 		$data['element'] .= '</thead>';
 		$data['element'] .= '<tbody>';
 		$item = $this->m_crud->readBy('tbl_item_fisik', array('id_kegiatan'=>$id));

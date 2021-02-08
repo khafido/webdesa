@@ -16,6 +16,7 @@
 						<th>Uraian</th>
 						<th>Satuan</th>
 						<th>HST</th>
+						<th>Tipe</th>
 						<th>Tindakan</th>
 					</thead>
 					<tbody>
@@ -25,6 +26,7 @@
 								<td><?=$w->uraian?></td>
 								<td><?=$w->satuan?></td>
 								<td><?=$w->hst?></td>
+								<td><?=($w->tipe==1?"Belanja Barang/Jasa":"Belanja Modal")?></td>
 								<td class="tindakan">
 									<!-- <a href="<?=base_url("admin/$menu/detail/$w->kode")?>" class="btn btn-info" title="Lihat">Lihat</a> -->
 									<a href="<?=base_url("admin/$menu/form/ubah/$w->kode")?>" class="btn btn-success" title="Ubah">Ubah</a>

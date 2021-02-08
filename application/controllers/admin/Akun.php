@@ -15,11 +15,6 @@ class Akun extends CI_Controller{
 	}
 
 	function index(){
-		// $title['judul'] = 'Aspirasi/Keluhan';
-		// $data = null;
-		// $this->load->view('includes/v_header', $title);
-		// $this->load->view('pengaduan/v_buat_pengaduan', $data);
-		// $this->load->view('includes/v_footer');
 		redirect(base_url("admin/akun/masuk"));
 	}
 

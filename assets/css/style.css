@@ -24,6 +24,10 @@ body {
 } */
 
 @media (max-width: 900px) {
+  #herobanner{
+    display: none;
+  }
+  
   #herobanner img {
     height: 100vh;
     max-width: 130%;

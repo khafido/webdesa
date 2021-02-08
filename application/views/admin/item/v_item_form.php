@@ -22,19 +22,22 @@
 					<div class="content">
 						<?php echo form_open_multipart(base_url("admin/$judul/form/$action")) ?>
 							<div class="form-row">
-								<!-- <div class="col-md-3">
-			            <label for="" class="control-label modal-label">Kode <span class="text-danger">*</span> </label>
-			            <input class="form-control" type="number" name="kode" maxlength="4" minlength="4" value="<?=$detail->kode?>" required>
-			          </div> -->
-								<div class="col-md-4" style="padding-left:5px;">
+								<div class="col-md-3" style="padding-left:5px;">
 			            <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
 			            <input class="form-control" type="text" name="uraian" value="<?=$detail->uraian?>" required>
 			          </div>
-								<div class="col-md-4">
+								<div class="col-md-3">
+									<label for="" class="control-label modal-label">Tipe <span class="text-danger">*</span> </label>
+									<select class="form-control" name="tipe">
+										<option value="1">Belanja Barang/Jasa</option>
+										<option value="2">Belanja Modal</option>
+									</select>
+								</div>
+								<div class="col-md-3">
 			            <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
 			            <input class="form-control" type="text" name="satuan" value="<?=$detail->satuan?>" required>
 			          </div>
-								<div class="col-md-4">
+								<div class="col-md-3">
 			            <label for="" class="control-label modal-label">Harga Satuan Tertinggi <span class="text-danger">*</span> </label>
 			            <input class="form-control" type="number" min="1" name="hst" value="<?=$detail->hst?>" required>
 			          </div>

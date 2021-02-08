@@ -22,10 +22,8 @@ font-weight: bold;
   <div class="container">
     <div class="section-title text-center">
       <h2>Riwayat Pengaduan</h2>
-      <?php if($this->session->flashdata('upload_error')){ ?>
-      <!-- <div class="alert alert-success" role="alert"> -->
+      <?php if($this->session->flashdata('upload_error')){ ?>      
         <?php echo $this->session->flashdata('upload_error'); ?>
-      <!-- </div> -->
       <?php } ?>
       <?php if($this->session->flashdata('sukses')){ ?>
       <div class="alert alert-success" role="alert">

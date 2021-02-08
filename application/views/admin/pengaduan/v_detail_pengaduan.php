@@ -61,13 +61,18 @@
 					</tbody>
 				</table>
 				<?php if ($detail->status==0){ ?>
+					<?php if ($_SESSION['role_admin']==3): ?>
 					<button onclick="proses('<?=base_url("admin/$menu/proses/$detail->id_pengaduan/1")?>')" class="btn btn-success btn-fill">Proses</button>
 					<button onclick="proses('<?=base_url("admin/$menu/tolak/$detail->id_pengaduan")?>')" class="btn btn-danger btn-fill">Tolak</button>
+					<?php endif; ?>
+				<?php } else { ?>
+						<?php if ($_SESSION['role_admin']==1 || $_SESSION['role_admin']==2): ?>
+					<button onclick="buatTanggapan('<?=base_url("admin/pengaduan/komentar/$detail->id_pengaduan")?>')" class="btn btn-info btn-fill">Beri Tanggapan</button>
+				<?php endif; ?>
 				<?php } if($detail->status==1) { ?>
-					<?php if ($detail->kategori=='anggaran'): ?>
+					<?php if ($detail->kategori=='anggaran' && ($_SESSION['role_admin']==1 || $_SESSION['role_admin']==1)): ?>
 						<button onclick="buatKegiatan('<?=base_url()?>admin/kegiatan/form/tambah/<?=$detail->id_pengaduan?>')" class="btn btn-success btn-fill">Buat Kegiatan</button>
 					<?php endif; ?>
-					<button onclick="buatTanggapan('<?=base_url("admin/pengaduan/komentar/$detail->id_pengaduan")?>')" class="btn btn-info btn-fill">Beri Tanggapan</button>
 				<?php } ?>
 			</div>
 		</div>

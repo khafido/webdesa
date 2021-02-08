@@ -25,6 +25,7 @@ class Item extends CI_Controller{
 	function form($action){
 		if (isset($_POST['dana'])) {
 			// $store['kode'] = $_POST['kode'];
+			$store['tipe'] = $_POST['tipe'];
 			$store['uraian'] = $_POST['uraian'];
 			$store['satuan'] = $_POST['satuan'];
 			$store['hst'] = $_POST['hst'];

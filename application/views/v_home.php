@@ -29,7 +29,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12" id="hero" style="height:50px; margin:10px 0 60px 0; padding:0;">
+			<div class="col-md-12" id="hero" style="height:50px; margin:60px 0 60px 0; padding:0;">
 				<h1 id="layanan">Layanan</h1>
 				<h2>Pengurusan surat, aduan masyarakat, dan informasi Desa Pagerngumbuk.</h2>
 			</div>
@@ -92,7 +92,7 @@
 				<h2>Berikut daftar aspirasi/keluhan warga Desa Pagengumbuk.</h2>
 			</div>
 			<?php foreach ($pengaduan as $key => $value): $judul = $value->judul;?>
-			<div class="col-md-4 text-left">
+			<div class="col-md-4 text-left" style="margin-top:15px;">
 				<div id="">
 					<img id="imgberita" src="<?=base_url($value->lampiran_file)?>" alt="Pengaduan" class="">
 					<div id="isiberita" class="pl-2" style="text-transform:capitalize;"><br>

@@ -1,4 +1,5 @@
 <?php
+include '.\vendor\phpqrcode\qrlib.php';
 class Pengaduan extends CI_Controller{
 	function __construct(){
 		parent::__construct();
@@ -145,9 +146,12 @@ class Pengaduan extends CI_Controller{
 		$data['element'] .= '</table>';
 		$data['element'] .= '<br><br><br><br>';
 		$data['element'] .= '<div class="pull-right text-center" style="width: 250px; margin-right:50px; border-bottom:1px solid black;">';
-		$data['element'] .= '<h5 for="">Desa Pagerngumbuk, '.date("d M Y").'</h5>';
+		$data['element'] .= '<h5 for="">Desa Pagerngumbuk, '.date("d M Y", strtotime($hasil->tgl_pengaduan)).'</h5>';
 		$data['element'] .= '<h5 for="">Pengadu</h5>';
-		$data['element'] .= "<img src='".base_url($hasil->ttd_file)."' style='width:5cm;'>";
+		$data['element'] .= "<div style='width:7cm; display:inline-block;'>";
+		$data['element'] .= "<img src='".base_url($hasil->qrcode_file)."' style='width:2cm; float:left;'>";
+		$data['element'] .= "<img src='".base_url($hasil->ttd_file)."' style='width:5cm; float:right;'>";
+		$data['element'] .= "</div>";
 		$data['element'] .= "<h5><strong>$hasil->nama</strong></h5>";
 		$data['element'] .= '</div>';
 

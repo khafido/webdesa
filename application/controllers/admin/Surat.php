@@ -1,4 +1,8 @@
 <?php
+include '.\vendor\phpqrcode\qrlib.php';
+require '.\vendor\twilio\sdk\src\Twilio\autoload.php';
+use Twilio\Rest\Client;
+
 class Surat extends CI_Controller{
 	function __construct(){
 		parent::__construct();
@@ -614,7 +618,7 @@ class Surat extends CI_Controller{
 		}
 	}
 
-	public function cetak($surat, $id){
+	function cetak($surat, $id){
 		$view = array('kelahiran' => 'tbl_kelahiran', 'kematian'=>'tbl_kematian', 'tdkmampu'=>'tbl_tdk_mampu', 'biodata'=>'tbl_biodata', 'umum'=>'tbl_umum', 'domisili'=>'tbl_domisili');
 		$hasil = $this->m_crud->readBy($view[$surat], array('id'=>$id))[0];
 		$warga = $this->m_crud->readBy('tbl_warga', array('nik'=>$hasil->nik))[0];
@@ -795,30 +799,30 @@ class Surat extends CI_Controller{
 			$data['element'] .= '<table class="table table-borderless">';
 			$data['element'] .= '<tbody>';
 			$data['element'] .= "
-				<tr>
-					<th>Nama</th>
-					<th>NIK</th>
-					<th>JK</th>
-					<th>TTL</th>
-					<th>Hubungan</th>
-					<th>Pendidikan</th>
-					<th>Status Kawin</th>
-					<th>Pekerjaan</th>
-				</tr>
+			<tr>
+			<th>Nama</th>
+			<th>NIK</th>
+			<th>JK</th>
+			<th>TTL</th>
+			<th>Hubungan</th>
+			<th>Pendidikan</th>
+			<th>Status Kawin</th>
+			<th>Pekerjaan</th>
+			</tr>
 			";
 
 			$anggota = json_decode($hasil->anggota);
 			foreach ($anggota as $key => $value) {
 				$data['element'] .= "<tr>
-								<td style='text-transform:capitalize;'>$value->nama</td>
-								<td style='text-transform:capitalize;'>$value->nik</td>
-								<td style='text-transform:capitalize;'>".($value->jk=='L'?'Laki-laki':'Perempuan')."</td>
-								<td style='text-transform:capitalize;'>$value->tempat, $value->tgl</td>
-								<td style='text-transform:capitalize;'>$value->hubungan</td>
-								<td style='text-transform:capitalize;'>$value->pendidikan</td>
-								<td style='text-transform:capitalize;'>$value->kawin</td>
-								<td style='text-transform:capitalize;'>$value->pekerjaan</td>
-							</tr>";
+				<td style='text-transform:capitalize;'>$value->nama</td>
+				<td style='text-transform:capitalize;'>$value->nik</td>
+				<td style='text-transform:capitalize;'>".($value->jk=='L'?'Laki-laki':'Perempuan')."</td>
+				<td style='text-transform:capitalize;'>$value->tempat, $value->tgl</td>
+				<td style='text-transform:capitalize;'>$value->hubungan</td>
+				<td style='text-transform:capitalize;'>$value->pendidikan</td>
+				<td style='text-transform:capitalize;'>$value->kawin</td>
+				<td style='text-transform:capitalize;'>$value->pekerjaan</td>
+				</tr>";
 			}
 
 			$data['element'] .= '</tbody>';
@@ -846,7 +850,7 @@ class Surat extends CI_Controller{
 			// $data['element'] .= '</tr>';
 			$data['element'] .= '</tbody>';
 			$data['element'] .= '</table>';
-			$data['element'] .= "<p>Yang bersangkutan benar-benar warga Desa Pagerngumbuk yang $hasil->tujuan.</p><br/>";
+			$data['element'] .= "<p>Yang bersangkutan benar-benar warga Desa Pagerngumbuk sedang $hasil->tujuan.</p><br/>";
 		} elseif ($surat=="domisili") {
 			$data['judul'] = 'Cetak Domisili';
 
@@ -895,7 +899,10 @@ class Surat extends CI_Controller{
 		$data['element'] .= '<div class="pull-right text-center" style="width: 250px; margin-top:20px; margin-right:50px; border-bottom:1px solid black;">';
 		$data['element'] .= '<h5 for="">Desa Pagerngumbuk, '.date("d M Y").'</h5>';
 		$data['element'] .= '<h5 for="">Kepala Desa</h5>';
-		$data['element'] .= "<img src='".base_url($hasil->ttd_file)."' style='width:5cm;'>";
+		$data['element'] .= "<div style='width:7cm; display:inline-block;'>";
+		$data['element'] .= "<img src='".base_url($hasil->qrcode_file)."' style='width:2cm; float:left;'>";
+		$data['element'] .= "<img src='".base_url($hasil->ttd_file)."' style='width:5cm; float:right;'>";
+		$data['element'] .= "</div>";
 		$data['element'] .= '<h5><strong>Khoirul Anam</strong></h5>';
 		$data['element'] .= '</div>';
 		$this->load->view('v_cetak', $data);
@@ -910,15 +917,18 @@ class Surat extends CI_Controller{
 		$file = './assets/img/sign/' .$image;
 		$success = file_put_contents($file, $data);
 
-		$apiKeyAuthorization = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTYwNjEzMTcyMSwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjg1NTE3LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.FVgumAJkNfwMxHUy-2G9jqGAaCbc6gbX7BnS2Z8CvRs";
-		$this->load->library('smsgateway', array('apiKeyAuthorization'=>$apiKeyAuthorization));
+		$account_sid = 'ACbb6478e248e195ac75938ff8da70865c';
+		$auth_token = 'e76f6ab632effa08e56f2574d9fb33a9';
 
-		$phone_number = "085230839313";
-		$message = "Test smsGatewayV4";
-		$deviceID = 121683;
-		$options = [];
-
-		$this->smsgateway->sendMessageToNumber($phone_number, $message, $deviceID, $options);
+		$twilio_number = '+17732077865';
+		$client = new Client($account_sid, $auth_token);
+		$client->messages->create(
+			'+6285230839313',
+			array(
+				'from' => $twilio_number,
+				'body' => 'I sent this message from Twilio!'
+			)
+		);
 
 		$this->m_crud->update($_POST['surat'], array('ttd_file'=>$file, 'status'=>surat_selesai), array('id'=>$_POST['kode']));
 	}

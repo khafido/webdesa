@@ -82,6 +82,11 @@
     $('#sign-modal').modal('show');
   }
 
+  function doSign(id){
+    $('#kode').val(id);
+    $('#sign-modal').modal('show');
+  }
+
   window.datai = '[]';
   window.undef;
   function pilihItem(id,kode_kegiatan){
@@ -259,7 +264,7 @@
 
 <div class="main-panel">
   <nav class="navbar navbar-default navbar-fixed" style="position:fixed; z-index:9999;">
-    <div class="container-fluid">
+    <div class="container-fluid" style="width:100vw;">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
           <span class="sr-only">Toggle navigation</span>
@@ -270,11 +275,12 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-left">
-          <!-- <li class="<?=($active=='dashboard')?'active':''?>">
-            <a href="<?=base_url("admin/dashboard")?>">
-              <p>Dashboard</p>
-            </a>
-          </li> -->
+          <?php if ($_SESSION['role_admin']==1 || $_SESSION['role_admin']==2): ?>
+            <li class="<?=($active=='dashboard')?'active':''?>">
+              <a href="<?=base_url("admin/dashboard")?>">
+                <p>Dashboard</p>
+              </a>
+            </li>
           <li class="<?=($active=='warga')?'active':''?>">
             <a href="<?=base_url("admin/warga")?>">
               <p>Warga</p>
@@ -294,6 +300,7 @@
               <li><a href="<?=base_url()?>admin/surat/lihat/domisili">Domisili</a></li>
             </ul>
           </li>
+          <?php endif; ?>
           <li class="<?=($active=='pengaduan')?'active':''?>">
             <a href="<?=base_url("admin/pengaduan")?>">
               <p>Pengaduan</p>
@@ -304,6 +311,7 @@
               <p>Kegiatan</p>
             </a>
           </li>
+          <?php if ($_SESSION['role_admin']==1 || $_SESSION['role_admin']==2): ?>
           <li class="<?=($active=='dana')?'active':''?>">
             <a href="<?=base_url("admin/dana")?>">
               <p>Dana</p>
@@ -329,16 +337,17 @@
               <p>BUMDes</p>
             </a>
           </li>
-          <li class="<?=($active=='potensi')?'active':''?>">
+          <!-- <li class="<?=($active=='potensi')?'active':''?>">
             <a href="<?=base_url("admin/potensi")?>">
               <p>Potensi Desa</p>
             </a>
-          </li>
-          <li class="<?=($active=='potensi')?'active':''?>">
+          </li> -->
+          <!-- <li class="<?=($active=='potensi')?'active':''?>">
             <a href="<?=base_url("admin/pengguna")?>">
               <p style="color:transparent;">Potensi</p>
             </a>
-          </li>
+          </li> -->
+          <?php endif; ?>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>

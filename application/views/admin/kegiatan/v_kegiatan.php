@@ -58,8 +58,10 @@
 			<!-- <a href="<?=base_url("admin/$judul/form/tambah")?>" class="btn btn-success btn-fill pull-right">Tambah</a> -->
 			<h4 class="title" style="text-transform:capitalize;">Validasi Rencana Anggaran Belanja <?=$judul?></h4>
 			<!-- <p class="category">Last Campaign Performance</p> -->
+			<br>
 		</div>
 		<div class="content">
+			<?php echo $this->session->flashdata('sukses'); ?>
 			<div class="content table-responsive table-full-width">
 				<table class="table table-hover table-striped table-responsive" id="tbl_rencana">
 					<thead>

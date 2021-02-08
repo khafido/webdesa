@@ -1,4 +1,5 @@
 <?php
+include '.\vendor\phpqrcode\qrlib.php';
 class Pengaduan extends CI_Controller{
 	function __construct(){
 		parent::__construct();
@@ -38,26 +39,22 @@ class Pengaduan extends CI_Controller{
 				$file = './assets/img/pengaduan/' . uniqid() . '.png';
 
 				$success = file_put_contents($file, $data);
+
+				$nama_qrcode = './assets/img/qrcode/'.time().".png";
+				QRcode::png($file, $nama_qrcode);
+
 				$config['upload_path']   = "./assets/img/pengaduan/";
 				$config['allowed_types'] = 'jpg|png|jpeg';
 				$config['allowed_size'] = 2048;
 
-
-				// Upload Pengantar
 				$post = 'lampiran_file';
 				$pengaduan[$post] = './assets/img/pengaduan/default.jpg';
 				$status = true;
 
 				if ($_FILES[$post]["name"]!="") {
 					$filename = $_FILES[$post]['name'];
-
 					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-					// if ($name!=="default.jpg") {
-					// 	$status = true;
-						$pengaduan[$post] = $config['upload_path'].$name;
-					// } else {
-					// 	$status = false;
-					// }
+					$pengaduan[$post] = $config['upload_path'].$name;
 				}
 				$pengaduan['judul'] = $_POST['judul'];
 				$pengaduan['kategori'] = $_POST['kategori'];
@@ -66,6 +63,7 @@ class Pengaduan extends CI_Controller{
 				$pengaduan['uraian'] = $_POST['uraian'];
 				$pengaduan['nik'] = $nik;
 				$pengaduan['ttd_file'] = $file;
+				$pengaduan['qrcode_file'] = $nama_qrcode;
 
 				// if ($status) {
 					$this->m_crud->save('tbl_pengaduan', $pengaduan);

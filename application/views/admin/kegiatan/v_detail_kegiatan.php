@@ -7,8 +7,10 @@ $menu = $this->uri->segment(2);
 			<a href="<?=base_url("admin/$menu")?>" class="btn btn-warning btn-fill pull-right">Kembali</a>
 			<h4 class="title" style="text-transform:capitalize;">Data <?=$judul?></h4>
 			<!-- <p class="category">Last Campaign Performance</p> -->
+			<br>
 		</div>
 		<div class="content">
+			<?php echo $this->session->flashdata('error'); ?>
 			<div class="content table-responsive table-full-width">
 				<table class="table table-hover table-striped table-borderless">
 					<thead>
@@ -69,7 +71,7 @@ $menu = $this->uri->segment(2);
 				</tbody>
 			</table>
 			<?php if ($status==0): ?>
-				<button onclick="buatRencana('<?=base_url()?>admin/kegiatan/buat_itemkeuangan/<?=$detail->id_kegiatan?>')" class="btn btn-success btn-fill">Buat Rencana Anggaran</button>
+				<button onclick="buatRencana('<?=base_url()?>admin/kegiatan/buat_rab/<?=$detail->id_kegiatan?>')" class="btn btn-success btn-fill">Buat RAB</button>
 				<button onclick="proses('<?=base_url("admin/$menu/hapus/$detail->id_kegiatan")?>')" class="btn btn-danger btn-fill">Hapus</button>
 				&ensp;&ensp;&ensp;
 				<a href="<?=base_url("admin/$menu/form/ubah/$detail->id_kegiatan")?>" class="btn btn-info btn-fill">Ubah</a>

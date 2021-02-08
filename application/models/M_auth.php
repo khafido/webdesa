@@ -8,7 +8,7 @@ class M_auth extends CI_Model
   }
 
   function masuk($nik,$pass){
-      $user = $this->db->get_where('tbl_warga',array('nik' => $email))->row();
+      $user = $this->db->get_where('tbl_warga',array('nik' => $nik))->row();
       $hashpassword = $user->pass;
 
       if(password_verify($pass,$hashpassword)){

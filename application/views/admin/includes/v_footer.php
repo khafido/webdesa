@@ -48,7 +48,7 @@ Blog
       </div>
       <div class="modal-body">
         <canvas width="570" height="318"></canvas>
-        <input type="hidden" id="signname" value="<?=$_SESSION['nama']?>">
+        <input type="hidden" id="signname" value="<?=$_SESSION['nama_admin']?>">
         <input type="hidden" id="nik" value="<?=$_SESSION['nik_admin']?>">
         <input type="hidden" id="surat" value="<?=($tabel?$tabel:'')?>">
         <input type="hidden" id="kode" value="">
@@ -316,6 +316,7 @@ Blog
                   <option value="2.2-PELAKSANAAN PEMBANGUNAN DESA">PELAKSANAAN PEMBANGUNAN DESA</option>
                   <option value="2.3-PEMBINAAN KEMASYARAKATAN">PEMBINAAN KEMASYARAKATAN</option>
                   <option value="2.4-PEMBERDAYAAN MASYARAKAT">PEMBERDAYAAN MASYARAKAT</option>
+                  <option value="2.5-BELANJA TAK TERDUGA">BELANJA TAK TERDUGA</option>
                 </select>
               </div>
               <div class="col-md-12">
@@ -605,24 +606,6 @@ $(document).ready(function(){
     });
   }
 
-  // $("#sbnt1").on("click", function ()
-  // if($("#name1").val()==""){
-  //   $('#errors').html('Enter The Name');
-  //   $("#name1").css("border-color", "red");
-  //   $("#name1").focus();
-  //   $("#name1").keyup(function() {
-  //     $(this).css("border-color", "black");
-  //   });
-  //   return false;
-  // } else {
-  //   $('#sign-modal').modal('show');
-  // var snames = $(this).closest("ul").find("input[id='name1']").val();
-  // var scount = $(this).closest("ul").find("input[id='appendcount1']").val();
-  //
-  // $("#signname").val(snames);
-  // $("#scount").val(scount);
-  // });
-
   if (saveButton) {
     saveButton.addEventListener("click", function (event) {
       // function saveSign(){
@@ -644,7 +627,7 @@ $(document).ready(function(){
 
         $.ajax({
           type: "POST",
-          url: "<?php echo base_url();?>surat/sign",
+          url: "<?php echo base_url();?>admin/surat/sign",
           data: {sign: signaturePad.toDataURL(),nama: nama,surat: surat,kode:kode,nik:nik},
           success: function(datas1){
             signaturePad.clear();

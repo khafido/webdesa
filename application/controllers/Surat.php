@@ -42,19 +42,11 @@ class Surat extends CI_Controller{
 			$lampiran = array("pengantar_file","ket_file","kk_file","ktp_file","buku_file");
 			foreach ($lampiran as $kl => $vl) {
 				$post = $vl;
-				// if ($_FILES[$post]["name"]!="") {
-					$filename = $_FILES[$post]['name'];
-					$config['upload_path']   = "./assets/img/surat/kelahiran";
+				$filename = $_FILES[$post]['name'];
+				$config['upload_path']   = "./assets/img/surat/kelahiran";
 
-					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-					// if ($name=="default.jpg") {
-					// 	$status = false;
-					// 	$this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Perhatikan Ukuran(Maks 2MB) atau Tipe File(JPG,PNG,PDF)!</div>');
-					// 	break;
-					// } else {
-					$kelahiran[$post] = $config['upload_path'].'/'.$name;
-					// }
-				// }
+				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+				$kelahiran[$post] = $config['upload_path'].'/'.$name;
 			}
 
 			$jumlah = $this->m_crud->read('tbl_kelahiran');
@@ -442,44 +434,53 @@ class Surat extends CI_Controller{
 			$config['allowed_types'] = 'jpg|png|jpeg|pdf';
 			$status = true;
 
-			// Upload Pengantar
-			$post = 'pengantar_file';
-			if ($_FILES[$post]["name"]!="") {
-				$filename = $_FILES[$post]['name'];
+			$lampiran = array("pengantar_file","kk_file","ktp_file");
+			foreach ($lampiran as $kl => $vl) {
+				$post = $vl;
+					$filename = $_FILES[$post]['name'];
+					$config['upload_path']   = "./assets/img/surat/umum";
 
-				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
-					$status = false;
-				} else {
+					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
 					$umum[$post] = $config['upload_path'].'/'.$name;
-				}
 			}
-
-			// Upload KK
-			$post = 'kk_file';
-			if ($_FILES[$post]["name"]!="") {
-				$filename = $_FILES[$post]['name'];
-
-				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
-					$status = false;
-				} else {
-					$umum[$post] = $config['upload_path'].'/'.$name;
-				}
-			}
-
-			// Upload KTP
-			$post = 'ktp_file';
-			if ($_FILES[$post]["name"]!="") {
-				$filename = $_FILES[$post]['name'];
-
-				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
-					$status = false;
-				} else {
-					$umum[$post] = $config['upload_path'].'/'.$name;
-				}
-			}
+			// // Upload Pengantar
+			// $post = 'pengantar_file';
+			// if ($_FILES[$post]["name"]!="") {
+			// 	$filename = $_FILES[$post]['name'];
+			//
+			// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+			// 	// if ($name==false) {
+			// 	// 	$status = false;
+			// 	// } else {
+			// 	// }
+			// 	$umum[$post] = $config['upload_path'].'/'.$name;
+			// }
+			//
+			// // Upload KK
+			// $post = 'kk_file';
+			// if ($_FILES[$post]["name"]!="") {
+			// 	$filename = $_FILES[$post]['name'];
+			//
+			// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+			// 	if ($name==false) {
+			// 		$status = false;
+			// 	} else {
+			// 		$umum[$post] = $config['upload_path'].'/'.$name;
+			// 	}
+			// }
+			//
+			// // Upload KTP
+			// $post = 'ktp_file';
+			// if ($_FILES[$post]["name"]!="") {
+			// 	$filename = $_FILES[$post]['name'];
+			//
+			// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+			// 	if ($name==false) {
+			// 		$status = false;
+			// 	} else {
+			// 		$umum[$post] = $config['upload_path'].'/'.$name;
+			// 	}
+			// }
 
 			$jumlah = $this->m_crud->read('tbl_umum');
 			$id = count($jumlah)+1;
@@ -693,15 +694,18 @@ class Surat extends CI_Controller{
 		$file = './assets/img/sign/' .$image;
 		$success = file_put_contents($file, $data);
 
-		$apiKeyAuthorization = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTYwNjEzMTcyMSwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjg1NTE3LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.FVgumAJkNfwMxHUy-2G9jqGAaCbc6gbX7BnS2Z8CvRs";
-		$this->load->library('smsgateway', array('apiKeyAuthorization'=>$apiKeyAuthorization));
+		$account_sid = 'ACbb6478e248e195ac75938ff8da70865c';
+		$auth_token = 'e76f6ab632effa08e56f2574d9fb33a9';
 
-		$phone_number = "085230839313";
-		$message = "Test smsGatewayV4";
-		$deviceID = 121683;
-		$options = [];
-
-		$this->smsgateway->sendMessageToNumber($phone_number, $message, $deviceID, $options);
+		$twilio_number = '+17732077865';
+		$client = new Client($account_sid, $auth_token);
+		$client->messages->create(
+			'+6285646433651',
+			array(
+				'from' => $twilio_number,
+				'body' => 'I sent this message from Twilio!'
+			)
+		);
 
 		$this->m_crud->update($_POST['surat'], array('ttd_file'=>$file, 'status'=>surat_selesai), array('id'=>$_POST['kode']));
 	}
