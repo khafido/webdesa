@@ -8,11 +8,11 @@
       <div class="carousel-inner">
         <div class="carousel-item active">
           <div class="carousel-caption d-md-block" style="margin-bottom: 150px;">
-            <h1>Welcome to Desa Pagerngumbuk</h1>
+            <h1 class="text-dark">Welcome to Desa Pagerngumbuk</h1>
             <!-- <h2 style="color:white;" class="">Website informasi dan pelayanan Desa Pagerngumbuk</h2> -->
-            <a href="<?=base_url("akun/masuk")?>" class="btn-get-started scrollto">Get Started</a>
+            <a href="<?=base_url("akun/masuk")?>" class="btn-get-started bg-dark scrollto">Get Started</a>
           </div>
-          <img class="img-slide" style="width:100vw; height:120vh;" src="<?=base_url()?>assets/img/bannersawah.jpg" alt="First slide">
+          <img class="img-slide" style="width:100vw; height:120vh; opacity:0.5;" src="<?=base_url()?>assets/img/bannersawah.jpg" alt="First slide">
         </div>
         <div class="carousel-item">
           <div class="carousel-caption d-md-block" style="margin-bottom: 150px;">

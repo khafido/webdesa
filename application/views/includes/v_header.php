@@ -202,7 +202,7 @@
 
           <?php if (isset($_SESSION['nik'])): ?>
             <?php $foto = ($_SESSION['foto']!="")?$_SESSION['foto']:'assets/img/warga/foto/default_profil.jpg'; ?>
-            <li class="menu-has-children"><a href="" style="text-decoration:none;"><img class="" style="width:30px; height:30px; border-radius:100%;" src="<?=base_url($foto)?>" alt="">&ensp; <?=$_SESSION['nama']?> </a>
+            <li class="menu-has-children"><a href="<?=base_url()?>akun/profil" style="text-decoration:none;"><img class="" style="width:30px; height:30px; border-radius:100%;" src="<?=base_url($foto)?>" alt="">&ensp; <?=$_SESSION['nama']?> </a>
               <ul>
                 <li><a href="<?=base_url()?>akun/profil" style="text-decoration:none;"><i class="fa fa-address-book-o" style="font-size:18px"></i>&ensp; Akun</a></li>
                 <!-- <li><a href="<?=base_url()?>informasi/profil">Ganti Kata Sandi</a></li> -->

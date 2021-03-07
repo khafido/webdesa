@@ -2,8 +2,9 @@
 class Berita extends CI_Controller{
 	function __construct(){
 		parent::__construct();
-		if (!$this->session->userdata('nik'))
-		{
+		if ($this->session->userdata('status')==0){
+			redirect(base_url("akun/profil"));
+		} elseif (!$this->session->userdata('nik')){
 			$allowed = array("lihat","detail");
 			$method = $this->router->fetch_method();
 			if(!in_array($method, $allowed)){
@@ -109,11 +110,13 @@ class Berita extends CI_Controller{
 			$berita['id_berita'] = $id;
 			$berita['nik'] = $_SESSION['nik'];
 			$pesan = $this->m_crud->save('tbl_tanggapan_berita', $berita);
+
 			if ($pesan) {
-				redirect(base_url("berita/detail/$id"));
+				// redirect(base_url("berita/detail/$id"));
+				redirect($_SERVER['HTTP_REFERER']);
 				die();
 			}
-			var_dump($pesan);
+			// var_dump($pesan);
 		}
 	}
 

@@ -42,10 +42,6 @@
         </div>
       </div>
       <div class="col-md-12 mt-5">
-        <!-- <div class="card-header text-center bg-info text-light">
-        Syarat dan Ketentuan Dokumen
-      </div> -->
-
       <?php echo form_open_multipart(base_url("surat/kelahiran"),array('class' => 'form-horizontal')); ?>
       <div class="card wow fadeInUp" id="get-started" style="visibility: visible; animation-name: fadeInUp;">
         <ul class="nav nav-tabs" id="pills-tab" role="tablist">
@@ -60,15 +56,15 @@
             <div class="form-row col-md-12">
               <div class="form-group col-md-4">
                 <label for="" class="control-label">NIK <span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="nik" placeholder="NIK" value="<?=$_SESSION['nik']?>" disabled required>
+                <input class="form-control" type="text" name="nik" placeholder="NIK" value="<?=$_SESSION['nik']?>" disabled requiredd>
               </div>
               <div class="form-group col-md-4">
                 <label for="" class="control-label">Nama <span class="text-danger">*</span> </label>
-                <input class="form-control" type="text" name="nama" placeholder="Nama" value="<?=$_SESSION['nama']?>" disabled required>
+                <input class="form-control" type="text" name="nama" placeholder="Nama" value="<?=$_SESSION['nama']?>" disabled requiredd>
               </div>
               <div class="form-group col-md-4">
                 <label for="" class="control-label">Hubungan <span class="text-danger">*</span> </label>
-                <select class="form-control" name="hubungan" required>
+                <select class="form-control" name="hubungan" requiredd>
                   <option value="anak">Anak</option>
                   <option value="orang_tua">Orang Tua</option>
                   <option value="saudara">Saudara</option>
@@ -88,6 +84,7 @@
       </div>
 
       <div class="card mt-5 wow fadeInUp" id="get-started" style="visibility: visible; animation-name: fadeInUp;">
+        <?php echo $this->session->flashdata('error'); ?>
         <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="pills-dua-tab" data-toggle="pill" href="#pills-dua" role="tab" aria-controls="pills-dua" aria-selected="false">Data Kelahiran</a>
@@ -99,34 +96,34 @@
             <div class="form-row col-md-12">
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Nama Anak <span class="text-danger">*</span> </label>
-                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="anak" placeholder="Nama Anak" value="" required>
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="anak" placeholder="Nama Anak" value="" requiredd>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Tanggal Lahir <span class="text-danger">*</span> </label>
-                <input class="form-control" type="date" name="tgllahir" required/>
+                <input class="form-control" type="date" name="tgllahir" requiredd>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Tempat Lahir <span class="text-danger">*</span> </label>
-                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="tempatlahir" placeholder="Tempat Lahir" value="">
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="tempatlahir" placeholder="Tempat Lahir" value="" requiredd>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Jenis Kelamin <span class="text-danger">*</span> </label>
-                <select class="form-control" name="jk">
+                <select class="form-control" name="jk" requiredd>
                   <option value="L">Laki-laki</option>
                   <option value="P">Perempuan</option>
                 </select>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Nama Ayah <span class="text-danger">*</span> </label>
-                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="ayah" placeholder="Nama Ayah" value="">
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="ayah" placeholder="Nama Ayah" value="" requiredd>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Nama Ibu <span class="text-danger">*</span> </label>
-                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="ibu" placeholder="Nama Ibu" value="">
+                <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="ibu" placeholder="Nama Ibu" value="" requiredd>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Dusun <span class="text-danger">*</span> </label>
-                <select class="form-control" name="rw">
+                <select class="form-control" name="rw" requiredd>
                   <option value="1">Pager</option>
                   <option value="2">Ngumbuk</option>
                   <option value="3">Bendet</option>
@@ -134,7 +131,7 @@
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">RT <span class="text-danger">*</span> </label>
-                <input class="form-control" type="number" min="1" name="rt" placeholder="RT" value="">
+                <input class="form-control" type="number" min="1" name="rt" placeholder="RT" value="1" requiredd>
               </div>
               <div class="form-group col-md-12"></div>
               <div class="form-group col-md-2 offset-md-8">
@@ -162,24 +159,24 @@
               <?php echo $this->session->flashdata('upload_error'); ?>
               <div class="form-group col-md-12">
                 <label for="" class="control-label">Surat Pengantar <span class="text-danger"> *</span> </label>
-                <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="pengantar_file" required/>
+                <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="pengantar_file" requiredd/>
               </div>
               <div class="form-group col-md-12">
                 <label for="" class="control-label">Fotokopi Surat Bukti Kelahiran <span class="text-danger"> *</span> </label>
-                <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ket_file" required/>
+                <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ket_file" requiredd/>
               </div>
               <div class="col-md-12"></div>
               <div class="form-group col-md-12">
                 <label for="" class="control-label">Fotokopi KK <span class="text-danger"> *</span> </label>
-                <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="kk_file" required/>
+                <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="kk_file" requiredd/>
               </div>
               <div class="form-group col-md-12">
                 <label for="" class="control-label">Fotokopi KTP <span class="text-danger"> *</span> </label>
-                <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ktp_file" required/>
+                <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ktp_file" requiredd/>
               </div>
               <div class="form-group col-md-12">
                 <label for="" class="control-label">Fotokopi Buku Nikah / Akta Perkawinan <span class="text-danger"> *</span> </label>
-                <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="buku_file" required/>
+                <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="buku_file" requiredd/>
               </div>
               <div class="form-group col-md-2 offset-md-8">
                 <a href="#tab-kelahiran" class="btn scrollto form-control py-3 btn-prev"><i class="fa fa-angle-double-left"> Kembali</i></a>

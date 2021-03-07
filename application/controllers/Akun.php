@@ -3,8 +3,7 @@ class Akun extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->library('form_validation');
-		if (!$this->session->userdata('nik'))
-		{
+		if (!$this->session->userdata('nik')){
 			$allowed = array("index","masuk","registrasi");
 			$method = $this->router->fetch_method();
 			if(!in_array($method, $allowed)){
@@ -15,11 +14,12 @@ class Akun extends CI_Controller{
 	}
 
 	function index(){
-		$title['judul'] = 'Desa Pagerngumbuk';
-		$this->load->view('includes/v_header', $title);
-		$this->load->view('includes/v_banner');
-		$this->load->view('v_home');
-		$this->load->view('includes/v_footer');
+		// $title['judul'] = 'Desa Pagerngumbuk';
+		// $this->load->view('includes/v_header', $title);
+		// $this->load->view('includes/v_banner');
+		// $this->load->view('v_home');
+		// $this->load->view('includes/v_footer');
+		redirect("akun/profil");
 	}
 
 	function masuk(){
@@ -40,6 +40,7 @@ class Akun extends CI_Controller{
 					$email = $warga->email;
 					$notelp = $warga->no_telp;
 					$foto = $warga->foto_file;
+					$status = $warga->status;
 
 					if (password_verify($pass,$hashpass)) {
 						$this->session->set_userdata('nik', $nik);
@@ -48,6 +49,7 @@ class Akun extends CI_Controller{
 						$this->session->set_userdata('email', $email);
 						$this->session->set_userdata('foto', $foto);
 						$this->session->set_userdata('notelp', $notelp);
+						$this->session->set_userdata('status', $status);
 
 						redirect(base_url("/"));
 						die();
@@ -122,6 +124,7 @@ class Akun extends CI_Controller{
 			$profil['agama'] = $_POST['agama'];
 			$profil['rw'] = $_POST['rw'];
 			$profil['rt'] = $_POST['rt'];
+			$profil['status'] = 1;
 
 			$status	= true;
 			// Upload KK
@@ -133,7 +136,7 @@ class Akun extends CI_Controller{
 				$config['max_size']      = 2048;
 
 				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
+				if ($name=="default.jpg") {
 					$status = false;
 				} else {
 					$profil[$post] = $config['upload_path'].'/'.$name;
@@ -149,7 +152,7 @@ class Akun extends CI_Controller{
 				$config['max_size']      = 2048;
 
 				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
+				if ($name=="default.jpg") {
 					$status = false;
 				} else {
 					$profil[$post] = $config['upload_path'].'/'.$name;
@@ -165,12 +168,13 @@ class Akun extends CI_Controller{
 				$config['max_size']      = 2048;
 
 				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				if ($name==false) {
+				if ($name=="default.jpg") {
 					$status = false;
 				} else {
 					$profil[$post] = $config['upload_path'].'/'.$name;
 				}
 			}
+
 
 			if ($status) {
 				$pesan = $this->m_crud->update('tbl_warga', $profil, array('nik'=>$nik));

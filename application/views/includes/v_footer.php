@@ -11,40 +11,41 @@ Footer
       <div class="col-md-12 col-lg-4">
         <div class="footer-logo">
           <a class="navbar-brand" href="#">Desa Pagerngumbuk</a>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the.</p>
+          <p>Pagerngumbuk adalah sebuah desa di wilayah Kecamatan Wonoayu, Kabupaten Sidoarjo, Provinsi Jawa Timur.</p>
         </div>
       </div>
 
       <div class="col-sm-6 col-md-3 col-lg-2">
         <div class="list-menu">
-          <h4>About Us</h4>
-          <ul class="list-unstyled">
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Features item</a></li>
-            <li><a href="#">Live streaming</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+          <h4>Surat</h4>
+          <ul class="list-styled">
+            <li><a href="<?=base_url('surat/kelahiran')?>">Kelahiran</a></li>
+            <li><a href="<?=base_url('surat/kematian')?>">Kematian</a></li>
+            <li><a href="<?=base_url('surat/tidak_mampu')?>">Tidak Mampu</a></li>
+            <li><a href="<?=base_url('surat/biodata')?>">Biodata</a></li>
+            <li><a href="<?=base_url('surat/umum')?>">Umum</a></li>
+            <li><a href="<?=base_url('surat/domisili')?>">Domisili</a></li>
+            <li><a href="<?=base_url('surat/riwayat')?>">Riwayat Pengurusan</a></li>
           </ul>
         </div>
       </div>
       <div class="col-sm-6 col-md-3 col-lg-2">
         <div class="list-menu">
-          <h4>About Us</h4>
-          <ul class="list-unstyled">
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Features item</a></li>
-            <li><a href="#">Live streaming</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+          <h4>Pengaduan</h4>
+          <ul class="list-styled">
+            <li><a href="<?=base_url('pengaduan/lihat/semua')?>">Lihat Pengaduan</a></li>
+            <li><a href="<?=base_url('pengaduan/buat_pengaduan')?>">Buat Pengaduan</a></li>
+            <li><a href="<?=base_url('pengaduan/riwayat')?>">Riwayat Pengaduan</a></li>
           </ul>
         </div>
       </div>
       <div class="col-sm-6 col-md-3 col-lg-2">
         <div class="list-menu">
-          <h4>About Us</h4>
-          <ul class="list-unstyled">
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Features item</a></li>
-            <li><a href="#">Live streaming</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+          <h4>Berita</h4>
+          <ul class="list-styled">
+            <li><a href="<?=base_url('berita/lihat/semua')?>">Lihat Berita</a></li>
+            <li><a href="<?=base_url('berita/buat')?>">Buat Berita</a></li>
+            <li><a href="<?=base_url('berita/riwayat')?>">Riwayat Berita</a></li>
           </ul>
         </div>
       </div>

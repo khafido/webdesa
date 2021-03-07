@@ -913,23 +913,44 @@ class Surat extends CI_Controller{
 		$img = str_replace('data:image/png;base64,', '', $img);
 		$img = str_replace(' ', '+', $img);
 		$data = base64_decode($img);
-		$image=uniqid() . '.png';
+		$image = uniqid() . '.png';
 		$file = './assets/img/sign/' .$image;
 		$success = file_put_contents($file, $data);
 
+		$nama_qrcode = './assets/img/qrcode/'.time().".png";
+		QRcode::png($file, $nama_qrcode);
+
+		$view = array('tbl_kelahiran'=> 'Kelahiran', 'tbl_kematian'=>'Kematian', 'tbl_tdkmampu'=>'Tidak Mampu', 'tbl_biodata'=>'Biodata', 'tbl_umum'=>'Umum', 'tbl_domisili'=>'Domisili');
+		$surat = $view[$_POST['surat']];
+
+		if ($_POST['surat']=='tbl_kelahiran') {
+			$berkas = "- Surat Pengantar\n";
+			$berkas .= "- Foto Kopi Surat Kelahiran\n";
+			$berkas .= "- Foto Kopi KK & KTP\n";
+			$berkas .= "- Foto Kopi Buku Nikah\n";
+			$berkas .= "- Surat Kuasa jika diwakilkan";
+		} elseif ($_POST['surat']='tbl_kematian') {
+		}
+
+		$warga = $this->m_crud->readBy('tbl_warga', array('nik'=>$_POST['nikwarga']))[0];
+		$nama_warga = $warga->nama;
+		$no_telp = (int)$warga->no_telp;
+		$id_surat = $_POST['kode'];
+
 		$account_sid = 'ACbb6478e248e195ac75938ff8da70865c';
-		$auth_token = 'e76f6ab632effa08e56f2574d9fb33a9';
+		$auth_token = 'b6f7661c9596c83e06bc7ab8d773c1c6';
 
-		$twilio_number = '+17732077865';
-		$client = new Client($account_sid, $auth_token);
-		$client->messages->create(
-			'+6285230839313',
-			array(
-				'from' => $twilio_number,
-				'body' => 'I sent this message from Twilio!'
-			)
-		);
+		// $twilio_number = '+17732077865';
+		// $client = new Client($account_sid, $auth_token);
+		// $client->messages->create(
+		// 	"+62".$no_telp,
+		// 	array(
+		// 		'from' => $twilio_number,
+		// 		'body' => "\nSelamat Pagi $nama_warga. \n<b>Surat Keterangan $surat ($id_surat)</b> sudah bisa diambil hari ini. Jangan lupa siapkan berkas-berkas yang diperlukan. Berikut berkas-berkas yang harus disiapkan: \n$berkas"
+		// 	)
+		// );
 
-		$this->m_crud->update($_POST['surat'], array('ttd_file'=>$file, 'status'=>surat_selesai), array('id'=>$_POST['kode']));
+
+		$this->m_crud->update($_POST['surat'], array('ttd_file'=>$file, 'qrcode_file'=>$nama_qrcode, 'status'=>surat_selesai), array('id'=>$_POST['idsurat']));
 	}
 }

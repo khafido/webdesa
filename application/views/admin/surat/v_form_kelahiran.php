@@ -49,26 +49,26 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="" class="control-label">Tempat Lahir <span class="text-danger">*</span> </label>
-								<input class="form-control" type="text" name="tempatlahir" placeholder="Tempat Lahir" value="<?=$hasil->anak?>">
+								<input class="form-control" type="text" name="tempatlahir" placeholder="Tempat Lahir" value="<?=$hasil->anak?>" required>
 							</div>
 							<div class="form-group col-md-3">
 								<label for="" class="control-label">Jenis Kelamin <span class="text-danger">*</span> </label>
-								<select class="form-control" name="jk">
+								<select class="form-control" name="jk" required>
 									<option value="L" <?=($hasil->jk=='l')?'selected':''?>>Laki-laki</option>
 									<option value="P" <?=($hasil->jk=='p')?'selected':''?>>Perempuan</option>
 								</select>
 							</div>
 							<div class="form-group col-md-3">
 								<label for="" class="control-label">Nama Ayah <span class="text-danger">*</span> </label>
-								<input class="form-control" type="text" name="ayah" placeholder="Nama Ayah" value="<?=$hasil->ayah?>">
+								<input class="form-control" type="text" name="ayah" placeholder="Nama Ayah" value="<?=$hasil->ayah?>" required>
 							</div>
 							<div class="form-group col-md-3">
 								<label for="" class="control-label">Nama Ibu <span class="text-danger">*</span> </label>
-								<input class="form-control" type="text" name="ibu" placeholder="Nama Ibu" value="<?=$hasil->ibu?>">
+								<input class="form-control" type="text" name="ibu" placeholder="Nama Ibu" value="<?=$hasil->ibu?>" required>
 							</div>
 							<div class="form-group col-md-3">
 								<label for="" class="control-label">Dusun <span class="text-danger">*</span> </label>
-								<select class="form-control" name="rw">
+								<select class="form-control" name="rw" required>
 									<option value="1" <?=($hasil->rw==1)?'selected':''?>>Pager</option>
 									<option value="2" <?=($hasil->rw==2)?'selected':''?>>Ngumbuk</option>
 									<option value="3" <?=($hasil->rw==3)?'selected':''?>>Bendet</option>
@@ -76,30 +76,30 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="" class="control-label">RT <span class="text-danger">*</span> </label>
-								<input class="form-control" type="number" min="1" name="rt" placeholder="RT" value="<?=$hasil->rt?>">
+								<input class="form-control" type="number" min="1" name="rt" placeholder="RT" value="<?=$hasil->rt?>" required>
 							</div>
 							<div class="col-md-12">
 								<?php echo $this->session->flashdata('upload_error'); ?>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="" class="control-label">Surat Pengantar <span class="text-danger"> </span> </label>
-								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="pengantar_file"/>
+								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="pengantar_file"/ required>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="" class="control-label">Fotokopi Surat Bukti Kelahiran <span class="text-danger"> </span> </label>
-								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ket_file"/>
+								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ket_file"/ required>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="" class="control-label">Fotokopi KK <span class="text-danger"> </span> </label>
-								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="kk_file"/>
+								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="kk_file"/ required>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="" class="control-label">Fotokopi KTP <span class="text-danger"> </span> </label>
-								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ktp_file"/>
+								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ktp_file"/ required>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="" class="control-label">Fotokopi Buku Nikah / Akta Perkawinan <span class="text-danger"> </span> </label>
-								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="buku_file"/>
+								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="buku_file"/ required>
 							</div>
 							<!-- <div class="col-md-12"></div> -->
 							<div class="form-group col-md-12">

@@ -18,7 +18,7 @@ font-weight: bold;
       <p class="separator" style="margin-top:-20px;">Mohon isi data dibawah dengan lengkap & sebenar-benarnya agar status anda aktif.</p>
       <?php echo $this->session->flashdata('upload_error'); ?>
     </div>
-    <br>
+    <!-- <br> -->
     <div class="row">
       <div class="col-md-12">
         <?php echo form_open_multipart(base_url("akun/profil/"),array('class' => 'form-horizontal')); ?>

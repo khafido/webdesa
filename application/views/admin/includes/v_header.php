@@ -77,47 +77,72 @@
       $('#modaltanggapan').modal('show');
   }
 
-  function showSign(id){
+  function showSign(id,nama_warga){
+    $('#idsurat').val($('#'+id).data("idsurat"));
     $('#kode').val($('#'+id).data("kode"));
+    $('#nikwarga').val($('#'+id).data("nikwarga"));
     $('#sign-modal').modal('show');
   }
 
-  function doSign(id){
-    $('#kode').val(id);
-    $('#sign-modal').modal('show');
-  }
+  // function doSign(id){
+  //   $('#kode').val(id);
+  //   $('#sign-modal').modal('show');
+  // }
 
-  window.datai = '[]';
+  window.datas = [];
+  window.datab = '[]';
+  window.datam = '[]';
   window.undef;
   function pilihItem(id,kode_kegiatan){
     var kode = kode_kegiatan;
+    var tipe = $('#'+id).data("tipe");
     var uraian = $('#'+id).data("uraian");
     var satuan = $('#'+id).data("satuan");
-    var hst = $('#'+id).data("hst");
+    var harga_satuan = $('#'+id).data("hst");
     var volume = $('#'+id+"-qty").val();
 
-    var data = JSON.parse(window.datai);
-    data.push({"kode":kode+'.'+(data.length+1), "uraian":uraian, "satuan":satuan, "volume":volume, "hst":hst});
-    window.datai = JSON.stringify(data);
-    showItem(window.datai);
+    // var databar;
+    // var datamod;
+    // if (tipe==1) {
+    //   var databar = JSON.parse(window.datab);
+    //   databar.push({"kode":kode+'.'+tipe, "uraian":uraian, "satuan":satuan, "volume":volume, "harga_satuan":harga_satuan, "tipe":tipe});
+    //   window.datab = JSON.stringify(databar);
+    // } else if (tipe==2) {
+    //   var datamod = JSON.parse(window.datam);
+    //   datamod.push({"kode":kode+'.'+tipe, "uraian":uraian, "satuan":satuan, "volume":volume, "harga_satuan":harga_satuan, "tipe":tipe});
+    //   window.datam = JSON.stringify(datamod);
+    // }
+
+    window.datas.push({"kode":kode+'.'+tipe, "uraian":uraian, "satuan":satuan, "volume":volume, "harga_satuan":harga_satuan, "tipe":tipe});
+    // window.datas = JSON.parse(window.datab).concat(JSON.parse(window.datam));
+    showItem(window.datas);
   }
 
   function showItem(data){
+    console.log(data);
     var html = '';
-    $("input[name='daftarItem']").val(data);
-    data = JSON.parse(data);
+    $("input[name='daftarItem']").val(JSON.stringify(data));
+    // $("input[name='daftarItemModal']").val(data2);
     var panjang = 0;
     if(data!==window.undef){
       panjang = data.length;
     }
-    for(var i=0; i < panjang; i++){
+    var tipe = 0;
+    for (var i=0; i < panjang; i++){
+      if (data[i].tipe==1) {
+        tipe = "1-Belanja Barang";        
+      } else if (data[i].tipe==2) {
+        tipe = "2-Belanja Modal";
+      } else {
+        tipe = "Lainnya";
+      }
       // html += '<tr><td>'+(i+1)+'</td><td>'+data[i].kode+'</td><td>'+data[i].uraian+'</td><td>'+data[i].volume+'</td><td>'+data[i].satuan+'</td><td>'+data[i].hst+'</td>';
       // $('#listitemkeuangan').append(`
       html +=`
         <div class="row" id="rowitemkeuangan">
-        <div class="col-md-2">
+        <div class="col-md-2" style="display:none;">
         <label for="" class="control-label modal-label">Kode <span class="text-danger">*</span> </label>
-        <input class="form-control" type="text" name="kode[]" title="Isi Kode" value="`+data[i].kode+`" required readonly>
+        <input maxlength="7" class="form-control" type="text" name="kode[]" title="Isi Kode" value="`+data[i].kode+`" required readonly>
         </div>
         <div class="col-md-3">
         <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
@@ -132,16 +157,18 @@
         <input class="form-control" type="text" name="satuan[]" value="`+data[i].satuan+`" required readonly>
         </div>
         <div class="col-md-2">
-        <label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger">*</span> </label>
-        <input class="form-control" type="number" min="1" pattern="[0-9]+" name="harga[]" title="Masukkan Angka" value="`+data[i].hst+`" required readonly>
+        <label for="" class="control-label modal-label">HST (Rp) <span class="text-danger">*</span> </label>
+        <input class="form-control" type="number" min="1" pattern="[0-9]+" name="harga[]" title="Masukkan Angka" value="`+data[i].harga_satuan+`" required readonly>
+        </div>
+        <div class="col-md-2">
+        <label for="" class="control-label modal-label">Tipe <span class="text-danger">*</span> </label>
+        <input class="form-control" type="text" name="tipe[]" title="Masukkan Tipe" value="`+tipe+`" required readonly>
         </div>
         <div class="col-md-1">
         <label for="" class="control-label modal-label"><span class="text-danger"></span> </label>
         <button type="button" class="btn btn-danger btn-fill form-control" name="button" id="btnhapusitemkeuangan`+i+`" data-hapus="`+i+`" onclick="hapusItem(`+i+`)">Hapus</button>
         </div>
         </div>`;
-        // `);
-      // html += '<td><a id="hapusItem" data-hapus="'+i+'" class="text text-xl-right text-danger"><i class="fa fa-remove"></i>&nbsp; Hapus</a></td></tr>';
     }
     // console.log(html);
     // $('#listItem').html(html);
@@ -150,10 +177,11 @@
 
 
   function hapusItem(id){
-    var data = JSON.parse(window.datai);
-    data.splice(id,1);
-    window.datai = JSON.stringify(data);
-    showItem(window.datai);
+    // var data = JSON.parse(window.datas);
+    // data.splice(id,1);
+    // window.datas = JSON.stringify(data);
+    window.datas.splice(id,1);
+    showItem(window.datas);
   }
 
 

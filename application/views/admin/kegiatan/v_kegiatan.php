@@ -61,7 +61,7 @@
 			<br>
 		</div>
 		<div class="content">
-			<?php echo $this->session->flashdata('sukses'); ?>
+			<?php //echo $this->session->flashdata('sukses'); ?>
 			<div class="content table-responsive table-full-width">
 				<table class="table table-hover table-striped table-responsive" id="tbl_rencana">
 					<thead>

@@ -50,9 +50,15 @@ class Kegiatan extends CI_Controller{
 		// $sql = "select `k`.`id_kegiatan` AS `id_kegiatan`,`k`.`bidang` AS `bidang`,`k`.`nama` AS `nama`,`k`.`tgl_mulai` AS `tgl_mulai`,`k`.`tgl_selesai` AS `tgl_selesai`,`k`.`output` AS `output`,`k`.`kendala` AS `kendala`,`k`.`saran` AS `saran`,`k`.`ketua_pelaksana` AS `ketua_pelaksana`,`k`.`catatan` AS `catatan`,`k`.`status` AS `status`,`k`.`lampiran_file` AS `lampiran_file`,`k`.`id_pengaduan` AS `id_pengaduan`,`k`.`kode` AS `kode`,`d`.`nama` AS `dana`,`p`.`nama` AS `pelapor`,`k`.`kode_kegiatan` AS `kode_kegiatan` from ((`tbl_kegiatan` `k` join `tbl_dana` `d` on((`k`.`kode` = `d`.`kode`))) join `detail_pengaduan` `p` on((`k`.`id_pengaduan` = `p`.`id_pengaduan`))) where ";
 		// $detail = $this->db->query($sql."k.id_kegiatan=$id")->result();
 
-		$item = $this->m_crud->readBy('tbl_item_keuangan', array('id_kegiatan'=>$id));
+		$item = $this->m_crud->readByOrder('tbl_item_keuangan', array('id_kegiatan'=>$id), "kode ASC");
+		$barang = $this->m_crud->readByOrder('tbl_item_keuangan', array('id_kegiatan'=>$id, 'tipe'=>1), "kode ASC");
+		$modal = $this->m_crud->readByOrder('tbl_item_keuangan', array('id_kegiatan'=>$id, 'tipe'=>2), "kode ASC");
 		$fisik = $this->m_crud->readBy('tbl_item_fisik', array('id_kegiatan'=>$id));
+
 		$data['itemkeuangan'] = json_encode($item);
+		$data['barang'] = json_encode($barang);
+		$data['modal'] = json_encode($modal);
+
 		$data['itemfisik'] = json_encode($fisik);
 		$data['item'] = count($item);
 
@@ -150,51 +156,63 @@ class Kegiatan extends CI_Controller{
 
 	function buat_rab($id){
 		$item = array();
-		if (isset($_POST['kode'])) {
-			for ($i=0; $i < count($_POST['kode']); $i++) {
-				$kode = $_POST['kode'][$i];
-				$uraian = $_POST['uraian'][$i];
-				$volume = $_POST['volume'][$i];
-				$satuan = $_POST['satuan'][$i];
-				$harga_satuan = $_POST['harga'][$i];
-				$jumlah = (int)$volume * (int)$harga_satuan;
-				array_push($item, array('kode'=>$kode, 'uraian'=>$uraian, 'volume'=>$volume, 'satuan'=>$satuan, 'harga_satuan'=>$harga_satuan, 'jumlah'=>$jumlah, 'id_kegiatan'=>$id));
-			}
-			$keu = $this->m_crud->saveBatch('tbl_item_keuangan', $item);
-
-			$store['status'] = kegiatan_rencana;
-			$keg = $this->m_crud->update('tbl_kegiatan', $store, array('id_kegiatan'=>$id));
-			if ($keu==true && $keg==true) {
-				$this->session->set_flashdata( 'sukses', '<div class="alert alert-success" role="alert">Berhasil Buat RAB!</div>');
-				redirect(base_url("admin/kegiatan"));
-				die();
-			}
-		} else {
-			$this->session->set_flashdata( 'error', '<div class="alert alert-danger" role="alert">Item Tidak Boleh Kosong!</div>');
-			redirect(base_url("admin/kegiatan/detail/$id"));
+		$barang = 1;
+		$modal = 1;
+		$i = 0;
+		while ($i < count($_POST['kode'])) {
+			$kode = $_POST['kode'][$i];
+			$uraian = $_POST['uraian'][$i];
+			$volume = $_POST['volume'][$i];
+			$satuan = $_POST['satuan'][$i];
+			$harga_satuan = $_POST['harga'][$i];
+			$tipe = substr($_POST['tipe'][$i],0,1);
+			$jumlah = (int)$volume * (int)$harga_satuan;
+			if ($tipe=="1") {
+				array_push($item, array('kode'=>$kode.'.'.($barang++), 'uraian'=>$uraian, 'volume'=>$volume, 'satuan'=>$satuan, 'harga_satuan'=>$harga_satuan, 'jumlah'=>$jumlah, 'tipe'=>$tipe, 'id_kegiatan'=>$id));
+			} else if($tipe=="2") {
+				array_push($item, array('kode'=>$kode.'.'.($modal++), 'uraian'=>$uraian, 'volume'=>$volume, 'satuan'=>$satuan, 'harga_satuan'=>$harga_satuan, 'jumlah'=>$jumlah, 'tipe'=>$tipe, 'id_kegiatan'=>$id));
+			} $i++;
 		}
+		if (count($item)>0) {
+			$return = $this->m_crud->saveBatch('tbl_item_keuangan', $item);
+			$store['status'] = kegiatan_rencana;
+			$this->m_crud->update('tbl_kegiatan', $store, array('id_kegiatan'=>$id));
+			$this->session->set_flashdata( 'sukses', '<div class="alert alert-success" role="alert">Berhasil Buat RAB!</div>');
+		} else {
+			$this->session->set_flashdata( 'error', '<div class="alert alert-danger" role="alert">Item Tidak Boleh Kosong & Hanya Boleh Bertipe Belanja Barang/Modal!</div>');
+		}
+		redirect(base_url("admin/kegiatan/detail/$id"));
 	}
 
 	function ubah_rab($id){
 		$item = array();
-		if (isset($_POST['rencana'])) {
-			for ($i=0; $i < count($_POST['kode']); $i++) {
-				$kode = $_POST['kode'][$i];
-				$uraian = $_POST['uraian'][$i];
-				$volume = $_POST['volume'][$i];
-				$satuan = $_POST['satuan'][$i];
-				$harga_satuan = $_POST['harga'][$i];
-				$jumlah = (int)$volume * (int)$harga_satuan;
-				array_push($item, array('kode'=>$kode, 'uraian'=>$uraian, 'volume'=>$volume, 'satuan'=>$satuan, 'harga_satuan'=>$harga_satuan, 'jumlah'=>$jumlah, 'id_kegiatan'=>$id));
-			}
-
-			$this->m_crud->hard_delete('tbl_item_keuangan', array('id_kegiatan'=>$id));
-			$pesan = $this->m_crud->saveBatch('tbl_item_keuangan', $item);
-			if ($pesan==true) {
-				redirect(base_url("admin/kegiatan/detail/$id"));
-				die();
+		$barang = 1;
+		$modal = 1;
+		for ($i=0; $i < count($_POST['kode']); $i++) {
+			$kode = substr($_POST['kode'][$i],0,7);
+			$uraian = $_POST['uraian'][$i];
+			$volume = $_POST['volume'][$i];
+			$satuan = $_POST['satuan'][$i];
+			$harga_satuan = $_POST['harga'][$i];
+			$tipe = substr($_POST['tipe'][$i],0,1);
+			$jumlah = (int)$volume * (int)$harga_satuan;
+			if ($tipe=="1") {
+				array_push($item, array('kode'=>$kode.'.'.($barang++), 'uraian'=>$uraian, 'volume'=>$volume, 'satuan'=>$satuan, 'harga_satuan'=>$harga_satuan, 'jumlah'=>$jumlah, 'tipe'=>$tipe, 'id_kegiatan'=>$id));
+			} else if($tipe=="2"){
+				array_push($item, array('kode'=>$kode.'.'.($modal++), 'uraian'=>$uraian, 'volume'=>$volume, 'satuan'=>$satuan, 'harga_satuan'=>$harga_satuan, 'jumlah'=>$jumlah, 'tipe'=>$tipe, 'id_kegiatan'=>$id));
 			}
 		}
+		if (count($item)>0) {
+			$this->m_crud->hard_delete('tbl_item_keuangan', array('id_kegiatan'=>$id));
+			$this->m_crud->saveBatch('tbl_item_keuangan', $item);
+
+			$store['status'] = kegiatan_rencana;
+			$this->m_crud->update('tbl_kegiatan', $store, array('id_kegiatan'=>$id));
+			$this->session->set_flashdata( 'sukses', '<div class="alert alert-success" role="alert">Berhasil Ubah RAB!</div>');
+		} else {
+			$this->session->set_flashdata( 'error', '<div class="alert alert-danger" role="alert">Item Tidak Boleh Kosong!</div>');
+		}
+		redirect(base_url("admin/kegiatan/detail/$id"));
 	}
 
 	function buat_lpj($id){
@@ -326,12 +344,32 @@ class Kegiatan extends CI_Controller{
 		$data['element'] .= '<th scope="col">Jumlah (Rp)</th>';
 		$data['element'] .= '</thead>';
 		$data['element'] .= '<tbody>';
-		$item = $this->m_crud->readBy('tbl_item_keuangan', array('id_kegiatan'=>$id));
+		$barang = $this->m_crud->readBy('tbl_item_keuangan', array('id_kegiatan'=>$id, 'tipe'=>1));
+		$modal = $this->m_crud->readBy('tbl_item_keuangan', array('id_kegiatan'=>$id, 'tipe'=>2));
 		$no = 1;
+		$nom = 1;
 		$jumlah = 0;
-		foreach ($item as $k => $i) {
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td colspan="7">Belanja Barang/Jasa</td>';
+		$data['element'] .= '</tr>';
+		foreach ($barang as $k => $i) {
 			$data['element'] .= '<tr>';
 			$data['element'] .= '<td>'.$no++.'</td>';
+			$data['element'] .= '<td>'.$i->kode.'</td>';
+			$data['element'] .= '<td>'.$i->uraian.'</td>';
+			$data['element'] .= '<td>'.$i->volume.'</td>';
+			$data['element'] .= '<td>'.$i->satuan.'</td>';
+			$data['element'] .= '<td>'.$i->harga_satuan.'</td>';
+			$data['element'] .= '<td>'.$i->jumlah.'</td>';
+			$data['element'] .= '</tr>';
+			$jumlah += $i->jumlah;
+		}
+		$data['element'] .= '<tr>';
+		$data['element'] .= '<td colspan="7">Belanja Modal</td>';
+		$data['element'] .= '</tr>';
+		foreach ($modal as $k => $i) {
+			$data['element'] .= '<tr>';
+			$data['element'] .= '<td>'.$nom++.'</td>';
 			$data['element'] .= '<td>'.$i->kode.'</td>';
 			$data['element'] .= '<td>'.$i->uraian.'</td>';
 			$data['element'] .= '<td>'.$i->volume.'</td>';
@@ -352,12 +390,12 @@ class Kegiatan extends CI_Controller{
 		$data['element'] .= '<br><br>';
 		$data['element'] .= '<div class="pull-right text-center" style="width: 100%;"><h5>Desa Pagerngumbuk, '.date("d M Y").'</h5></div>';
 		$data['element'] .= '<div class="pull-right text-center" style="width: 40%; margin-right:0px; border-bottom:1px solid black;">';
-		$data['element'] .= '<h5 for="">Ketua Pelaksana</h5><br><br><br><br>';
+		$data['element'] .= '<h5 for="">Ketua Pelaksana</h5><br><br><br><br><br/>';
 		$data['element'] .= '<h5><strong>'.$hasil->ketua_pelaksana.'</strong></h5>';
 		$data['element'] .= '</div>';
 		$data['element'] .= '<div class=" text-center" style="margin-top:35px; width: 40%; margin-right:0px; border-bottom:1px solid black;">';
 		$data['element'] .= '<h5 for="">Disetujui </h5>';
-		$data['element'] .= '<h5 for="" style="margin-top:-8px;">Kepala Desa</h5><br><br><br>';
+		$data['element'] .= '<h5 for="" style="margin-top:-8px;">Kepala Desa</h5><br/><br><br><br>';
 		$data['element'] .= '<h5><strong>Khoirul Anam</strong></h5>';
 		$data['element'] .= '</div>';
 

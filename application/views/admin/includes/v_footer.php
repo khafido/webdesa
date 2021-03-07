@@ -52,7 +52,8 @@ Blog
         <input type="hidden" id="nik" value="<?=$_SESSION['nik_admin']?>">
         <input type="hidden" id="surat" value="<?=($tabel?$tabel:'')?>">
         <input type="hidden" id="kode" value="">
-        <!---->
+        <input type="hidden" id="idsurat" value="">
+        <input type="hidden" id="nikwarga" value="">
       </div>
       <div class="modal-footer clearfix">
         <button type="submit"  id="save2" class="btn btn-success" data-action="save" ><i class="fa fa-check"></i> Save</button>
@@ -377,468 +378,391 @@ Blog
           </div>
           <div class="modal-body" id="itemkeuangan">
             <div class="col-md-12" style="padding-bottom:30px;">
-              <!-- <button onclick="tambahItemKeuangan()" class="btn btn-success btn-fill pull-right" type="button" name="button" id="btnitemkeuangan">Tambah Item</button> -->
               <button onclick="tambahItem('test')" class="btn btn-success btn-fill pull-right" type="button" name="button" id="btnitemkeuangan">Tambah Item</button>
               <button onclick="hapusItemSemua()" class="btn btn-danger btn-fill pull-right" style="margin-right:10px;" type="button" name="button" id="hpsitemsemua">Hapus Semua</button>
             </div>
             <br><br>
-            <!-- <table class="table table-borderless">
-            <thead>
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">Kode</th>
-            <th scope="col">Uraian</th>
-            <th scope="col">Volume</th>
-            <th scope="col">Satuan</th>
-            <th scope="col">HST</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody id="listItem">
-      </tbody>
-    </table> -->
-    <div class="" id="listitemkeuangan">
-      <!-- <div class="row" id="rowitemkeuangan">
+            <div class="" id="listitemkeuangan">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary btn-fill" name="rencana">Simpan</button>
+          </div>
+          <?php echo form_close(); ?>
+        </div>
+      </div>
+    </div>
+    <!-- END MODAL -->
+
+    <!-- Modal Daftar Rencana -->
+    <div class="modal fade" id="modalDaftarRencana" tabindex="-1" role="dialog" aria-labelledby="dataDiriModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" style="width:90vw;" role="document">
+        <div class="modal-content">
+          <?php echo form_open_multipart(base_url("kegiatan/buat/"),array('id' => 'formDaftarRencana')); ?>
+          <div class="modal-header">
+            <h5 class="modal-title" id="dataDiriModalTitle">Data Rencana Anggaran</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="lihatitemkeuangan">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">Tutup</button>
+          </div>
+          <?php echo form_close(); ?>
+        </div>
+      </div>
+    </div>
+    <!-- END MODAL -->
+
+    <!-- Modal Buat LPJ -->
+    <div class="modal fade" id="modalBuatLPJ" tabindex="-1" role="dialog" aria-labelledby="dataDiriModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" style="width:90vw;" role="document">
+        <div class="modal-content">
+          <?php echo form_open_multipart(base_url("admin/kegiatan/buat_lpj/"),array('id' => 'formBuatLPJ')); ?>
+          <div class="modal-header">
+            <h5 class="modal-title" id="dataDiriModalTitle">Data Laporan Anggaran</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="itemlpj">
+
+          </div>
+          <div class="modal-footer">
+            <!-- <div class="col-md-12" style="margin-top:30px;"> -->
+            <button onclick="tambahItemFisik()" class="btn btn-success btn-fill pull-left" type="button" name="button" id="btnitemfisik">Tambah Item Fisik</button>
+            <!-- </div> -->
+            <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary btn-fill" name="lpj">Simpan</button>
+          </div>
+          <?php echo form_close(); ?>
+        </div>
+      </div>
+    </div>
+    <!-- END MODAL -->
+
+
+    <div class="modal fade" id="modalItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document" style="width:900px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Pilih Item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-striped display" id="pilihItems">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Uraian</th>
+                  <th>Volume</th>
+                  <th>Tipe</th>
+                  <th>Satuan</th>
+                  <th>HST</th>
+                  <th class="text-right"></th>
+                </tr>
+              </thead>
+              <tbody id="show_data">
+                <?php
+                if (!empty($itembarang)) {
+                  $n=1;
+                  foreach ($itembarang as $i) {
+                    ?>
+                    <tr>
+                      <th><?=$n++?></th>
+                      <th><?=$i->uraian?></th>
+                      <th><input type="number" id="item<?=$n?>-qty" name="jumlah" onclick="select()" class="form-control text-center" min="1" value="1" required autocomplete="off"/></th>
+                      <th><?=($i->tipe==1?'Belanja Barang/Jasa':'Belanja Modal')?></th>
+                      <th><?=$i->satuan?></th>
+                      <th><?=$i->hst?></th>
+                      <th style="text-align: right;">
+                        <button id="item<?=$n?>" data-kode="<?=$i->kode?>" data-uraian="<?=$i->uraian?>" data-satuan="<?=$i->satuan?>" data-tipe="<?=$i->tipe?>" data-hst="<?=$i->hst?>" onclick="pilihItem(this.id, '<?=$kode_kegiatan?>')" class="btn btn-info btn-sm">Pilih</button>
+                      </th>
+                    </tr>
+                    <?php
+                  }
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Selesai</button>
+            <!-- <button type="button" id="btn-pilih" class="btn btn-success">Selesai</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <input type="hidden" name="daftarItem">
+    <!-- <input type="hidden" name="daftarItemModal"> -->
+  </body>
+  <!--   Core JS Files   -->
+  <!-- <script src="<?=base_url("assets/admin")?>/js/jquery-1.10.2.js" type="text/javascript"></script> -->
+  <!-- <script src="<?=base_url()?>assets/lib/jquery/jquery.min.js"></script> -->
+  <script src="<?=base_url("assets/admin")?>/js/bootstrap.min.js" type="text/javascript"></script>
+
+  <!--  Checkbox, Radio & Switch Plugins -->
+  <script src="<?=base_url("assets/admin")?>/js/bootstrap-checkbox-radio-switch.js"></script>
+
+  <!--  Charts Plugin -->
+  <script src="<?=base_url("assets/admin")?>/js/chartist.min.js"></script>
+
+  <!--  Notifications Plugin    -->
+  <script src="<?=base_url("assets/admin")?>/js/bootstrap-notify.js"></script>
+
+  <!--  Google Maps Plugin    -->
+  <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+
+  <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+  <script src="<?=base_url("assets/admin")?>/js/light-bootstrap-dashboard.js"></script>
+
+  <script src="<?=base_url()?>assets/ckeditor/ckeditor.js"></script>
+  <script src="<?=base_url()?>assets/ckfinder/ckfinder.js"></script>
+
+  <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+  <script src="<?=base_url("assets/admin")?>/js/demo.js"></script>
+
+  <?php if (!isset($itemkeuangan)) {
+    $itemkeuangan = null;
+  } ?>
+  <?php if (!isset($itemfisik)) {
+    $itemfisik = null;
+  } ?>
+  <script type="text/javascript">
+  $('#pilihItems').DataTable();
+
+  $(document).ready(function(){
+
+    // demo.initChartist();
+    //
+    // $.notify({
+    //   	icon: 'pe-7s-gift',
+    //   	message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+    //
+    //   },{
+    //       type: 'info',
+    //       timer: 4000
+    //   });
+    var wrapper = document.getElementById("signature-pad"),
+    clearButton = wrapper.querySelector("[data-action=clear]"),
+    saveButton = wrapper.querySelector("[data-action=save]"),
+    canvas = wrapper.querySelector("canvas"),
+    signaturePad;
+
+
+    function resizeCanvas() {
+      var ratio =  window.devicePixelRatio || 1;
+      canvas.width = canvas.offsetWidth * ratio;
+      canvas.height = canvas.offsetHeight * ratio;
+      canvas.getContext("2d").scale(ratio, ratio);
+    }
+
+    /*clear the signature pad */
+    signaturePad = new SignaturePad(canvas);
+    if (clearButton) {
+      clearButton.addEventListener("click", function (event) {
+        signaturePad.clear();
+      });
+    }
+
+    if (saveButton) {
+      saveButton.addEventListener("click", function (event) {
+        // function saveSign(){
+        if (signaturePad.isEmpty()) {
+          // $("#errors").addClass('shake');
+          // $("#errors").show();
+          // $("#errors").delay(4000).hide(200, function() {
+          //   $("#errors").hide();
+          // });
+          // $('#errors').html('Please provide signature first');
+          alert('Tanda Tangan tidak boleh kosong!');
+        } else {
+          $('#error').html('');
+          $('#sign-modal').modal('hide');
+
+          var nama=$('#signname').val();
+          var nik = $('#nik').val();
+          var surat = $('#surat').val();
+          var kode = $('#kode').val();
+          var idsurat = $('#idsurat').val();
+          var nikwarga = $('#nikwarga').val();
+
+          $.ajax({
+            type: "POST",
+            url: "<?php echo base_url();?>admin/surat/sign",
+            data: {sign: signaturePad.toDataURL(), idsurat:idsurat, nama:nama, nikwarga:nikwarga,surat: surat,kode:kode,nik:nik},
+            success: function(datas){
+              signaturePad.clear();
+              console.log(nikwarga);
+              console.log(surat);
+              location.reload();
+            },
+            error: function(err){
+              console.log(err.responseText);
+            }
+          });
+        }
+        // }
+      });
+    }
+
+    // $('#listObat').on('click','#hapusObat',function(){
+    //     var id = $(this).data('hapus');
+    //     var data = JSON.parse(window.datao);
+    //     data.splice(id,1);
+    //     window.datao = JSON.stringify(data);
+    //     showObat(window.datao);
+    // });
+
+    $('#pilihItems').DataTable();
+    $('#tbl_surat_baru').DataTable();
+    $('#tbl_surat_proses').DataTable();
+    $('#tbl_surat_selesai').DataTable();
+
+
+    $('#btnsimpankegiatan').click(function (){
+      if ($('#formKegiatan').valid()) {
+        $('#formKegiatan').submit();
+      }
+    });
+
+    $('#itemlpj').on('click','#btnhapusitemfisik',function() {
+      $(this).closest('#rowitemfisik').remove();
+    });
+
+  });
+
+  function tambahItemKeuangan(){
+    $('#listitemkeuangan').append(`
+      <div class="row" id="rowitemkeuangan">
       <div class="col-md-2">
       <label for="" class="control-label modal-label">Kode <span class="text-danger">*</span> </label>
       <input class="form-control" type="text" name="kode[]" title="Isi Kode" required>
-    </div>
-    <div class="col-md-3">
-    <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
-    <input class="form-control" type="text" name="uraian[]" title="Isi Uraian" required>
-  </div>
-  <div class="col-md-2">
-  <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
-  <input class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" required>
-</div>
-<div class="col-md-2">
-<label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
-<input class="form-control" type="text" name="satuan[]" required>
-</div>
-<div class="col-md-2">
-<label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger">*</span> </label>
-<input class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="harga[]" required>
-</div>
-</div> -->
-</div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">Tutup</button>
-  <button type="submit" class="btn btn-primary btn-fill" name="rencana">Simpan</button>
-</div>
-<?php echo form_close(); ?>
-</div>
-</div>
-</div>
-<!-- END MODAL -->
-
-<!-- Modal Daftar Rencana -->
-<div class="modal fade" id="modalDaftarRencana" tabindex="-1" role="dialog" aria-labelledby="dataDiriModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" style="width:90vw;" role="document">
-    <div class="modal-content">
-      <?php echo form_open_multipart(base_url("kegiatan/buat/"),array('id' => 'formDaftarRencana')); ?>
-      <div class="modal-header">
-        <h5 class="modal-title" id="dataDiriModalTitle">Data Rencana Anggaran</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
-      <div class="modal-body" id="lihatitemkeuangan">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">Tutup</button>
-      </div>
-      <?php echo form_close(); ?>
-    </div>
-  </div>
-</div>
-<!-- END MODAL -->
-
-<!-- Modal Buat LPJ -->
-<div class="modal fade" id="modalBuatLPJ" tabindex="-1" role="dialog" aria-labelledby="dataDiriModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" style="width:90vw;" role="document">
-    <div class="modal-content">
-      <?php echo form_open_multipart(base_url("admin/kegiatan/buat_lpj/"),array('id' => 'formBuatLPJ')); ?>
-      <div class="modal-header">
-        <h5 class="modal-title" id="dataDiriModalTitle">Data Laporan Anggaran</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="itemlpj">
-
-      </div>
-      <div class="modal-footer">
-        <!-- <div class="col-md-12" style="margin-top:30px;"> -->
-        <button onclick="tambahItemFisik()" class="btn btn-success btn-fill pull-left" type="button" name="button" id="btnitemfisik">Tambah Item Fisik</button>
-        <!-- </div> -->
-        <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">Tutup</button>
-        <button type="submit" class="btn btn-primary btn-fill" name="lpj">Simpan</button>
-      </div>
-      <?php echo form_close(); ?>
-    </div>
-  </div>
-</div>
-<!-- END MODAL -->
-
-
-<div class="modal fade" id="modalItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document" style="width:900px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Pilih Item</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-striped display" id="pilihItems">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Uraian</th>
-              <th>Volume</th>
-              <th>Satuan</th>
-              <th>HST</th>
-              <th class="text-right"></th>
-            </tr>
-          </thead>
-          <tbody id="show_data">
-            <?php
-            if (!empty($itembarang)) {
-              $n=1;
-              foreach ($itembarang as $i) {
-                ?>
-                <tr>
-                  <th><?=$n++?></th>
-                  <th><?=$i->uraian?></th>
-                  <th><input type="number" id="item<?=$n?>-qty" name="jumlah" onclick="select()" class="form-control text-center" min="1" value="1" required autocomplete="off"/></th>
-                  <th><?=$i->satuan?></th>
-                  <th><?=$i->hst?></th>
-                  <th style="text-align: right;">
-                    <button id="item<?=$n?>" data-kode="<?=$i->kode?>" data-uraian="<?=$i->uraian?>" data-satuan="<?=$i->satuan?>" data-hst="<?=$i->hst?>" onclick="pilihItem(this.id, '<?=$kode_kegiatan?>')" class="btn btn-info btn-sm">Pilih</button>
-                  </th>
-                </tr>
-                <?php
-              }
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Selesai</button>
-        <!-- <button type="button" id="btn-pilih" class="btn btn-success">Selesai</a> -->
-      </div>
-    </div>
-  </div>
-</div>
-
-<input type="hidden" name="daftarItem">
-</body>
-<!--   Core JS Files   -->
-<!-- <script src="<?=base_url("assets/admin")?>/js/jquery-1.10.2.js" type="text/javascript"></script> -->
-<!-- <script src="<?=base_url()?>assets/lib/jquery/jquery.min.js"></script> -->
-<script src="<?=base_url("assets/admin")?>/js/bootstrap.min.js" type="text/javascript"></script>
-
-<!--  Checkbox, Radio & Switch Plugins -->
-<script src="<?=base_url("assets/admin")?>/js/bootstrap-checkbox-radio-switch.js"></script>
-
-<!--  Charts Plugin -->
-<script src="<?=base_url("assets/admin")?>/js/chartist.min.js"></script>
-
-<!--  Notifications Plugin    -->
-<script src="<?=base_url("assets/admin")?>/js/bootstrap-notify.js"></script>
-
-<!--  Google Maps Plugin    -->
-<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
-
-<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-<script src="<?=base_url("assets/admin")?>/js/light-bootstrap-dashboard.js"></script>
-
-<script src="<?=base_url()?>assets/ckeditor/ckeditor.js"></script>
-<script src="<?=base_url()?>assets/ckfinder/ckfinder.js"></script>
-
-<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-<script src="<?=base_url("assets/admin")?>/js/demo.js"></script>
-
-<?php if (!isset($itemkeuangan)) {
-  $itemkeuangan = null;
-} ?>
-<?php if (!isset($itemfisik)) {
-  $itemfisik = null;
-} ?>
-<script type="text/javascript">
-$('#pilihItems').DataTable();
-
-$(document).ready(function(){
-
-  // demo.initChartist();
-  //
-  // $.notify({
-  //   	icon: 'pe-7s-gift',
-  //   	message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
-  //
-  //   },{
-  //       type: 'info',
-  //       timer: 4000
-  //   });
-  var wrapper = document.getElementById("signature-pad"),
-  clearButton = wrapper.querySelector("[data-action=clear]"),
-  saveButton = wrapper.querySelector("[data-action=save]"),
-  canvas = wrapper.querySelector("canvas"),
-  signaturePad;
-
-
-  function resizeCanvas() {
-    var ratio =  window.devicePixelRatio || 1;
-    canvas.width = canvas.offsetWidth * ratio;
-    canvas.height = canvas.offsetHeight * ratio;
-    canvas.getContext("2d").scale(ratio, ratio);
-  }
-
-
-  /*clear the signature pad */
-  signaturePad = new SignaturePad(canvas);
-  if (clearButton) {
-    clearButton.addEventListener("click", function (event) {
-      signaturePad.clear();
-    });
-  }
-
-  if (saveButton) {
-    saveButton.addEventListener("click", function (event) {
-      // function saveSign(){
-      if (signaturePad.isEmpty()) {
-        $("#errors").addClass('shake');
-        $("#errors").show();
-        $("#errors").delay(4000).hide(200, function() {
-          $("#errors").hide();
-        });
-        $('#errors').html('Please provide signature first');
-      } else {
-        $('#error').html('');
-        $('#sign-modal').modal('hide');
-
-        var nama=$('#signname').val();
-        var nik = $('#nik').val();
-        var surat = $('#surat').val();
-        var kode = $('#kode').val();
-
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url();?>admin/surat/sign",
-          data: {sign: signaturePad.toDataURL(),nama: nama,surat: surat,kode:kode,nik:nik},
-          success: function(datas1){
-            signaturePad.clear();
-            console.log('sukses');
-            location.reload();
-          },
-          error: function(err){
-            console.log(err.responseText);
-          }
-        });
-      }
-      // }
-    });
-  }
-
-  // $('#listObat').on('click','#hapusObat',function(){
-  //     var id = $(this).data('hapus');
-  //     var data = JSON.parse(window.datao);
-  //     data.splice(id,1);
-  //     window.datao = JSON.stringify(data);
-  //     showObat(window.datao);
-  // });
-
-  $('#pilihItems').DataTable();
-  $('#tbl_surat_baru').DataTable();
-  $('#tbl_surat_proses').DataTable();
-  $('#tbl_surat_selesai').DataTable();
-
-
-  $('#btnsimpankegiatan').click(function (){
-    if ($('#formKegiatan').valid()) {
-      $('#formKegiatan').submit();
-    }
-  });
-
-  $('#itemlpj').on('click','#btnhapusitemfisik',function() {
-    $(this).closest('#rowitemfisik').remove();
-  });
-
-});
-
-function tambahItemKeuangan(){
-  $('#listitemkeuangan').append(`
-    <div class="row" id="rowitemkeuangan">
-    <div class="col-md-2">
-    <label for="" class="control-label modal-label">Kode <span class="text-danger">*</span> </label>
-    <input class="form-control" type="text" name="kode[]" title="Isi Kode" required>
-    </div>
-    <div class="col-md-3">
-    <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
-    <input class="form-control" type="text" name="uraian[]" title="Isi Uraian" required>
-    </div>
-    <div class="col-md-2">
-    <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
-    <input class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" required>
-    </div>
-    <div class="col-md-2">
-    <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
-    <input class="form-control" type="text" name="satuan[]" required>
-    </div>
-    <div class="col-md-2">
-    <label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger">*</span> </label>
-    <input class="form-control" type="number" min="1" pattern="[0-9]+" name="harga[]" title="Masukkan Angka" required>
-    </div>
-    <div class="col-md-1">
-    <label for="" class="control-label modal-label"><span class="text-danger"></span> </label>
-    <button type="button" class="btn btn-danger btn-fill form-control" name="button" id="btnhapusitemkeuangan" data-hapus="'+i+'">Hapus</button>
-    </div>
-    </div>
-    `);
-  }
-
-  function tambahItemFisik(){
-    $('#itemlpj').append(`
-      <div class="row" id="rowitemfisik">
       <div class="col-md-3">
-      <label for="" class="control-label modal-label">Output <span class="text-danger">*</span> </label>
-      <input class="form-control" type="text" name="output_fisik[]" title="Isi Uraian" required>
+      <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
+      <input class="form-control" type="text" name="uraian[]" title="Isi Uraian" required>
       </div>
       <div class="col-md-2">
       <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
-      <input class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume_fisik[]" required>
+      <input class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" required>
       </div>
       <div class="col-md-2">
       <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
-      <input class="form-control" type="text" name="satuan_fisik[]" required>
+      <input class="form-control" type="text" name="satuan[]" required>
       </div>
       <div class="col-md-2">
-      <label for="" class="control-label modal-label">Nilai (Rp) <span class="text-danger">*</span> </label>
-      <input class="form-control" type="number" min="1" pattern="[0-9]+" name="nilai[]" title="Masukkan Angka" required>
-      </div>
-      <div class="col-md-2">
-      <label for="" class="control-label modal-label">Keterangan <span class="text-danger">*</span> </label>
-      <input class="form-control" type="text" name="ket[]" required>
+      <label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger">*</span> </label>
+      <input class="form-control" type="number" min="1" pattern="[0-9]+" name="harga[]" title="Masukkan Angka" required>
       </div>
       <div class="col-md-1">
       <label for="" class="control-label modal-label"><span class="text-danger"></span> </label>
-      <button type="button" class="btn btn-danger btn-fill form-control" name="button" id="btnhapusitemfisik">Hapus</button>
+      <button type="button" class="btn btn-danger btn-fill form-control" name="button" id="btnhapusitemkeuangan" data-hapus="'+i+'">Hapus</button>
       </div>
       </div>
       `);
     }
 
-    function hapusItemSemua(){
-      // let data = JSON.parse('<?=$itemkeuangan?>');
-      // data.splice(id,1);
-      // window.datai = JSON.stringify(data);
-      $('#listitemkeuangan').html('');
-    }
-
-    function ubahRencana(link){
-      let data = JSON.parse('<?=$itemkeuangan?>');
-      var html = '';
-      // $("input[name='daftarItem']").val(data);
-      // data = JSON.parse(data);
-      var panjang = 0;
-      if(data!==window.undef){
-        panjang = data.length;
-      }
-      for(var i=0; i < panjang; i++){
-        // html += '<tr><td>'+(i+1)+'</td><td>'+data[i].kode+'</td><td>'+data[i].uraian+'</td><td>'+data[i].volume+'</td><td>'+data[i].satuan+'</td><td>'+data[i].hst+'</td>';
-        // $('#listitemkeuangan').append(`
-        html += `<div class="row" id="rowitemkeuangan">
-        <div class="col-md-2">
-        <label for="" class="control-label modal-label">Kode <span class="text-danger">*</span> </label>
-        <input class="form-control" type="text" name="kode[]" title="Isi Kode" value="`+data[i].kode+`" required readonly>
-        </div>
+    function tambahItemFisik(){
+      $('#itemlpj').append(`
+        <div class="row" id="rowitemfisik">
         <div class="col-md-3">
-        <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
-        <input class="form-control" type="text" name="uraian[]" title="Isi Uraian" value="`+data[i].uraian+`" required readonly>
+        <label for="" class="control-label modal-label">Output <span class="text-danger">*</span> </label>
+        <input class="form-control" type="text" name="output_fisik[]" title="Isi Uraian" required>
         </div>
         <div class="col-md-2">
         <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
-        <input class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" value="`+data[i].volume+`" required>
+        <input class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume_fisik[]" required>
         </div>
         <div class="col-md-2">
         <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
-        <input class="form-control" type="text" name="satuan[]" value="`+data[i].satuan+`" required readonly>
+        <input class="form-control" type="text" name="satuan_fisik[]" required>
         </div>
         <div class="col-md-2">
-        <label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger">*</span> </label>
-        <input class="form-control" type="number" min="1" pattern="[0-9]+" name="harga[]" title="Masukkan Angka" value="`+data[i].harga_satuan+`" required readonly>
+        <label for="" class="control-label modal-label">Nilai (Rp) <span class="text-danger">*</span> </label>
+        <input class="form-control" type="number" min="1" pattern="[0-9]+" name="nilai[]" title="Masukkan Angka" required>
+        </div>
+        <div class="col-md-2">
+        <label for="" class="control-label modal-label">Keterangan <span class="text-danger">*</span> </label>
+        <input class="form-control" type="text" name="ket[]" required>
         </div>
         <div class="col-md-1">
         <label for="" class="control-label modal-label"><span class="text-danger"></span> </label>
-        <button type="button" class="btn btn-danger btn-fill form-control" name="button" id="btnhapusitemkeuangan`+i+`" data-hapus="`+i+`" onclick="hapusItemUbah(`+i+`)">Hapus</button>
+        <button type="button" class="btn btn-danger btn-fill form-control" name="button" id="btnhapusitemfisik">Hapus</button>
         </div>
-        </div>`;
+        </div>
+        `);
       }
 
-      $('#listitemkeuangan').html(html);
-      $('#formRencana').attr('action', link);
-      $('#modalRencana').modal('show');
-    }
-
-
-    function lihatRencana(){
-      let data = JSON.parse('<?=$itemkeuangan?>');
-      let total = 0;
-      // console.log(data);
-      $('#lihatitemkeuangan').html('');
-      // $('#totalharga').html('');
-      for (var i = 0; i < data.length; i++) {
-        let kode = data[i].kode;
-        let uraian = data[i].uraian;
-        let volume = data[i].volume;
-        let satuan = data[i].satuan;
-        let harga = data[i].harga_satuan;
-        let jumlah = data[i].jumlah;
-        total += jumlah*1;
-        $('#lihatitemkeuangan').append(`
-          <div class="row" id="rowitemkeuangan">
-          <div class="col-md-2">
-          <label for="" class="control-label modal-label">Kode <span class="text-danger">*</span> </label>
-          <input value="${kode}" class="form-control" type="text" name="kode[]" title="Isi Kode" required>
-          </div>
-          <div class="col-md-3">
-          <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
-          <input value="${uraian}" class="form-control" type="text" name="uraian[]" title="Isi Uraian" required>
-          </div>
-          <div class="col-md-1">
-          <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
-          <input value="${volume}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" required>
-          </div>
-          <div class="col-md-2">
-          <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
-          <input value="${satuan}" class="form-control" type="text" name="satuan[]" required>
-          </div>
-          <div class="col-md-2">
-          <label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger">*</span> </label>
-          <input value="${harga}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="harga[]" required>
-          </div>
-          <div class="col-md-2">
-          <label for="" class="control-label modal-label">Jumlah (Rp) <span class="text-danger">*</span> </label>
-          <input value="${jumlah}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="harga[]" required>
-          </div>
-          </div>
-          `);
-        }
-        $('#lihatitemkeuangan').append(`<div class="row"><div class="col-md-2 pull-right" id="totalharga""><h4 for="" >Total: ${total}</h4></div></div>`);
-
-        $('#modalDaftarRencana').modal('show');
+      function hapusItemSemua(){
+        window.datab = '[]';
+        window.datam = '[]';
+        window.datas = [];
+        $('#listitemkeuangan').html('');
       }
 
-      function lihatLPJ(){
+      function ubahRencana(link){
         let data = JSON.parse('<?=$itemkeuangan?>');
-        let fisik = JSON.parse('<?=$itemfisik?>');
+        window.datab = '<?=(isset($barang)?$barang:'')?>';
+        window.datam = '<?=(isset($modal)?$modal:'')?>';
+        window.datas = data;
+
+
+        // var html = '';
+        // var panjang = 0;
+        // if(data!==window.undef){
+        //   panjang = data.length;
+        // }
+        // for(var i=0; i < panjang; i++){
+        //   html += `
+        //   <div class="row" id="rowitemkeuangan">
+        //   <div class="col-md-2" style="display:none;">
+        //   <label for="" class="control-label modal-label">Kode <span class="text-danger">*</span> </label>
+        //   <input class="form-control" type="text" name="kode[]" title="Isi Kode" value="`+data[i].kode+`" required readonly>
+        //   </div>
+        //   <div class="col-md-3">
+        //   <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
+        //   <input class="form-control" type="text" name="uraian[]" title="Isi Uraian" value="`+data[i].uraian+`" required readonly>
+        //   </div>
+        //   <div class="col-md-2">
+        //   <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
+        //   <input class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" value="`+data[i].volume+`" required>
+        //   </div>
+        //   <div class="col-md-2">
+        //   <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
+        //   <input class="form-control" type="text" name="satuan[]" value="`+data[i].satuan+`" required readonly>
+        //   </div>
+        //   <div class="col-md-2">
+        //   <label for="" class="control-label modal-label">HST (Rp) <span class="text-danger">*</span> </label>
+        //   <input class="form-control" type="number" min="1" pattern="[0-9]+" name="harga[]" title="Masukkan Angka" value="`+data[i].harga_satuan+`" required readonly>
+        //   </div>
+        //   <div class="col-md-2">
+        //   <label for="" class="control-label modal-label">Tipe <span class="text-danger">*</span> </label>
+        //   <input class="form-control" type="text" name="tipe[]" title="Masukkan Tipe" value="`+(data[i].tipe==1?'1-Belanja Barang':'2-Belanja Modal')+`" required readonly>
+        //   </div>
+        //   <div class="col-md-1">
+        //   <label for="" class="control-label modal-label"><span class="text-danger"></span> </label>
+        //   <button type="button" class="btn btn-danger btn-fill form-control" name="button" id="btnhapusitemkeuangan`+i+`" data-hapus="`+i+`" onclick="hapusItem(`+i+`)">Hapus</button>
+        //   </div>
+        //   </div>`;
+        // }
+
+        // $('#listitemkeuangan').html(html);
+        showItem(window.datas);
+        $('#formRencana').attr('action', link);
+        $('#modalRencana').modal('show');
+      }
+
+
+      function lihatRencana(){
+        let data = JSON.parse('<?=$itemkeuangan?>');
         let total = 0;
-        let totalfisik = 0;
-        let realisasi = 0;
-        let jumlah = 0;
         // console.log(data);
         $('#lihatitemkeuangan').html('');
         // $('#totalharga').html('');
@@ -848,154 +772,206 @@ function tambahItemKeuangan(){
           let volume = data[i].volume;
           let satuan = data[i].satuan;
           let harga = data[i].harga_satuan;
-          jumlah = data[i].jumlah;
-          realisasi = data[i].realisasi;
-          let prosentase = data[i].prosentase;
+          let jumlah = data[i].jumlah;
           total += jumlah*1;
-          totalfisik += realisasi*1;
           $('#lihatitemkeuangan').append(`
             <div class="row" id="rowitemkeuangan">
+            <div class="col-md-2">
+            <label for="" class="control-label modal-label">Kode <span class="text-danger">*</span> </label>
+            <input value="${kode}" class="form-control" type="text" name="kode[]" title="Isi Kode" required>
+            </div>
+            <div class="col-md-3">
+            <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
+            <input value="${uraian}" class="form-control" type="text" name="uraian[]" title="Isi Uraian" required>
+            </div>
             <div class="col-md-1">
-            <label for="" class="control-label modal-label">Kode <span class="text-danger"></span> </label>
-            <input value="${kode}" class="form-control" type="text" name="kode[]" title="Isi Kode" required disabled>
+            <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
+            <input value="${volume}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" required>
             </div>
             <div class="col-md-2">
-            <label for="" class="control-label modal-label">Uraian <span class="text-danger"></span> </label>
-            <input value="${uraian}" class="form-control" type="text" name="uraian[]" title="Isi Uraian" required disabled>
-            </div>
-            <div class="col-md-1">
-            <label for="" class="control-label modal-label">Volume <span class="text-danger"></span> </label>
-            <input value="${volume}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" required disabled>
+            <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
+            <input value="${satuan}" class="form-control" type="text" name="satuan[]" required>
             </div>
             <div class="col-md-2">
-            <label for="" class="control-label modal-label">Satuan <span class="text-danger"></span> </label>
-            <input value="${satuan}" class="form-control" type="text" name="satuan[]" required disabled>
+            <label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger">*</span> </label>
+            <input value="${harga}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="harga[]" required>
             </div>
             <div class="col-md-2">
-            <label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger"></span> </label>
-            <input value="${harga}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="harga[]" required disabled>
-            </div>
-            <div class="col-md-2">
-            <label for="" class="control-label modal-label">Jumlah (Rp) <span class="text-danger"></span> </label>
-            <input value="${jumlah}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="harga[]" required disabled>
-            </div>
-            <div class="col-md-2">
-            <label for="" class="control-label modal-label">Realisasi (Rp) <span class="text-danger"></span> </label>
-            <input value="${realisasi} (${prosentase} %)" class="form-control" type="text" min="1" pattern="[0-9]+" title="Masukkan Angka" name="realisasi[]" required disabled>
+            <label for="" class="control-label modal-label">Jumlah (Rp) <span class="text-danger">*</span> </label>
+            <input value="${jumlah}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="harga[]" required>
             </div>
             </div>
             `);
           }
-          let totpros = (realisasi/jumlah)*100;
-          $('#lihatitemkeuangan').append(`
-            <div class="row">
-            <div class="col-md-2 pull-right" id="totalfisik""><h4 for="" >Realisasi:<br/>${totalfisik} (${totpros.toFixed(2)}%)</h4></div>
-            <div class="col-md-2 pull-right" id="totalharga""><h4 for="" >Total:<br/> ${total}</h4></div>
-            </div>`);
+          $('#lihatitemkeuangan').append(`<div class="row"><div class="col-md-2 pull-right" id="totalharga""><h4 for="" >Total: ${total}</h4></div></div>`);
 
-            $('#modalDaftarRencana').modal('show');
-          }
+          $('#modalDaftarRencana').modal('show');
+        }
 
-          function buatLPJ(id){
-            let link = '<?=base_url()?>admin/kegiatan/buat_lpj/'+id;
-            $('#formBuatLPJ').attr('action', link);
-            let data = JSON.parse('<?=$itemkeuangan?>');
-            let total = 0;
-            // console.log(data);
-            $('#itemlpj').html('');
-            // $('#totalharga').html('');
-            $('#itemlpj').append(`
+        function lihatLPJ(){
+          let data = JSON.parse('<?=$itemkeuangan?>');
+          let fisik = JSON.parse('<?=$itemfisik?>');
+          let total = 0;
+          let totalfisik = 0;
+          let realisasi = 0;
+          let jumlah = 0;
+          // console.log(data);
+          $('#lihatitemkeuangan').html('');
+          // $('#totalharga').html('');
+          for (var i = 0; i < data.length; i++) {
+            let kode = data[i].kode;
+            let uraian = data[i].uraian;
+            let volume = data[i].volume;
+            let satuan = data[i].satuan;
+            let harga = data[i].harga_satuan;
+            jumlah = data[i].jumlah;
+            realisasi = data[i].realisasi;
+            let prosentase = data[i].prosentase;
+            total += jumlah*1;
+            totalfisik += realisasi*1;
+            $('#lihatitemkeuangan').append(`
               <div class="row" id="rowitemkeuangan">
-              <div class="col-md-6">
-              <label for="" class="control-label modal-label">Kendala & Upaya <span class="text-danger">*</span> </label>
-              <textarea class="form-control" name="kendala" required></textarea>
+              <div class="col-md-1">
+              <label for="" class="control-label modal-label">Kode <span class="text-danger"></span> </label>
+              <input value="${kode}" class="form-control" type="text" name="kode[]" title="Isi Kode" required disabled>
               </div>
-              <div class="col-md-6">
-              <label for="" class="control-label modal-label">Saran & Rekomendasi <span class="text-danger">*</span> </label>
-              <textarea class="form-control" name="saran" required></textarea>
-              </div><br/><br/>
-              <div class="col-md-12" style="margin-top:-20px;">
-              <h4>Item Keuangan</h4>
+              <div class="col-md-2">
+              <label for="" class="control-label modal-label">Uraian <span class="text-danger"></span> </label>
+              <input value="${uraian}" class="form-control" type="text" name="uraian[]" title="Isi Uraian" required disabled>
+              </div>
+              <div class="col-md-1">
+              <label for="" class="control-label modal-label">Volume <span class="text-danger"></span> </label>
+              <input value="${volume}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" required disabled>
+              </div>
+              <div class="col-md-2">
+              <label for="" class="control-label modal-label">Satuan <span class="text-danger"></span> </label>
+              <input value="${satuan}" class="form-control" type="text" name="satuan[]" required disabled>
+              </div>
+              <div class="col-md-2">
+              <label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger"></span> </label>
+              <input value="${harga}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="harga[]" required disabled>
+              </div>
+              <div class="col-md-2">
+              <label for="" class="control-label modal-label">Jumlah (Rp) <span class="text-danger"></span> </label>
+              <input value="${jumlah}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="harga[]" required disabled>
+              </div>
+              <div class="col-md-2">
+              <label for="" class="control-label modal-label">Realisasi (Rp) <span class="text-danger"></span> </label>
+              <input value="${realisasi} (${prosentase} %)" class="form-control" type="text" min="1" pattern="[0-9]+" title="Masukkan Angka" name="realisasi[]" required disabled>
               </div>
               </div>
               `);
-              for (var i = 0; i < data.length; i++) {
-                let kode = data[i].kode;
-                let uraian = data[i].uraian;
-                let volume = data[i].volume;
-                let satuan = data[i].satuan;
-                let harga = data[i].harga_satuan;
-                let jumlah = data[i].jumlah;
+            }
+            let totpros = (realisasi/jumlah)*100;
+            $('#lihatitemkeuangan').append(`
+              <div class="row">
+              <div class="col-md-2 pull-right" id="totalfisik""><h4 for="" >Realisasi:<br/>${totalfisik} (${totpros.toFixed(2)}%)</h4></div>
+              <div class="col-md-2 pull-right" id="totalharga""><h4 for="" >Total:<br/> ${total}</h4></div>
+              </div>`);
 
-                total += jumlah*1;
-                $('#itemlpj').append(`
-                  <div class="row" id="rowitemkeuangan">
-                  <div class="col-md-1">
-                  <label for="" class="control-label modal-label">Kode <span class="text-danger">*</span> </label>
-                  <input value="${kode}" class="form-control" type="text" name="" title="Isi Kode" required disabled>
-                  <input value="${kode}" type="hidden" name="kode[]">
-                  </div>
-                  <div class="col-md-2">
-                  <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
-                  <input value="${uraian}" class="form-control" type="text" name="uraian[]" title="Isi Uraian" required disabled>
-                  </div>
-                  <div class="col-md-1">
-                  <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
-                  <input value="${volume}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" required disabled>
-                  </div>
-                  <div class="col-md-2">
-                  <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
-                  <input value="${satuan}" class="form-control" type="text" name="satuan[]" required disabled>
-                  </div>
-                  <div class="col-md-2">
-                  <label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger">*</span> </label>
-                  <input value="${harga}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="harga[]" required disabled>
-                  </div>
-                  <div class="col-md-2">
-                  <label for="" class="control-label modal-label">Jumlah (Rp) <span class="text-danger">*</span> </label>
-                  <input value="${jumlah}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" required disabled>
-                  <input value="${jumlah}" type="hidden" name="jumlah[]">
-                  </div>
-                  <div class="col-md-2">
-                  <label for="" class="control-label modal-label">Realisasi <span class="text-danger">*</span> </label>
-                  <input value="" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="realisasi[]" required>
-                  </div>
+              $('#modalDaftarRencana').modal('show');
+            }
 
-                  </div>
-                  `);
-                }
+            function buatLPJ(id){
+              let link = '<?=base_url()?>admin/kegiatan/buat_lpj/'+id;
+              $('#formBuatLPJ').attr('action', link);
+              let data = JSON.parse('<?=$itemkeuangan?>');
+              let total = 0;
+              // console.log(data);
+              $('#itemlpj').html('');
+              // $('#totalharga').html('');
+              $('#itemlpj').append(`
+                <div class="row" id="rowitemkeuangan">
+                <div class="col-md-6">
+                <label for="" class="control-label modal-label">Kendala & Upaya <span class="text-danger">*</span> </label>
+                <textarea class="form-control" name="kendala" required></textarea>
+                </div>
+                <div class="col-md-6">
+                <label for="" class="control-label modal-label">Saran & Rekomendasi <span class="text-danger">*</span> </label>
+                <textarea class="form-control" name="saran" required></textarea>
+                </div><br/><br/>
+                <div class="col-md-12" style="margin-top:-20px;">
+                <h4>Item Keuangan</h4>
+                </div>
+                </div>
+                `);
+                for (var i = 0; i < data.length; i++) {
+                  let kode = data[i].kode;
+                  let uraian = data[i].uraian;
+                  let volume = data[i].volume;
+                  let satuan = data[i].satuan;
+                  let harga = data[i].harga_satuan;
+                  let jumlah = data[i].jumlah;
 
-                $('#itemlpj').append(`
-                  <div class="row">
-                  <div class="col-md-4 pull-right" id="totalfisik""><h4 for="" >Total: ${total}</h4></div>
-                  <div class="col-md-12" style="margin-top:0px;">
-                  <hr/>
-                  <h4>Item Fisik</h4>
-                  </div>
-                  </div>
-                  <div class="row" id="rowitemfisik">
-                  <div class="col-md-3">
-                  <label for="" class="control-label modal-label">Output <span class="text-danger">*</span> </label>
-                  <input class="form-control" type="text" name="output_fisik[]" title="Isi Uraian" required>
-                  </div>
-                  <div class="col-md-2">
-                  <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
-                  <input class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume_fisik[]" required>
-                  </div>
-                  <div class="col-md-2">
-                  <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
-                  <input class="form-control" type="text" name="satuan_fisik[]" required>
-                  </div>
-                  <div class="col-md-2">
-                  <label for="" class="control-label modal-label">Nilai (Rp) <span class="text-danger">*</span> </label>
-                  <input class="form-control" type="number" min="1" pattern="[0-9]+" name="nilai[]" title="Masukkan Angka" required>
-                  </div>
-                  <div class="col-md-2">
-                  <label for="" class="control-label modal-label">Keterangan <span class="text-danger">*</span> </label>
-                  <input class="form-control" type="text" name="ket[]" required>
-                  </div>`);
-                  $('#modalBuatLPJ').modal('show');
-                }
-                </script>
+                  total += jumlah*1;
+                  $('#itemlpj').append(`
+                    <div class="row" id="rowitemkeuangan">
+                    <div class="col-md-1">
+                    <label for="" class="control-label modal-label">Kode <span class="text-danger">*</span> </label>
+                    <input value="${kode}" class="form-control" type="text" name="" title="Isi Kode" required disabled>
+                    <input value="${kode}" type="hidden" name="kode[]">
+                    </div>
+                    <div class="col-md-2">
+                    <label for="" class="control-label modal-label">Uraian <span class="text-danger">*</span> </label>
+                    <input value="${uraian}" class="form-control" type="text" name="uraian[]" title="Isi Uraian" required disabled>
+                    </div>
+                    <div class="col-md-1">
+                    <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
+                    <input value="${volume}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume[]" required disabled>
+                    </div>
+                    <div class="col-md-2">
+                    <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
+                    <input value="${satuan}" class="form-control" type="text" name="satuan[]" required disabled>
+                    </div>
+                    <div class="col-md-2">
+                    <label for="" class="control-label modal-label">Harga Satuan (Rp) <span class="text-danger">*</span> </label>
+                    <input value="${harga}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="harga[]" required disabled>
+                    </div>
+                    <div class="col-md-2">
+                    <label for="" class="control-label modal-label">Jumlah (Rp) <span class="text-danger">*</span> </label>
+                    <input value="${jumlah}" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" required disabled>
+                    <input value="${jumlah}" type="hidden" name="jumlah[]">
+                    </div>
+                    <div class="col-md-2">
+                    <label for="" class="control-label modal-label">Realisasi <span class="text-danger">*</span> </label>
+                    <input value="" class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="realisasi[]" required>
+                    </div>
 
-                </html>
+                    </div>
+                    `);
+                  }
+
+                  $('#itemlpj').append(`
+                    <div class="row">
+                    <div class="col-md-4 pull-right" id="totalfisik""><h4 for="" >Total: ${total}</h4></div>
+                    <div class="col-md-12" style="margin-top:0px;">
+                    <hr/>
+                    <h4>Item Fisik</h4>
+                    </div>
+                    </div>
+                    <div class="row" id="rowitemfisik">
+                    <div class="col-md-3">
+                    <label for="" class="control-label modal-label">Output <span class="text-danger">*</span> </label>
+                    <input class="form-control" type="text" name="output_fisik[]" title="Isi Uraian" required>
+                    </div>
+                    <div class="col-md-2">
+                    <label for="" class="control-label modal-label">Volume <span class="text-danger">*</span> </label>
+                    <input class="form-control" type="number" min="1" pattern="[0-9]+" title="Masukkan Angka" name="volume_fisik[]" required>
+                    </div>
+                    <div class="col-md-2">
+                    <label for="" class="control-label modal-label">Satuan <span class="text-danger">*</span> </label>
+                    <input class="form-control" type="text" name="satuan_fisik[]" required>
+                    </div>
+                    <div class="col-md-2">
+                    <label for="" class="control-label modal-label">Nilai (Rp) <span class="text-danger">*</span> </label>
+                    <input class="form-control" type="number" min="1" pattern="[0-9]+" name="nilai[]" title="Masukkan Angka" required>
+                    </div>
+                    <div class="col-md-2">
+                    <label for="" class="control-label modal-label">Keterangan <span class="text-danger">*</span> </label>
+                    <input class="form-control" type="text" name="ket[]" required>
+                    </div>`);
+                    $('#modalBuatLPJ').modal('show');
+                  }
+                  </script>
+
+                  </html>

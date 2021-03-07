@@ -1,9 +1,11 @@
 <?php
+include '.\vendor\phpqrcode\qrlib.php';
 class Surat extends CI_Controller{
 	function __construct(){
 		parent::__construct();
-		if (!$this->session->userdata('nik'))
-		{
+		if ($this->session->userdata('status')==0){
+			redirect(base_url("akun/profil"));
+		} elseif (!$this->session->userdata('nik')){
 			$allowed = array("none");
 			$method = $this->router->fetch_method();
 			if(!in_array($method, $allowed)){
@@ -21,9 +23,23 @@ class Surat extends CI_Controller{
 		$this->load->view('includes/v_footer');
 	}
 
-	function kelahiran(){
-		$nik = $_SESSION['nik'];
-		if (isset($_POST['kelahiran'])) {
+function kelahiran(){
+	$nik = $_SESSION['nik'];
+	$default_img = "default.jpg";
+	if (isset($_POST['kelahiran'])) {
+			// $this->form_validation->set_rules('pengantar_file', 'Pengantar', 'required');
+			// $this->form_validation->set_rules('ket_file', 'Bukti Kelahiran', 'required');
+			// $this->form_validation->set_rules('kk_file', 'KK', 'required');
+			// $this->form_validation->set_rules('ktp_file', 'KTP', 'required');
+			// $this->form_validation->set_rules('buku_file', 'Buku Nikah', 'required');
+			$this->form_validation->set_rules('anak', 'Nama Anak', 'required');
+			$this->form_validation->set_rules('tgllahir', 'Tanggal Lahir', 'required');
+			$this->form_validation->set_rules('tempatlahir', 'Tempat Lahir', 'required');
+			$this->form_validation->set_rules('ayah', 'Nama Ayah', 'required');
+			$this->form_validation->set_rules('ibu', 'Nama Ibu', 'required');
+		if ($this->form_validation->run() == FALSE){
+			$this->session->set_flashdata( 'error', '<div class="col-md-12 alert alert-danger text-center">Tolong Lengkapi Data</div>');
+		} else {
 			$kelahiran['nik'] = $nik;
 			$kelahiran['hubungan'] = $_POST['hubungan'];
 			$kelahiran['anak'] = preg_replace("/[^a-zA-Z\s]+/", "", $_POST['anak']);
@@ -35,39 +51,35 @@ class Surat extends CI_Controller{
 			$kelahiran['rw'] = $_POST['rw'];
 			$kelahiran['rt'] = $_POST['rt'];
 
-			$status = true;
 			$config['allowed_types'] = 'jpg|png|jpeg|pdf';
 			$config['max_size']      = 2048;
+			$config['upload_path']   = "./assets/img/surat/kelahiran/";
 
-			$lampiran = array("pengantar_file","ket_file","kk_file","ktp_file","buku_file");
-			foreach ($lampiran as $kl => $vl) {
-				$post = $vl;
-				$filename = $_FILES[$post]['name'];
-				$config['upload_path']   = "./assets/img/surat/kelahiran";
+			$pengantar_file = $this->m_crud->upload_file($nik, $_FILES['pengantar_file']['name'], "pengantar_file", $config);
+			$ket_file = $this->m_crud->upload_file($nik, $_FILES['ket_file']['name'], "ket_file", $config);
+			$kk_file = $this->m_crud->upload_file($nik, $_FILES['kk_file']['name'], "kk_file", $config);
+			$ktp_file = $this->m_crud->upload_file($nik, $_FILES['ktp_file']['name'], "ktp_file", $config);
+			$buku_file = $this->m_crud->upload_file($nik, $_FILES['buku_file']['name'], "buku_file", $config);
 
-				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-				$kelahiran[$post] = $config['upload_path'].'/'.$name;
-			}
+			if ($pengantar_file!=$default_img && $ket_file!=$default_img && $kk_file!=$default_img && $ktp_file!=$default_img && $buku_file!=$default_img) {
+				$kelahiran['pengantar_file'] = $config['upload_path'].$pengantar_file;
+				$kelahiran['ket_file'] = $config['upload_path'].$ket_file;
+				$kelahiran['kk_file'] = $config['upload_path'].$kk_file;
+				$kelahiran['ktp_file'] = $config['upload_path'].$ktp_file;
+				$kelahiran['buku_file'] = $config['upload_path'].$buku_file;
 
-			$jumlah = $this->m_crud->read('tbl_kelahiran');
-			$id = count($jumlah)+1;
-			$date = date("j/n/Y");
-			$kelahiran['id_kelahiran'] = $id.'/I/'.$date;
-
-			// if($status){
-				$this->m_crud->save('tbl_kelahiran', $kelahiran);
+				$id = $this->m_crud->saveID('tbl_kelahiran', $kelahiran);
+				$this->m_crud->update('tbl_kelahiran', array('id_kelahiran'=>$id.'/I/'.date("j/n/Y")), array('id'=>$id));
 				$this->session->set_flashdata('sukses', 'Buat Surat Sukses!');
 				redirect(base_url("surat/riwayat"));
-			// } else {
-			// 	$this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Perhatikan Ukuran(Maks 2MB) atau Tipe File(JPG,PNG,PDF)!</div>');
-			// }
+			}
 		}
-
-		$title['judul'] = 'Surat Kelahiran';
-		$this->load->view('includes/v_header', $title);
-		$this->load->view('surat/v_surat_kelahiran');
-		$this->load->view('includes/v_footer');
 	}
+	$title['judul'] = 'Surat Kelahiran';
+	$this->load->view('includes/v_header', $title);
+	$this->load->view('surat/v_surat_kelahiran');
+	$this->load->view('includes/v_footer');
+}
 
 	function kematian(){
 		$nik = $_SESSION['nik'];
@@ -432,16 +444,17 @@ class Surat extends CI_Controller{
 
 			$config['upload_path']   = "./assets/img/surat/umum";
 			$config['allowed_types'] = 'jpg|png|jpeg|pdf';
+			$config['allowed_size'] = 2048;
 			$status = true;
 
 			$lampiran = array("pengantar_file","kk_file","ktp_file");
 			foreach ($lampiran as $kl => $vl) {
 				$post = $vl;
-					$filename = $_FILES[$post]['name'];
-					$config['upload_path']   = "./assets/img/surat/umum";
+				$filename = $_FILES[$post]['name'];
+				$config['upload_path']   = "./assets/img/surat/umum";
 
-					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-					$umum[$post] = $config['upload_path'].'/'.$name;
+				$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+				$umum[$post] = $config['upload_path'].'/'.$name;
 			}
 			// // Upload Pengantar
 			// $post = 'pengantar_file';
@@ -707,6 +720,7 @@ class Surat extends CI_Controller{
 			)
 		);
 
-		$this->m_crud->update($_POST['surat'], array('ttd_file'=>$file, 'status'=>surat_selesai), array('id'=>$_POST['kode']));
+
+		$this->m_crud->update($_POST['surat'], array('ttd_file'=>$file, 'qrcode_file'=>$nama_qrcode, 'status'=>surat_selesai), array('id'=>$_POST['kode']));
 	}
 }

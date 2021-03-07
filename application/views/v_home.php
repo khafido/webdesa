@@ -28,6 +28,7 @@
 	</div>
 
 	<div class="container">
+		<br>
 		<div class="row">
 			<div class="col-md-12" id="hero" style="height:50px; margin:60px 0 60px 0; padding:0;">
 				<h1 id="layanan">Layanan</h1>
@@ -45,12 +46,12 @@
 			</div>
 			<div class="col-md-6 col-lg-4">
 				<div class="feature-block">
-					<a href="<?=base_url("pengaduan/buat")?>">
+					<a href="<?=base_url("pengaduan/buat_pengaduan")?>">
 						<img src="<?=base_url()?>assets/img/leader.png" alt="img" class="img-fluid">
 						<h4>Pengaduan Keluhan</h4>
 						<p>Layanan pengaduan keluhan warga Desa Pagerngumbuk.</p>
 					</a>
-					<a href="<?=base_url("pengaduan/buat")?>">selengkapnya. . .</a>
+					<a href="<?=base_url("pengaduan/buat_pengaduan")?>">selengkapnya. . .</a>
 				</div>
 			</div>
 			<div class="col-md-6 col-lg-4">

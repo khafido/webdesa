@@ -11,6 +11,7 @@ $menu = $this->uri->segment(2);
 		</div>
 		<div class="content">
 			<?php echo $this->session->flashdata('error'); ?>
+			<?php echo $this->session->flashdata('sukses'); ?>
 			<div class="content table-responsive table-full-width">
 				<table class="table table-hover table-striped table-borderless">
 					<thead>
@@ -78,7 +79,7 @@ $menu = $this->uri->segment(2);
 			<?php endif; ?>
 
 			<?php if ($status==kegiatan_rencana): ?>
-				<button onclick="ubahRencana('<?=base_url()?>admin/kegiatan/ubah_itemkeuangan/<?=$detail->id_kegiatan?>')" class="btn btn-info btn-fill" id="btnlihatrencana">Revisi Rencana Anggaran</button>
+				<button onclick="ubahRencana('<?=base_url()?>admin/kegiatan/ubah_rab/<?=$detail->id_kegiatan?>')" class="btn btn-info btn-fill" id="btnlihatrencana">Revisi Rencana Anggaran</button>
 				<!-- <button onclick="lihatRencana()" class="btn btn-primary btn-fill" id="btnlihatrencana">Lihat Rencana Anggaran</button> -->
 				<button onclick="proses('<?=base_url("admin/$menu/proses/$detail->id_kegiatan/2")?>')" class="btn btn-success btn-fill">RAB Valid</button>
 				<button onclick="catatan('<?=base_url("admin/$menu/revisi/$detail->id_kegiatan")?>')" class="btn btn-danger btn-fill">RAB Tidak Valid</button>

@@ -59,6 +59,14 @@ p{
           <p for=""><i class="fa fa-user">&ensp;</i><?=$pengaduan->nama?></p>
           <h5>Detail</h5>
           <p class="text-justify"><?=$pengaduan->uraian?></p>
+          <div class="row">
+            <?php if ($pengaduan->status>=1): ?>
+              <a href="<?=base_url("pengaduan/cetak_rab/$pengaduan->id_pengaduan")?>" target="_blank" class="pull-right btn btn-secondary">Cetak RAB</a>
+            <?php endif; ?>
+            <?php if ($pengaduan->status>=3): ?>
+              <a href="<?=base_url("pengaduan/cetak_lpj/$pengaduan->id_pengaduan")?>" target="_blank" class="pull-right btn btn-secondary">Cetak LPJ</a>
+            <?php endif; ?>
+          </div>
         </div>
         <div class="col-md-12 mt-3">
           <hr>
@@ -83,7 +91,7 @@ p{
         <img class="float-left rounded-circle" src="<?=base_url("$value->foto_file")?>" alt="" width="50" height="50">
         <h5 class="float-left mt-3 ml-3" style=""><?=$value->nama ?></h5><br><br><br>
         <p class="" style="margin-top:-15px; margin-left:70px;"><?=$value->tanggapan?></p>
-        <button id="btnreply" onclick="balas('<?=$value->nama ?>')" href="#" class="" style="margin-top:-15px; margin-left:70px;">Replay</button><br><br><hr>
+        <button id="btnreply" onclick="balas('<?=$value->nama ?>')" href="#" class="" style="margin-top:-15px; margin-left:70px;">Reply</button><br><br><hr>
       <?php } ?>
       </div>
     </div>

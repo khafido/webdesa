@@ -70,7 +70,7 @@
 					<button onclick="buatTanggapan('<?=base_url("admin/pengaduan/komentar/$detail->id_pengaduan")?>')" class="btn btn-info btn-fill">Beri Tanggapan</button>
 				<?php endif; ?>
 				<?php } if($detail->status==1) { ?>
-					<?php if ($detail->kategori=='anggaran' && ($_SESSION['role_admin']==1 || $_SESSION['role_admin']==1)): ?>
+					<?php if ($detail->kategori=='anggaran' && ($_SESSION['role_admin']==1 || $_SESSION['role_admin']==2)): ?>
 						<button onclick="buatKegiatan('<?=base_url()?>admin/kegiatan/form/tambah/<?=$detail->id_pengaduan?>')" class="btn btn-success btn-fill">Buat Kegiatan</button>
 					<?php endif; ?>
 				<?php } ?>
