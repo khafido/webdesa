@@ -1,6 +1,6 @@
 <?php
-include '.\vendor\phpqrcode\qrlib.php';
-require '.\vendor\twilio\sdk\src\Twilio\autoload.php';
+include './vendor/phpqrcode/qrlib.php';
+require './vendor/twilio/sdk/src/Twilio/autoload.php';
 use Twilio\Rest\Client;
 
 class Surat extends CI_Controller{

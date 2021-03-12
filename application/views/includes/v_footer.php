@@ -17,7 +17,7 @@ Footer
 
       <div class="col-sm-6 col-md-3 col-lg-2">
         <div class="list-menu">
-          <h4>Surat</h4>
+          <h5 class="text-white ml-3">Surat</h5 class="text-white ml-3">
           <ul class="list-styled">
             <li><a href="<?=base_url('surat/kelahiran')?>">Kelahiran</a></li>
             <li><a href="<?=base_url('surat/kematian')?>">Kematian</a></li>
@@ -31,7 +31,7 @@ Footer
       </div>
       <div class="col-sm-6 col-md-3 col-lg-2">
         <div class="list-menu">
-          <h4>Pengaduan</h4>
+          <h5 class="text-white ml-3">Pengaduan</h5 class="text-white ml-3">
           <ul class="list-styled">
             <li><a href="<?=base_url('pengaduan/lihat/semua')?>">Lihat Pengaduan</a></li>
             <li><a href="<?=base_url('pengaduan/buat_pengaduan')?>">Buat Pengaduan</a></li>
@@ -41,7 +41,7 @@ Footer
       </div>
       <div class="col-sm-6 col-md-3 col-lg-2">
         <div class="list-menu">
-          <h4>Berita</h4>
+          <h5 class="text-white ml-3">Berita</h5 class="text-white ml-3">
           <ul class="list-styled">
             <li><a href="<?=base_url('berita/lihat/semua')?>">Lihat Berita</a></li>
             <li><a href="<?=base_url('berita/buat')?>">Buat Berita</a></li>

@@ -1,5 +1,5 @@
 <?php
-include '.\vendor\phpqrcode\qrlib.php';
+include './vendor/phpqrcode/qrlib.php';
 class Pengaduan extends CI_Controller{
 	function __construct(){
 		parent::__construct();

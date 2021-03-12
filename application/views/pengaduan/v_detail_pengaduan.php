@@ -58,15 +58,7 @@ p{
           <h5>Pelapor</h5>
           <p for=""><i class="fa fa-user">&ensp;</i><?=$pengaduan->nama?></p>
           <h5>Detail</h5>
-          <p class="text-justify"><?=$pengaduan->uraian?></p>
-          <div class="row">
-            <?php if ($pengaduan->status>=1): ?>
-              <a href="<?=base_url("pengaduan/cetak_rab/$pengaduan->id_pengaduan")?>" target="_blank" class="pull-right btn btn-secondary">Cetak RAB</a>
-            <?php endif; ?>
-            <?php if ($pengaduan->status>=3): ?>
-              <a href="<?=base_url("pengaduan/cetak_lpj/$pengaduan->id_pengaduan")?>" target="_blank" class="pull-right btn btn-secondary">Cetak LPJ</a>
-            <?php endif; ?>
-          </div>
+          <p class="text-justify"><?=$pengaduan->uraian?></p>          
         </div>
         <div class="col-md-12 mt-3">
           <hr>

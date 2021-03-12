@@ -34,18 +34,18 @@ border-radius: 0px;
               <div class="form-row col-md-12">
                 <div class="form-group col-md-8">
                   <label for="" class="control-label">Judul <span class="text-danger">*</span> </label>
-                  <input class="form-control" type="text" name="judul" placeholder="Judul" value="" required>
+                  <input class="form-control" type="text" name="judul" placeholder="Judul" value="" requiredd>
                   <?=form_error('judul')?>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="" class="control-label">Lokasi <span class="text-danger">*</span> </label>
-                  <input class="form-control" type="text" name="lokasi" placeholder="Lokasi" value="" required>
+                  <input class="form-control" type="text" name="lokasi" placeholder="Lokasi" value="" requiredd>
                   <?=form_error('lokasi')?>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="" class="control-label">Bidang <span class="text-danger">*</span> </label>
-                  <!-- <select class="form-control" name="bidang[]" id="bidang" title="Pilih Bidang"  multiple required> -->
-                  <select class="form-control" name="bidang" title="Pilih Bidang" required>
+                  <!-- <select class="form-control" name="bidang[]" id="bidang" title="Pilih Bidang"  multiple requiredd> -->
+                  <select class="form-control" name="bidang" title="Pilih Bidang" requiredd>
                     <option value="infrastruktur">Infrastruktur</option>
                     <option value="pendidikan">Pendidikan</option>
                     <option value="kesehatan">Kesehatan</option>
@@ -70,7 +70,7 @@ border-radius: 0px;
                 </div>
                 <div class="form-group col-md-12">
                   <label for="" class="control-label">Uraian <span class="text-danger">*</span> </label><br>
-                  <textarea name="uraian" class="form-control" rows="3" cols="80" required></textarea>
+                  <textarea name="uraian" class="form-control" rows="3" cols="80" requiredd></textarea>
                   <?=form_error('uraian')?>
                 </div>
                 <div class="form-group col-md-6">

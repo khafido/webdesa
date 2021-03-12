@@ -158,8 +158,7 @@ class Kegiatan extends CI_Controller{
 		$item = array();
 		$barang = 1;
 		$modal = 1;
-		$i = 0;
-		while ($i < count($_POST['kode'])) {
+		for ($i=0; $i < count($_POST['kode']); $i++) {
 			$kode = $_POST['kode'][$i];
 			$uraian = $_POST['uraian'][$i];
 			$volume = $_POST['volume'][$i];
@@ -171,7 +170,7 @@ class Kegiatan extends CI_Controller{
 				array_push($item, array('kode'=>$kode.'.'.($barang++), 'uraian'=>$uraian, 'volume'=>$volume, 'satuan'=>$satuan, 'harga_satuan'=>$harga_satuan, 'jumlah'=>$jumlah, 'tipe'=>$tipe, 'id_kegiatan'=>$id));
 			} else if($tipe=="2") {
 				array_push($item, array('kode'=>$kode.'.'.($modal++), 'uraian'=>$uraian, 'volume'=>$volume, 'satuan'=>$satuan, 'harga_satuan'=>$harga_satuan, 'jumlah'=>$jumlah, 'tipe'=>$tipe, 'id_kegiatan'=>$id));
-			} $i++;
+			}
 		}
 		if (count($item)>0) {
 			$return = $this->m_crud->saveBatch('tbl_item_keuangan', $item);

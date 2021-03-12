@@ -130,7 +130,7 @@
     var tipe = 0;
     for (var i=0; i < panjang; i++){
       if (data[i].tipe==1) {
-        tipe = "1-Belanja Barang";        
+        tipe = "1-Belanja Barang";
       } else if (data[i].tipe==2) {
         tipe = "2-Belanja Modal";
       } else {
@@ -365,16 +365,11 @@
               <p>BUMDes</p>
             </a>
           </li>
-          <!-- <li class="<?=($active=='potensi')?'active':''?>">
+          <li class="<?=($active=='potensi')?'active':''?>">
             <a href="<?=base_url("admin/potensi")?>">
-              <p>Potensi Desa</p>
+              <p>Potensi</p>
             </a>
-          </li> -->
-          <!-- <li class="<?=($active=='potensi')?'active':''?>">
-            <a href="<?=base_url("admin/pengguna")?>">
-              <p style="color:transparent;">Potensi</p>
-            </a>
-          </li> -->
+          </li>
           <?php endif; ?>
         </ul>
         <ul class="nav navbar-nav navbar-right">

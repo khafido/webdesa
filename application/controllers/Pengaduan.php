@@ -1,5 +1,5 @@
 <?php
-include '.\vendor\phpqrcode\qrlib.php';
+include './vendor/phpqrcode/qrlib.php';
 class Pengaduan extends CI_Controller{
 	function __construct(){
 		parent::__construct();
@@ -24,8 +24,7 @@ class Pengaduan extends CI_Controller{
 	}
 
 	function buat_pengaduan(){
-		$nik = $_SESSION['nik'];
-		if (isset($_POST['pengaduan'])) {
+		// if (isset($_POST['pengaduan'])) {
 			$this->form_validation->set_rules('judul', 'Judul', 'required', array('required'=>'Isi Judul'));
 			$this->form_validation->set_rules('kategori', 'Kategori', 'required', array('required'=>'Isi Kategori'));
 			$this->form_validation->set_rules('lokasi', 'Lokasi', 'required', array('required'=>'Isi Lokasi'));
@@ -34,6 +33,7 @@ class Pengaduan extends CI_Controller{
 			$this->form_validation->set_rules('ttd', 'TTD', 'required', array('required'=>'Isi TTD'));
 
 			if ($this->form_validation->run() != false){
+				$nik = $_SESSION['nik'];
 				$img = $_POST['ttd'];
 				$img = str_replace('data:image/png;base64,', '', $img);
 				$img = str_replace(' ', '+', $img);
@@ -49,15 +49,13 @@ class Pengaduan extends CI_Controller{
 				$config['allowed_types'] = 'jpg|png|jpeg';
 				$config['allowed_size'] = 2048;
 
-				$post = 'lampiran_file';
-				$pengaduan[$post] = './assets/img/pengaduan/default.jpg';
-				$status = true;
-
-				if ($_FILES[$post]["name"]!="") {
-					$filename = $_FILES[$post]['name'];
-					$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-					$pengaduan[$post] = $config['upload_path'].$name;
+				$pengaduan['lampiran_file'] = './assets/img/pengaduan/default.jpg';
+				if ($_FILES['lampiran_file']["name"]!="") {
+					$filename = $_FILES['lampiran_file']['name'];
+					$name = $this->m_crud->upload_file($nik, $filename, 'lampiran_file', $config);
+					$pengaduan['lampiran_file'] = "./assets/img/pengaduan/".$name;
 				}
+
 				$pengaduan['judul'] = $_POST['judul'];
 				$pengaduan['kategori'] = $_POST['kategori'];
 				$pengaduan['lokasi'] = $_POST['lokasi'];
@@ -67,21 +65,18 @@ class Pengaduan extends CI_Controller{
 				$pengaduan['ttd_file'] = $file;
 				$pengaduan['qrcode_file'] = $nama_qrcode;
 
-				// if ($status) {
-					$this->m_crud->save('tbl_pengaduan', $pengaduan);
-					$this->session->set_flashdata('sukses', 'Buat Pengaduan Sukses!');
-					redirect(base_url("pengaduan/riwayat"));
-				// } else {
-				// 	$this->session->set_flashdata( 'upload_error', '<div class="alert alert-danger" role="alert">Perhatikan Ukuran(Maks 2MB) atau Tipe File(JPG,PNG,PDF)!</div>');
-				// }
+				$this->m_crud->save('tbl_pengaduan', $pengaduan);
+				$this->session->set_flashdata('sukses', 'Buat Pengaduan Sukses!');
+				redirect(base_url("pengaduan/riwayat"));
+			} else {
+				$title['judul'] = 'Buat Pengaduan';
+				$data = null;
+				$this->load->view('includes/v_header', $title);
+				$this->load->view('pengaduan/v_buat_pengaduan', $data);
+				$this->load->view('includes/v_footer');
 			}
-		}
-
-		$title['judul'] = 'Buat Pengaduan';
-		$data = null;
-		$this->load->view('includes/v_header', $title);
-		$this->load->view('pengaduan/v_buat_pengaduan', $data);
-		$this->load->view('includes/v_footer');
+		// }
+		//
 	}
 
 	function lihat($id){

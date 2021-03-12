@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="col-md-12 mt-5">
-      <?php echo form_open_multipart(base_url("surat/kelahiran"),array('class' => 'form-horizontal')); ?>
+      <?php echo form_open_multipart(base_url("surat/buat_kelahiran"),array('class' => 'form-horizontal')); ?>
       <div class="card wow fadeInUp" id="get-started" style="visibility: visible; animation-name: fadeInUp;">
         <ul class="nav nav-tabs" id="pills-tab" role="tablist">
           <li class="nav-item">
@@ -97,14 +97,17 @@
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Nama Anak <span class="text-danger">*</span> </label>
                 <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="anak" placeholder="Nama Anak" value="" requiredd>
+                <?=form_error('anak')?>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Tanggal Lahir <span class="text-danger">*</span> </label>
                 <input class="form-control" type="date" name="tgllahir" requiredd>
+                <?=form_error('tgllahir')?>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Tempat Lahir <span class="text-danger">*</span> </label>
                 <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="tempatlahir" placeholder="Tempat Lahir" value="" requiredd>
+                <?=form_error('tempatlahir')?>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Jenis Kelamin <span class="text-danger">*</span> </label>
@@ -112,14 +115,17 @@
                   <option value="L">Laki-laki</option>
                   <option value="P">Perempuan</option>
                 </select>
+                <?=form_error('jk')?>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Nama Ayah <span class="text-danger">*</span> </label>
                 <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="ayah" placeholder="Nama Ayah" value="" requiredd>
+                <?=form_error('ayah')?>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Nama Ibu <span class="text-danger">*</span> </label>
                 <input pattern="[a-zA-Z\s]+" title="Masukkan Hanya Huruf Saja" class="form-control" type="text" name="ibu" placeholder="Nama Ibu" value="" requiredd>
+                <?=form_error('ibu')?>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">Dusun <span class="text-danger">*</span> </label>
@@ -128,10 +134,12 @@
                   <option value="2">Ngumbuk</option>
                   <option value="3">Bendet</option>
                 </select>
+                <?=form_error('rw')?>
               </div>
               <div class="form-group col-md-3">
                 <label for="" class="control-label">RT <span class="text-danger">*</span> </label>
                 <input class="form-control" type="number" min="1" name="rt" placeholder="RT" value="1" requiredd>
+                <?=form_error('rt')?>
               </div>
               <div class="form-group col-md-12"></div>
               <div class="form-group col-md-2 offset-md-8">

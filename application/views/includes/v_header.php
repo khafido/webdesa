@@ -154,7 +154,7 @@
               <ul>
                 <li class="menu-has-children"><a href="<?=base_url()?>surat">Urus Surat</a>
                   <ul>
-                    <li class="menu"><a href="<?=base_url()?>surat/kelahiran">Kelahiran</a></li>
+                    <li class="menu"><a href="<?=base_url()?>surat/buat_kelahiran">Kelahiran</a></li>
                     <li class="menu"><a href="<?=base_url()?>surat/kematian">Kematian</a></li>
                     <li class="menu"><a href="<?=base_url()?>surat/tidak_mampu">Tidak Mampu</a></li>
                     <li class="menu"><a href="<?=base_url()?>surat/biodata">Biodata</a></li>

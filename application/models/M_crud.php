@@ -146,5 +146,9 @@ class M_crud extends CI_Model{
 		}
 	}
 
-	// Update
+	function readCount($table, $where){
+		$this->db->where($where);
+		$hasil=$this->db->get($table);
+		return $hasil->num_rows();
+	}
 }

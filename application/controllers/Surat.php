@@ -1,5 +1,4 @@
 <?php
-include '.\vendor\phpqrcode\qrlib.php';
 class Surat extends CI_Controller{
 	function __construct(){
 		parent::__construct();
@@ -23,23 +22,21 @@ class Surat extends CI_Controller{
 		$this->load->view('includes/v_footer');
 	}
 
-function kelahiran(){
-	$nik = $_SESSION['nik'];
-	$default_img = "default.jpg";
-	if (isset($_POST['kelahiran'])) {
-			// $this->form_validation->set_rules('pengantar_file', 'Pengantar', 'required');
-			// $this->form_validation->set_rules('ket_file', 'Bukti Kelahiran', 'required');
-			// $this->form_validation->set_rules('kk_file', 'KK', 'required');
-			// $this->form_validation->set_rules('ktp_file', 'KTP', 'required');
-			// $this->form_validation->set_rules('buku_file', 'Buku Nikah', 'required');
-			$this->form_validation->set_rules('anak', 'Nama Anak', 'required');
-			$this->form_validation->set_rules('tgllahir', 'Tanggal Lahir', 'required');
-			$this->form_validation->set_rules('tempatlahir', 'Tempat Lahir', 'required');
-			$this->form_validation->set_rules('ayah', 'Nama Ayah', 'required');
-			$this->form_validation->set_rules('ibu', 'Nama Ibu', 'required');
-		if ($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata( 'error', '<div class="col-md-12 alert alert-danger text-center">Tolong Lengkapi Data</div>');
-		} else {
+	function buat_kelahiran(){
+		// if (isset($_POST['kelahiran'])) {
+		// $this->form_validation->set_rules('pengantar_file', 'Pengantar', 'required');
+		// $this->form_validation->set_rules('ket_file', 'Bukti Kelahiran', 'required');
+		// $this->form_validation->set_rules('kk_file', 'KK', 'required');
+		// $this->form_validation->set_rules('ktp_file', 'KTP', 'required');
+		// $this->form_validation->set_rules('buku_file', 'Buku Nikah', 'required');
+		$this->form_validation->set_rules('anak', 'Nama Anak', 'required');
+		$this->form_validation->set_rules('tgllahir', 'Tanggal Lahir', 'required');
+		$this->form_validation->set_rules('tempatlahir', 'Tempat Lahir', 'required');
+		$this->form_validation->set_rules('ayah', 'Nama Ayah', 'required');
+		$this->form_validation->set_rules('ibu', 'Nama Ibu', 'required');
+		if ($this->form_validation->run() != FALSE){
+			$nik = $_SESSION['nik'];
+			$default_img = "default.jpg";
 			$kelahiran['nik'] = $nik;
 			$kelahiran['hubungan'] = $_POST['hubungan'];
 			$kelahiran['anak'] = preg_replace("/[^a-zA-Z\s]+/", "", $_POST['anak']);
@@ -55,6 +52,19 @@ function kelahiran(){
 			$config['max_size']      = 2048;
 			$config['upload_path']   = "./assets/img/surat/kelahiran/";
 
+			// $status = true;
+			// $lampiran = array("pengantar_file","ket_file","kk_file","ktp_file","buku_file");
+			// foreach ($lampiran as $kl => $vl) {
+			// 	$post = $vl;
+			// 	$filename = $_FILES[$post]['name'];
+			// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+			// 	if ($name!=$default_img) {
+			// 		$kelahiran[$post] = $config['upload_path'].'/'.$name;
+			// 	} else {
+			// 		$status = false;
+			// 		break;
+			// 	}
+			// }
 			$pengantar_file = $this->m_crud->upload_file($nik, $_FILES['pengantar_file']['name'], "pengantar_file", $config);
 			$ket_file = $this->m_crud->upload_file($nik, $_FILES['ket_file']['name'], "ket_file", $config);
 			$kk_file = $this->m_crud->upload_file($nik, $_FILES['kk_file']['name'], "kk_file", $config);
@@ -74,12 +84,15 @@ function kelahiran(){
 				redirect(base_url("surat/riwayat"));
 			}
 		}
+		//  else {
+		// 	$this->session->set_flashdata( 'error', '<div class="col-md-12 alert alert-danger text-center">Tolong Lengkapi Data</div>');
+		// }
+		$title['judul'] = 'Surat Kelahiran';
+		$this->load->view('includes/v_header', $title);
+		$this->load->view('surat/v_surat_kelahiran');
+		$this->load->view('includes/v_footer');
+		// }
 	}
-	$title['judul'] = 'Surat Kelahiran';
-	$this->load->view('includes/v_header', $title);
-	$this->load->view('surat/v_surat_kelahiran');
-	$this->load->view('includes/v_footer');
-}
 
 	function kematian(){
 		$nik = $_SESSION['nik'];
@@ -696,31 +709,5 @@ function kelahiran(){
 			array_push($anggota, array('nama'=>$nama,'nik'=>$nik,'jk'=>$jk,'tempat'=>$tempat,'tgl'=>$tgl,'jk'=>$jk,'hubungan'=>$hubungan,'pendidikan'=>$pendidikan,'goldar'=>$goldar,'kawin'=>$kawin,'agama'=>$agama,'pekerjaan'=>$pekerjaan,'ayah'=>$ayah,'ibu'=>$ibu));
 		}
 		$biodata['anggota'] = json_encode($anggota);
-	}
-
-	function sign(){
-		$img = $_POST['sign'];
-		$img = str_replace('data:image/png;base64,', '', $img);
-		$img = str_replace(' ', '+', $img);
-		$data = base64_decode($img);
-		$image=uniqid() . '.png';
-		$file = './assets/img/sign/' .$image;
-		$success = file_put_contents($file, $data);
-
-		$account_sid = 'ACbb6478e248e195ac75938ff8da70865c';
-		$auth_token = 'e76f6ab632effa08e56f2574d9fb33a9';
-
-		$twilio_number = '+17732077865';
-		$client = new Client($account_sid, $auth_token);
-		$client->messages->create(
-			'+6285646433651',
-			array(
-				'from' => $twilio_number,
-				'body' => 'I sent this message from Twilio!'
-			)
-		);
-
-
-		$this->m_crud->update($_POST['surat'], array('ttd_file'=>$file, 'qrcode_file'=>$nama_qrcode, 'status'=>surat_selesai), array('id'=>$_POST['kode']));
 	}
 }

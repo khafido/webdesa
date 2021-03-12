@@ -17,8 +17,8 @@
     <div class="row" style="margin-top:20px;">
       <div class="col-md-6 col-lg-4 mb-5">
         <div class="feature-block">
-          <a href="<?=base_url("surat/kelahiran")?>"><img src="<?=base_url()?>assets/img/surat/icon/about-img.png" alt="img" class="img-fluid"></a>
-          <a href="<?=base_url("surat/kelahiran")?>"><h4>Surat Keterangan <br/>Kelahiran</h4></a>          
+          <a href="<?=base_url("surat/buat_kelahiran")?>"><img src="<?=base_url()?>assets/img/surat/icon/about-img.png" alt="img" class="img-fluid"></a>
+          <a href="<?=base_url("surat/buat_kelahiran")?>"><h4>Surat Keterangan <br/>Kelahiran</h4></a>          
         </div>
       </div>
       <div class="col-md-6 col-lg-4 mb-5">
