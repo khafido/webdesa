@@ -32,6 +32,7 @@ class Kegiatan extends CI_Controller{
 		$data['arsip'] = $this->m_crud->readBy('detail_kegiatan', array('status'=>kegiatan_arsip));
 		// $data['arsip'] = $this->db->query($sql."k.status=".kegiatan_arsip)->result();
 		// $data['arsip'] = $this->db->query($sql."k.status=".kegiatan_arsip)->result();
+		$data['revisi'] = $this->m_crud->readBy('detail_kegiatan', array('status'=>kegiatan_revisi));
 
 		$data['dusun'] = DUSUN;
 		$data['judul'] = 'kegiatan';
@@ -348,9 +349,9 @@ class Kegiatan extends CI_Controller{
 		$no = 1;
 		$nom = 1;
 		$jumlah = 0;
-		$data['element'] .= '<tr>';
-		$data['element'] .= '<td colspan="7">Belanja Barang/Jasa</td>';
-		$data['element'] .= '</tr>';
+		// $data['element'] .= '<tr>';
+		// $data['element'] .= '<td colspan="7">Belanja Barang/Jasa</td>';
+		// $data['element'] .= '</tr>';
 		foreach ($barang as $k => $i) {
 			$data['element'] .= '<tr>';
 			$data['element'] .= '<td>'.$no++.'</td>';
@@ -363,9 +364,9 @@ class Kegiatan extends CI_Controller{
 			$data['element'] .= '</tr>';
 			$jumlah += $i->jumlah;
 		}
-		$data['element'] .= '<tr>';
-		$data['element'] .= '<td colspan="7">Belanja Modal</td>';
-		$data['element'] .= '</tr>';
+		// $data['element'] .= '<tr>';
+		// $data['element'] .= '<td colspan="7">Belanja Modal</td>';
+		// $data['element'] .= '</tr>';
 		foreach ($modal as $k => $i) {
 			$data['element'] .= '<tr>';
 			$data['element'] .= '<td>'.$nom++.'</td>';

@@ -70,12 +70,8 @@ font-weight: bold;
                         <td><?=$p->kategori?></td>
                         <td><?=$p->uraian?></td>
                         <td><?=$p->tgl_pengaduan?></td>
-                        <td class="text-success"><?php $cont->cek_status($p->status);?></td>
-                        <td>
-                          <!-- <a style="font-size:12px;" href="<?=base_url("pengaduan/ubah/$p->id_pengaduan")?>" class="btn btn-primary">Ubah</a> -->
-                          &ensp;
-                          <button style="font-size:13px;" onclick="hapus('<?=base_url("pengaduan/hapus/$p->id_pengaduan")?>')" class="btn btn-danger">Hapus</button>
-                        </td>
+                        <td class="text-success"><?php $cont->cek_status($p->status);?></td>                      
+                        <?php if($p->status==0):?><td><button style="font-size:13px;" onclick="hapus('<?=base_url("pengaduan/hapus/$p->id_pengaduan")?>')" class="btn btn-danger">Hapus</button></td><?php else: echo"<td class='text-danger'>*</td>"; endif;?>                          
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -84,6 +80,7 @@ font-weight: bold;
             </div>
           </div>
         </div>
+        <label class="text-danger">*) Tombol <b>Hapus</b> hanya muncul pada saat proses validasi berlangsung</label>
       </div>
     </div>
   </div>

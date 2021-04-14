@@ -24,6 +24,7 @@ class Dashboard extends CI_Controller{
 
 		$data['rab'] = $this->m_crud->readCount('tbl_kegiatan', array("status"=>kegiatan_baru));
 		$data['valid'] = $this->m_crud->readCount('tbl_kegiatan', array("status"=>kegiatan_rencana));
+		$data['revisi'] = $this->m_crud->readCount('tbl_kegiatan', array("status"=>kegiatan_revisi));
 		$data['progres'] = $this->m_crud->readCount('tbl_kegiatan', array("status"=>kegiatan_proses));
 		$data['lpj'] = $this->m_crud->readCount('tbl_kegiatan', array("status"=>kegiatan_selesai));
 

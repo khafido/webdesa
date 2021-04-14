@@ -112,8 +112,9 @@
     //   datamod.push({"kode":kode+'.'+tipe, "uraian":uraian, "satuan":satuan, "volume":volume, "harga_satuan":harga_satuan, "tipe":tipe});
     //   window.datam = JSON.stringify(datamod);
     // }
-
-    window.datas.push({"kode":kode+'.'+tipe, "uraian":uraian, "satuan":satuan, "volume":volume, "harga_satuan":harga_satuan, "tipe":tipe});
+    if (tipe==1 || tipe==2) {      
+      window.datas.push({"kode":kode+'.'+tipe, "uraian":uraian, "satuan":satuan, "volume":volume, "harga_satuan":harga_satuan, "tipe":tipe});
+    }
     // window.datas = JSON.parse(window.datab).concat(JSON.parse(window.datam));
     showItem(window.datas);
   }

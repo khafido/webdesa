@@ -14,8 +14,8 @@ font-weight: bold;
 <section id="get-started" class="padd-section wow fadeInUp">
   <div class="containers">
     <div class="section-title text-center">
-      <h2>Profil</h2>
-      <p class="separator" style="margin-top:-20px;">Mohon isi data dibawah dengan lengkap & sebenar-benarnya agar status anda aktif.</p>
+      <h2>Profil</h2><br>
+      <!-- <p class="separator" style="margin-top:-20px;">Mohon isi data dibawah dengan lengkap & sebenar-benarnya agar status anda aktif.</p> -->
       <?php echo $this->session->flashdata('upload_error'); ?>
     </div>
     <!-- <br> -->

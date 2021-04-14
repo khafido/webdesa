@@ -133,6 +133,7 @@ define('kegiatan_rencana',1);
 define('kegiatan_proses',2);
 define('kegiatan_selesai',3);
 define('kegiatan_arsip',4);
+define('kegiatan_revisi',5);
 
 // Status Berita
 define('berita_baru',0);

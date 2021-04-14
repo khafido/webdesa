@@ -25,6 +25,7 @@
 <div class="col-md-12 bg-light p-3" style="height:1000px; background:white; padding:0 40px;">
   <br>
   <h3>Sistem Informasi Layanan Pengurusan Surat dan Pengaduan Aspirasi Warga Desa Pagerngumbuk</h3>
+  <?php if($_SESSION['role_admin']!=3):?>
   <div class="col-md-12">
   <hr>
   <h3 style="border-left:3px solid #493280;">&ensp;Surat</h3>
@@ -62,6 +63,7 @@
       </a>
     </div>
   </div>
+  <?php endif; ?>
   <div class="col-md-12">
     <hr>
     <h3 style="border-left:3px solid #493280;">&ensp;Pengaduan</h3>
@@ -77,14 +79,22 @@
     <hr>
     <h3 style="border-left:3px solid #493280;">&ensp;Kegiatan</h3>
     <div class="row">
+      <?php if($_SESSION['role_admin']!=3):?>
       <a href="<?=base_url("admin/kegiatan")?>">
         <div class="col-md-2 box-info bg-primary">
           <label class="caption-info">Buat RAB <br> <span><?=$rab?></span></label>
         </div>
       </a>
+      <?php endif;?>  
       <a href="<?=base_url("admin/kegiatan")?>">
         <div class="col-md-2 box-info bg-danger">
           <label class="caption-info">Validasi RAB <br> <span><?=$valid?></span></label>
+        </div>
+      </a>
+      <?php if($_SESSION['role_admin']!=3):?>
+      <a href="<?=base_url("admin/kegiatan")?>">
+        <div class="col-md-2 box-info bg-danger">
+          <label class="caption-info">Revisi RAB <br> <span><?=$revisi?></span></label>
         </div>
       </a>
       <a href="<?=base_url("admin/kegiatan")?>">
@@ -97,8 +107,10 @@
           <label class="caption-info">Buat LPJ <br> <span><?=$lpj?></span></label>
         </div>
       </a>
+      <?php endif;?>  
     </div>
   </div>
+<?php if($_SESSION['role_admin']!=3):?>
   <div class="col-md-12">
     <hr>
     <h3 style="border-left:3px solid #493280;">&ensp;Berita</h3>
@@ -110,3 +122,4 @@
       </a>
     </div>
   </div>
+<?php endif;?>  

@@ -80,12 +80,12 @@ class Pengaduan extends CI_Controller{
 	}
 
 	function lihat($id){
-		$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status='=>pengaduan_proses, 'bidang'=>$id));
+		$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status'=>pengaduan_proses, 'bidang'=>$id));
 		// $sql = "select `p`.`id_pengaduan` AS `id_pengaduan`,`p`.`judul` AS `judul`,`p`.`bidang` AS `bidang`,`p`.`lokasi` AS `lokasi`,`p`.`kategori` AS `kategori`,`p`.`uraian` AS `uraian`,`p`.`tgl_pengaduan` AS `tgl_pengaduan`,`p`.`status` AS `status`,`p`.`lampiran_file` AS `lampiran_file`,`p`.`nik` AS `nik`,`w`.`nama` AS `nama`,`w`.`no_telp` AS `no_telp`,`w`.`email` AS `email`,`w`.`rw` AS `rw`,`w`.`rt` AS `rt`,`p`.`ttd_file` AS `ttd_file` from (`tbl_pengaduan` `p` join `tbl_warga` `w` on((`p`.`nik` = `w`.`nik`)))";
 		// $pengaduan = $this->db->query($sql." WHERE bidang='$id' AND p.status=".pengaduan_proses)->result();
 		if ($id=="semua") {
 			$active = "semua";
-			$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status<>'=>pengaduan_ditolak));
+			$pengaduan = $this->m_crud->readBy('detail_pengaduan', array('status'=>pengaduan_proses));
 			// $pengaduan = $this->db->query($sql." WHERE p.status<>".pengaduan_ditolak)->result();
 		} elseif ($id=="infrastruktur") {
 			$active = "infrastruktur";
@@ -247,8 +247,12 @@ class Pengaduan extends CI_Controller{
 			break;
 			case pengaduan_selesai:
 			echo "Selesai/Dilanjutkan";
+			break;
+			case pengaduan_ditolak:
+			echo "Ditolak";
+			break;
 			default:
-			echo "";
+			return;
 		}
 	}
 

@@ -66,18 +66,19 @@ class Surat extends CI_Controller{
 
 	function form($surat, $action){
 		$tbl = TABEL;;
-		$nosurat = array('kelahiran' => 'I', 'kematian'=>'II', 'tdkmampu'=>'III', 'biodata'=>'IV', 'umum'=>'V', 'domisili'=>'VI');
+		$nosurat = array('kelahiran' => '472.11', 'kematian'=>'472.12', 'tdkmampu'=>'401', 'biodata'=>'471.11', 'umum'=>'&ensp;&ensp;&ensp;', 'domisili'=>'470');
 		$idsurat = array('kelahiran' => 'id_kelahiran', 'kematian'=>'id_kematian', 'tdkmampu'=>'id_tdk_mampu', 'biodata'=>'id_biodata', 'umum'=>'id_umum', 'domisili'=>'id_domisili');
 
 		if (isset($_POST[$surat])) {
 			$nik = $_POST['nik'];
-			$data['nik'] = $nik;
+			$data['status'] = surat_proses;
 
 			$check = $this->m_crud->readBy('tbl_warga', array("nik"=>$nik));
 			if (count($check)>0) {
 				$status = true;
-				$config['allowed_types'] = 'jpg|png|jpeg|pdf';
-				$config['max_size']      = 2048;
+				// $config['allowed_types'] = 'jpg|png|jpeg|pdf';
+				// $config['max_size']      = 2048;
+				$data['nik'] = $nik;
 
 				if ($surat=='kelahiran') {
 					// KELAHIRAN
@@ -91,72 +92,72 @@ class Surat extends CI_Controller{
 					$data['rw'] = $_POST['rw'];
 					$data['rt'] = $_POST['rt'];
 
-					$config['upload_path']   = "./assets/img/surat/kelahiran";
+					// $config['upload_path']   = "./assets/img/surat/kelahiran";
 
-					// Upload Pengantar
-					$post = 'pengantar_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Pengantar
+					// $post = 'pengantar_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload Keterangan
-					$post = 'ket_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Keterangan
+					// $post = 'ket_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KK
-					$post = 'kk_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KK
+					// $post = 'kk_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KTP
-					$post = 'ktp_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KTP
+					// $post = 'ktp_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload Buku Nikah
-					$post = 'buku_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Buku Nikah
+					// $post = 'buku_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 				} elseif ($surat=='kematian') {
 					// KEMATIAN
 					$data['hubungan'] = $_POST['hubungan'];
@@ -175,72 +176,72 @@ class Surat extends CI_Controller{
 					$data['penyebab'] = $_POST['penyebab'];
 					$data['penentu'] = $_POST['penentu'];
 
-					$config['upload_path']   = "./assets/img/surat/kematian";
+					// $config['upload_path']   = "./assets/img/surat/kematian";
 
-					// Upload Pengantar
-					$post = 'pernyataan_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Pengantar
+					// $post = 'pernyataan_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KK
-					$post = 'kk_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KK
+					// $post = 'kk_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KTP
-					$post = 'ktp_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KTP
+					// $post = 'ktp_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KK Alm
-					$post = 'kk_alm_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KK Alm
+					// $post = 'kk_alm_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KTP
-					$post = 'ktp_alm_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KTP
+					// $post = 'ktp_alm_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 				} elseif ($surat=='tdkmampu') {
 					// TIDAK MAMPU
 					$data['jenis'] = $_POST['jenis'];
@@ -249,58 +250,58 @@ class Surat extends CI_Controller{
 					$data['pekerjaan'] = $_POST['pekerjaan'];
 					$data['alamat'] = $_POST['alamat'];
 
-					$config['upload_path']   = "./assets/img/surat/tidak_mampu";
-					// Upload Pengantar
-					$post = 'pengantar_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// $config['upload_path']   = "./assets/img/surat/tidak_mampu";
+					// // Upload Pengantar
+					// $post = 'pengantar_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload Pernyataan
-					$post = 'pernyataan_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Pernyataan
+					// $post = 'pernyataan_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KK
-					$post = 'kk_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KK
+					// $post = 'kk_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KTP
-					$post = 'ktp_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KTP
+					// $post = 'ktp_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 				} elseif ($surat=='biodata') {
 					// BIODATA
 					$data['nama_kepala'] = $_POST['nama_kepala'];
@@ -328,234 +329,235 @@ class Surat extends CI_Controller{
 					$data['anggota'] = json_encode($anggota);
 
 
-					$config['upload_path']   = "./assets/img/surat/biodata";
+					// $config['upload_path']   = "./assets/img/surat/biodata";
 
-					// Upload Pengantar
-					$post = 'pengantar_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Pengantar
+					// $post = 'pengantar_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload Akta Lahir
-					$post = 'akta_lahir_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Akta Lahir
+					// $post = 'akta_lahir_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload Akta Kawin
-					$post = 'akta_kawin_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Akta Kawin
+					// $post = 'akta_kawin_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload Ijazah
-					$post = 'ijazah_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Ijazah
+					// $post = 'ijazah_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KK
-					$post = 'kk_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KK
+					// $post = 'kk_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KTP
-					$post = 'ktp_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KTP
+					// $post = 'ktp_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 				} elseif ($surat=='umum') {
 					// UMUM
 					$data['tujuan'] = $_POST['tujuan'];
 
-					$config['upload_path']   = "./assets/img/surat/umum";
-					// Upload Pengantar
-					$post = 'pengantar_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// $config['upload_path']   = "./assets/img/surat/umum";
+					// // Upload Pengantar
+					// $post = 'pengantar_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KK
-					$post = 'kk_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KK
+					// $post = 'kk_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KTP
-					$post = 'ktp_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KTP
+					// $post = 'ktp_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 				} elseif ($surat=='domisili') {
 					// DOMISILI
 					$data['jenis'] = $_POST['jenis'];
 					$data['nama_usaha'] = $_POST['nama_usaha'];
 					$data['alamat'] = $_POST['alamat'];
 
-					$config['upload_path']   = "./assets/img/surat/domisili";
+					// $config['upload_path']   = "./assets/img/surat/domisili";
 
-					// Upload Pengantar
-					$post = 'pengantar_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Pengantar
+					// $post = 'pengantar_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KK
-					$post = 'kk_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KK
+					// $post = 'kk_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload KTP
-					$post = 'ktp_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload KTP
+					// $post = 'ktp_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload Akta Usaha
-					$post = 'akta_usaha_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Akta Usaha
+					// $post = 'akta_usaha_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload Pernyataan
-					$post = 'pernyataan_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Pernyataan
+					// $post = 'pernyataan_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload Perjanjian
-					$post = 'perjanjian_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Perjanjian
+					// $post = 'perjanjian_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 
-					// Upload Kepemilikan
-					$post = 'kepemilikan_file';
-					if ($_FILES[$post]["name"]!="") {
-						$filename = $_FILES[$post]['name'];
+					// // Upload Kepemilikan
+					// $post = 'kepemilikan_file';
+					// if ($_FILES[$post]["name"]!="") {
+					// 	$filename = $_FILES[$post]['name'];
 
-						$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
-						if ($name==false) {
-							$status = false;
-						} else {
-							$data[$post] = $config['upload_path'].'/'.$name;
-						}
-					}
+					// 	$name = $this->m_crud->upload_file($nik, $filename, $post, $config);
+					// 	if ($name==false) {
+					// 		$status = false;
+					// 	} else {
+					// 		$data[$post] = $config['upload_path'].'/'.$name;
+					// 	}
+					// }
 				}
 
 				if($status){
-					if ($action=="tambah") {
-						$jumlah = $this->m_crud->read($tbl[$surat]);
+					if ($action=="tambah") {									
+						$date = date("Y");
+						$jumlah = $this->m_crud->readBy($tbl[$surat],array("year(tgl_buat)"=>$date, "status !="=>surat_ditolak));
 						$id = count($jumlah)+1;
-						$date = date("j/n/Y");
-						$data[$idsurat[$surat]] = $id.'/'.$nosurat[$surat].'/'.$date;
+						$data[$idsurat[$surat]] = "$nosurat[$surat]/$id/438.7.9.14/$date";						
+																							
 						$pesan = $this->m_crud->save($tbl[$surat], $data);
 					} elseif ($action=="ubah") {
 						$id = $this->uri->segment(6);
@@ -796,10 +798,11 @@ class Surat extends CI_Controller{
 			$data['element'] .= '</tbody>';
 			$data['element'] .= '</table>';
 			$data['element'] .= "<p>Yang bersangkutan benar-benar warga Desa Pagerngumbuk yang memiliki anggota keluarga sebagai berikut:.</p><br/>";
-			$data['element'] .= '<table class="table table-borderless">';
+			$data['element'] .= '<table class="table table-bordered">';
 			$data['element'] .= '<tbody>';
 			$data['element'] .= "
 			<tr>
+			<th>No</th>
 			<th>Nama</th>
 			<th>NIK</th>
 			<th>JK</th>
@@ -813,7 +816,9 @@ class Surat extends CI_Controller{
 
 			$anggota = json_decode($hasil->anggota);
 			foreach ($anggota as $key => $value) {
+				$no = $key+1;
 				$data['element'] .= "<tr>
+				<td style='text-transform:capitalize;'>$no</td>
 				<td style='text-transform:capitalize;'>$value->nama</td>
 				<td style='text-transform:capitalize;'>$value->nik</td>
 				<td style='text-transform:capitalize;'>".($value->jk=='L'?'Laki-laki':'Perempuan')."</td>
@@ -857,6 +862,10 @@ class Surat extends CI_Controller{
 			$data['element'] .= '<table class="table table-borderless">';
 			$data['element'] .= '<tbody>';
 			$data['element'] .= '<tr>';
+			$data['element'] .= '<th style="width:120px;border:none;">NIK</th>';
+			$data['element'] .= '<td style="border:none;">: '.$warga->nik.'</td>';
+			$data['element'] .= '</tr>';
+			$data['element'] .= '<tr>';
 			$data['element'] .= '<th style="width:120px;border:none;">Nama</th>';
 			$data['element'] .= '<td style="border:none;">: '.$warga->nama.'</td>';
 			$data['element'] .= '</tr>';
@@ -868,8 +877,22 @@ class Surat extends CI_Controller{
 			if ($hasil->jenis=="usaha") {
 				$data['element'] .= '</tbody>';
 				$data['element'] .= '</table>';
-				$data['element'] .= "<p>Yang bersangkutan benar-benar warga Desa Pagerngumbuk yang memiliki usaha bernama $hasil->nama_usaha, yang beralamat di $hasil->alamat.</p><br/>";
-			} else {
+				$data['element'] .= "<p>Yang bersangkutan benar-benar warga Desa Pagerngumbuk yang memiliki usaha:";
+				// $data['element'] .= "bernama $hasil->nama_usaha, yang beralamat di $hasil->alamat.</p><br/>";
+				$data['element'] .= '<table class="table table-borderless">';
+				$data['element'] .= '<tbody>';
+				$data['element'] .= '<tr>';
+				$data['element'] .= '<th style="width:120px;border:none;">Nama Usaha </th>';
+				$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.$hasil->nama_usaha.'</td>';
+				$data['element'] .= '</tr>';
+				$data['element'] .= '<tr>';
+				$data['element'] .= '<th style="width:120px;border:none;">Alamat Usaha </th>';
+				$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.$hasil->alamat.'</td>';
+				$data['element'] .= '</tr>';
+				$data['element'] .= '</tbody>';
+				$data['element'] .= '</table>';
+				$data['element'] .= '<br/>';
+			} else {				
 				$data['element'] .= '<tr>';
 				$data['element'] .= '<th style="width:120px;border:none;">TTL</th>';
 				$data['element'] .= '<td style="border:none; text-transform:capitalize;">: '.$warga->tempat_lahir.','.$warga->tgl_lahir.'</td>';
@@ -895,15 +918,21 @@ class Surat extends CI_Controller{
 		// $data['element'] .= "<p style='margin-top:-15px;'>Surat ini dibuat atas dasar yang sebenar-benarnya berdasarkan permohonan saudara/i $warga->nama ($hasil->nik)</p>";
 		$data['element'] .= "<p style='margin-top:-15px;'>Demikian surat keterangan $judul ini dibuat untuk dapat digunakan sebagaimana semestinya.</p>";
 		$data['element'] .= "</div>";
-		$data['element'] .= '<br>';
 		$data['element'] .= '<div class="pull-right text-center" style="width: 250px; margin-top:20px; margin-right:50px; border-bottom:1px solid black;">';
 		$data['element'] .= '<h5 for="">Desa Pagerngumbuk, '.date("d M Y").'</h5>';
 		$data['element'] .= '<h5 for="">Kepala Desa</h5>';
 		$data['element'] .= "<div style='width:7cm; display:inline-block;'>";
-		$data['element'] .= "<img src='".base_url($hasil->qrcode_file)."' style='width:2cm; float:left;'>";
-		$data['element'] .= "<img src='".base_url($hasil->ttd_file)."' style='width:5cm; float:right;'>";
+		if ($hasil->qrcode_file!="") {
+			$data['element'] .= "<img src='".base_url($hasil->qrcode_file)."' style='width:2cm; float:left;'>";
+		}
+		if ($hasil->ttd_file!="") {
+			$data['element'] .= "<img src='".base_url($hasil->ttd_file)."' style='width:5cm; float:right;'>";
+		} else {
+			$data['element'] .= "<br/><br/>";
+			$data['element'] .= "<br/><br/>";
+		}
 		$data['element'] .= "</div>";
-		$data['element'] .= '<h5><strong>Khoirul Anam</strong></h5>';
+		$data['element'] .= '<h5><strong>Khoirul Anam, S.T, M.H</strong></h5>';
 		$data['element'] .= '</div>';
 		$this->load->view('v_cetak', $data);
 	}
@@ -946,7 +975,7 @@ class Surat extends CI_Controller{
 		// 	"+62".$no_telp,
 		// 	array(
 		// 		'from' => $twilio_number,
-		// 		'body' => "\nSelamat Pagi $nama_warga. \n<b>Surat Keterangan $surat ($id_surat)</b> sudah bisa diambil hari ini. Jangan lupa siapkan berkas-berkas yang diperlukan. Berikut berkas-berkas yang harus disiapkan: \n$berkas"
+		// 		'body' => "\nSelamat Pagi $nama_warga. \n<b>Surat Keterangan $surat ($id_surat)</b> sudah bisa diambil. Jangan lupa siapkan berkas-berkas yang diperlukan. Berikut berkas-berkas yang harus disiapkan: \n$berkas.\nAnda juga bisa mencetak mandiri di rumah."
 		// 	)
 		// );
 

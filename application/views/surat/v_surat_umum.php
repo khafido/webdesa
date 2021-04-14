@@ -30,11 +30,10 @@
             Syarat dan Ketentuan Dokumen
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">1. Surat Pengantar RT/RW (TTD & Stempel)</li>
-            <li class="list-group-item">2. Fotokopi KK dan KTP</li>
-            <li class="list-group-item">3. Berkas 1 sampai 2 diupload ke sistem dengan format <span class="text-danger">(jpg/png/pdf)</span> dengan Ukuran <span class="text-danger">(Maks 2MB)</span></li>
-            <li class="list-group-item">4. Berkas Asli nomor 1 sampai 2 dibawa saat pengambilan surat</li>
-            <li class="list-group-item">5. Surat Kuasa jika pengambilan berkas dikuasakan ke orang lain</li>
+            <li class="list-group-item">1. Fotokopi KK dan KTP</li>
+            <li class="list-group-item">2. Berkas 1 sampai 2 diupload ke sistem dengan format <span class="text-danger">(jpg/png/pdf)</span> dengan Ukuran <span class="text-danger">(Maks 2MB)</span></li>
+            <!-- <li class="list-group-item">3. Berkas Asli dibawa saat pengambilan surat</li>
+            <li class="list-group-item">4. Surat Kuasa jika pengambilan berkas dikuasakan ke orang lain</li> -->
           </ul>
           <div class="col-md-12" id="tab-diri"></div>
         </div>
@@ -111,10 +110,10 @@
           <div class="tab-pane fade show active" id="pills-tiga" role="tabpanel" aria-labelledby="pills-tiga-tab">
             <div class="form-row col-md-12">
               <?php echo $this->session->flashdata('upload_error'); ?>
-              <div class="form-group col-md-12">
+              <!-- <div class="form-group col-md-12">
                 <label for="" class="control-label">Surat Pengantar <span class="text-danger">*</span> </label>
                 <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="pengantar_file" required/>
-              </div>
+              </div> -->
               <div class="col-md-12"></div>
               <div class="form-group col-md-12">
                 <label for="" class="control-label">Fotokopi KK <span class="text-danger">*</span> </label>

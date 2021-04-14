@@ -477,7 +477,7 @@ Blog
                       <th><?=$n++?></th>
                       <th><?=$i->uraian?></th>
                       <th><input type="number" id="item<?=$n?>-qty" name="jumlah" onclick="select()" class="form-control text-center" min="1" value="1" required autocomplete="off"/></th>
-                      <th><?=($i->tipe==1?'Belanja Barang/Jasa':'Belanja Modal')?></th>
+                      <th><?=($i->tipe==1?'Belanja Barang/Jasa':'')?><?=($i->tipe==2?'Belanja Modal':'')?></th>
                       <th><?=$i->satuan?></th>
                       <th><?=$i->hst?></th>
                       <th style="text-align: right;">

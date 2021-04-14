@@ -69,6 +69,7 @@ font-weight: bold;
                       <th width="140">Tgl Permohonan</th>
                       <th width="140">Catatan</th>
                       <th width="100">Status</th>
+                      <th width="100">Cetak</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -81,7 +82,8 @@ font-weight: bold;
                         <td><?=$v->ibu?></td>
                         <td><?=$v->tgl_buat?></td>
                         <td><?=$v->catatan?></td>
-                        <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
+                        <td><span class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></span> </td>
+                        <?php if($v->status>=2):?><td><a href="<?=base_url("surat/cetak/kelahiran/".$_SESSION['nik']."/$v->id")?>" target="_blank" class="btn btn-warning">Cetak</a> </td><?php else: echo"<td class='text-danger'>*</td>"; endif;?>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -115,7 +117,8 @@ font-weight: bold;
                           <td><?=$v->penyebab?></td>
                           <td><?=$v->tgl_buat?></td>
                           <td><?=$v->catatan?></td>
-                          <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
+                          <td><span class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></span> </td>
+                          <?php if($v->status>=2):?><td><a href="<?=base_url("surat/cetak/kematian/".$_SESSION['nik']."/$v->id")?>" target="_blank" class="btn btn-warning">Cetak</a> </td><?php else: echo"<td class='text-danger'>*</td>"; endif;?>
                         </tr>
                       <?php endforeach; ?>
                     </tbody>
@@ -147,7 +150,8 @@ font-weight: bold;
                         <td><?=$v->tujuan?></td>
                         <td><?=$v->tgl_buat?></td>
                         <td><?=$v->catatan?></td>
-                        <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
+                        <td><span class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></span> </td>
+                        <?php if($v->status>=2):?><td><a href="<?=base_url("surat/cetak/tdkmampu/".$_SESSION['nik']."/$v->id")?>" target="_blank" class="btn btn-warning">Cetak</a> </td><?php else: echo"<td class='text-danger'>*</td>"; endif;?>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -176,7 +180,8 @@ font-weight: bold;
                         <th><?=$v->alamat?></th>
                         <th><?=$v->tgl_buat?></th>
                         <td><?=$v->catatan?></td>
-                        <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
+                        <td><span class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></span> </td>
+                        <?php if($v->status>=2):?><td><a href="<?=base_url("surat/cetak/biodata/".$_SESSION['nik']."/$v->id")?>" target="_blank" class="btn btn-warning">Cetak</a> </td><?php else: echo"<td class='text-danger'>*</td>"; endif;?>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -203,7 +208,8 @@ font-weight: bold;
                         <td><?=$v->tujuan?></td>
                         <td><?=$v->tgl_buat?></td>
                         <td><?=$v->catatan?></td>
-                        <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
+                        <td><span class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></span> </td>
+                        <?php if($v->status>=2):?><td><a href="<?=base_url("surat/cetak/umum/".$_SESSION['nik']."/$v->id")?>" target="_blank" class="btn btn-warning">Cetak</a> </td><?php else: echo"<td class='text-danger'>*</td>"; endif;?>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -234,7 +240,8 @@ font-weight: bold;
                         <td><?=$v->alamat?></td>
                         <td><?=$v->tgl_buat?></td>
                         <td><?=$v->catatan?></td>
-                        <td class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></td>
+                        <td><span class="badge <?=($v->status==-1?"badge-danger":"badge-info")?>"><?php $surat->cek_status($v->status);?></span> </td>
+                        <?php if($v->status>=2):?><td><a href="<?=base_url("surat/cetak/domisili/".$_SESSION['nik']."/$v->id")?>" target="_blank" class="btn btn-warning">Cetak</a> </td><?php else: echo"<td class='text-danger'>*</td>"; endif;?>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -243,6 +250,7 @@ font-weight: bold;
             </div>
           </div>
         </div>
+        <label class="text-danger">*) Tombol <b>Cetak</b> akan muncul saat proses pengurusan surat sudah selesai</label>
         <?php echo form_close(); ?>
       </div>
     </div>

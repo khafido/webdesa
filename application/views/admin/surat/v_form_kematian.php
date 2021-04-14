@@ -129,9 +129,9 @@
                 <input class="form-control" type="text" name="penentu" placeholder="Penentu Meninggal" value="<?=$hasil->penentu?>">
               </div>
 							<div class="form-group col-md-12">
-							<?php echo $this->session->flashdata('upload_error'); ?>
+							<?php //echo $this->session->flashdata('upload_error'); ?>
 						</div>
-							<div class="form-group col-md-6">
+							<!-- <div class="form-group col-md-6">
                 <label for="" class="control-label">Surat Penyataan <span class="text-danger">*</span> </label>
                 <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="pernyataan_file"/>
               </div>
@@ -150,7 +150,7 @@
               <div class="form-group col-md-6">
                 <label for="" class="control-label">Fotokopi KTP Yang Meninggal<span class="text-danger">*</span> </label>
                 <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ktp_alm_file"/>
-              </div>
+              </div> -->
 							<div class="form-group col-md-12">
 								<button class="btn btn-success btn-fill form-control py-3" name="<?=$surat?>">Selesai</button>
 							</div>

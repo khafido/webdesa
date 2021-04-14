@@ -37,7 +37,7 @@ class Umkm extends CI_Controller{
 
 			$status	= true;
 			$post = "logo_file";
-			$store[$post] = './assets/img/umkm/default.jpg';
+
 			if ($_FILES[$post]["name"]!="") {
 				$filename = $_FILES[$post]['name'];
 				$logo['upload_path']   = "./assets/img/umkm/";
@@ -54,6 +54,7 @@ class Umkm extends CI_Controller{
 
 			if ($status) {
 				if ($action=="tambah") {
+					$store[$post] = './assets/img/umkm/default.jpg';
 					$pesan = $this->m_crud->save('tbl_umkm', $store);
 				} else {
 					$id = $this->uri->segment(5);

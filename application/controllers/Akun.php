@@ -52,14 +52,17 @@ class Akun extends CI_Controller{
 						$this->session->set_userdata('status', $status);
 
 						redirect(base_url("/"));
-						die();
 					} else {
 						$this->session->set_flashdata('error', '<div class="alert alert-danger" role="alert">Kata Sandi Salah</div>');
 					}
 				} else {
 					$this->session->set_flashdata('error', '<div class="alert alert-danger" role="alert">NIK Tidak Terdaftar</div>');
 				}
-
+				// redirect(base_url("/akun/masuk"));
+			}
+		} else {
+			if(isset($_SESSION['error'])){
+				unset($_SESSION['error']);
 			}
 		}
 		$title['judul'] = 'Masuk';
@@ -122,6 +125,7 @@ class Akun extends CI_Controller{
 			$profil['pendidikan'] = $_POST['pendidikan'];
 			$profil['pekerjaan'] = $_POST['pekerjaan'];
 			$profil['agama'] = $_POST['agama'];
+			$profil['kawin'] = $_POST['kawin'];
 			$profil['rw'] = $_POST['rw'];
 			$profil['rt'] = $_POST['rt'];
 			$profil['status'] = 1;

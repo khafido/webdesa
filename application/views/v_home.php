@@ -19,7 +19,7 @@
 		  }
 		}
 </style>
-<section id="get-started" class="padd-section text-center wow fadeInUp mt-5">
+<section id="get-started" class="padd-section text-center wow fadeInUp mt-4">
 	<div class="container">
 		<div class="section-title text-center">
 			<!-- <h2>simple systeme fordiscount </h2>

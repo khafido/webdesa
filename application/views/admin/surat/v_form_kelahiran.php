@@ -79,28 +79,24 @@
 								<input class="form-control" type="number" min="1" name="rt" placeholder="RT" value="<?=$hasil->rt?>" required>
 							</div>
 							<div class="col-md-12">
-								<?php echo $this->session->flashdata('upload_error'); ?>
+								<?php //echo $this->session->flashdata('upload_error'); ?>
 							</div>
-							<div class="form-group col-md-6">
-								<label for="" class="control-label">Surat Pengantar <span class="text-danger"> </span> </label>
-								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="pengantar_file"/ required>
-							</div>
-							<div class="form-group col-md-6">
+							<!-- <div class="form-group col-md-6">
 								<label for="" class="control-label">Fotokopi Surat Bukti Kelahiran <span class="text-danger"> </span> </label>
-								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ket_file"/ required>
-							</div>
-							<div class="form-group col-md-6">
+								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ket_file">
+							</div> -->
+							<!-- <div class="form-group col-md-6">
 								<label for="" class="control-label">Fotokopi KK <span class="text-danger"> </span> </label>
-								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="kk_file"/ required>
-							</div>
-							<div class="form-group col-md-6">
+								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="kk_file">
+							</div> -->
+							<!-- <div class="form-group col-md-6">
 								<label for="" class="control-label">Fotokopi KTP <span class="text-danger"> </span> </label>
-								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ktp_file"/ required>
-							</div>
-							<div class="form-group col-md-6">
+								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="ktp_file">
+							</div> -->
+							<!-- <div class="form-group col-md-6">
 								<label for="" class="control-label">Fotokopi Buku Nikah / Akta Perkawinan <span class="text-danger"> </span> </label>
-								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="buku_file"/ required>
-							</div>
+								<input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="buku_file">
+							</div> -->
 							<!-- <div class="col-md-12"></div> -->
 							<div class="form-group col-md-12">
 								<button class="btn btn-success btn-fill form-control py-3" name="<?=$surat?>">Selesai</button>

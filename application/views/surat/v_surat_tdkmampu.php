@@ -34,8 +34,8 @@
             <li class="list-group-item">2. Surat Pernyataan Tidak Mampu Bermaterai</li>
             <li class="list-group-item">3. Fotokopi KK dan KTP</li>
             <li class="list-group-item">4. Berkas 1 sampai 3 diupload ke sistem dengan format <span class="text-danger">(jpg/png/pdf)</span> dengan Ukuran <span class="text-danger">(Maks 2MB)</span></li>
-            <li class="list-group-item">5. Berkas Asli nomor 1 sampai 3 dibawa saat pengambilan surat</li>
-            <li class="list-group-item">6. Surat Kuasa jika pengambilan berkas dikuasakan ke orang lain</li>
+            <!-- <li class="list-group-item">5. Berkas Asli dibawa saat pengambilan surat</li>
+            <li class="list-group-item">6. Surat Kuasa jika pengambilan berkas dikuasakan ke orang lain</li> -->
           </ul>
           <div class="col-md-12" id="tab-diri"></div>
         </div>

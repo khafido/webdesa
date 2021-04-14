@@ -19,11 +19,11 @@
 						<?php echo $this->session->flashdata('transaksi_error'); ?>
 						<?php echo form_open_multipart(base_url("admin/surat/form/$surat/$action")) ?>
 						<div class="row">
-							<div class="form-group col-md-6" style="padding-left:0;">
+							<div class="form-group col-md-4" style="padding-left:0;">
 								<label for="" class="control-label">NIK <span class="text-danger">*</span> </label>
 								<input class="form-control" type="text" name="nik" placeholder="NIK" value="<?=$hasil->nik?>" pattern="[0-9]+" title="Hanya Boleh Angka" required>
 							</div>
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-4">
                 <label for="" class="control-label">Jenis <span class="text-danger">*</span> </label>
                 <select class="form-control" name="jenis" id="jenis">
                   <option value="usaha" <?=($hasil->jenis=='usaha')?'selected':''?>>Usaha</option>
@@ -34,14 +34,14 @@
                 <label for="" class="control-label modal-label">Nama Usaha<span class="text-danger">*</span> </label>
                 <input class="form-control" type="text" name="nama_usaha" value="<?=$hasil->nama_usaha?>">
               </div>
-              <div class="form-group col-md-8" id="alamat">
+              <div class="form-group col-md-12" id="alamat">
                 <label for="" class="control-label">Alamat<span class="text-danger">*</span> </label>
                 <textarea class="form-control" name="alamat" placeholder="Alamat" rows="5" value=""><?=$hasil->alamat?></textarea>
               </div>
 							<div class="col-md-12">
-								<?php echo $this->session->flashdata('upload_error'); ?>
+								<?php // echo $this->session->flashdata('upload_error'); ?>
 							</div>
-							<div class="form-group col-md-12">
+							<!-- <div class="form-group col-md-12">
                 <label for="" class="control-label">Surat Pengantar <span class="text-danger"></span> </label>
                 <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="pengantar_file"/>
               </div>
@@ -68,7 +68,7 @@
 							<div class="form-group col-md-6">
                 <label for="" class="control-label">Surat Bukti Kepemilikan Tanah </label>
                 <input class="col-md-4 form-control" type="file" accept=".jpg, .png, .jpeg, .pdf" name="kepemilikan_file"/>
-              </div>
+              </div> -->
 							<!-- <div class="col-md-12"></div> -->
 							<div class="form-group col-md-12">
 								<button class="btn btn-success btn-fill form-control py-3" name="<?=$surat?>">Selesai</button>

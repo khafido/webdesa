@@ -34,7 +34,7 @@ class Bumdes extends CI_Controller{
 
 			$status	= true;
 			$post = "logo_file";
-			$store[$post] = './assets/img/bumdes/default.jpg';
+
 			if ($_FILES[$post]["name"]!="") {
 				$filename = $_FILES[$post]['name'];
 				$logo['upload_path']   = "./assets/img/bumdes/";
@@ -51,6 +51,7 @@ class Bumdes extends CI_Controller{
 
 			if ($status) {
 				if ($action=="tambah") {
+					$store[$post] = './assets/img/bumdes/default.jpg';
 					$pesan = $this->m_crud->save('tbl_bumdes', $store);
 				} else {
 					$id = $this->uri->segment(5);

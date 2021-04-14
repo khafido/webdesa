@@ -1,7 +1,7 @@
 <?php
 	$menu = $this->uri->segment(2);
 ?>
-<?php if ($_SESSION['role_admin']==3): ?>
+
 <div class="col-md-12">
 	<div class="card">
 		<div class="header">
@@ -41,7 +41,6 @@
 		</div>
 	</div>
 </div>
-<?php endif; ?>
 
 <div class="col-md-12">
 	<div class="card">
@@ -73,7 +72,7 @@
 								<td><?=$w->nama?></td>
 								<td class="tindakan">
 									<a href="<?=base_url("admin/$menu/detail/$w->id_pengaduan")?>" class="btn btn-info" title="Lihat">Lihat</a>
-									<?php if ($_SESSION['role_admin']==1 || $_SESSION['role_admin']==2): ?>										
+									<?php if ($_SESSION['role_admin']==1 || $_SESSION['role_admin']==2): ?>
 										<button onclick="proses('<?=base_url("admin/$menu/proses/$w->id_pengaduan/2")?>')" class="btn btn-success" title="Selesai">Selesai</button>
 									<?php endif; ?>
 									<a href="<?=base_url("admin/$menu/cetak/$w->id_pengaduan")?>" target="_blank" class="btn btn-warning" title="Cetak">Cetak</a>

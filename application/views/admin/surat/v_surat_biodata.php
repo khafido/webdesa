@@ -71,6 +71,7 @@
 								<th><?=$v->tgl_buat?></th>
 								<td class="tindakan">
 									<a href="<?=base_url("admin/surat/detail/$surat/$v->id")?>" class="btn btn-info btn-fill" title="Lihat">Lihat</a>
+									<button class="btn btn-success" type="button" onclick="proses('<?=base_url("admin/surat/proses/$v->id/biodata/2")?>')">Selesai</button>
 									<button class="btn signbtn" type="button" id="sbnt<?=$v->id?>" onclick="showSign(this.id)" data-idsurat="<?=$v->id?>" data-kode="<?=$v->id_biodata?>" data-nikwarga="<?=$v->nik?>">Sign</button>
 								</td>
 							</tr>
